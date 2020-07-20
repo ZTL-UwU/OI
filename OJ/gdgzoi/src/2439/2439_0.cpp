@@ -3,6 +3,7 @@
 #include <vector>
 using namespace std;
 const int MOD = 49999;
+int n, m;
 class huge_int
 {
 public:
@@ -16,11 +17,9 @@ public:
     {
         huge_int res;
         string a = this->bits, b = x.bits;
-        if (b.size() > a.size())
-            swap(a, b);
+        if (b.size() > a.size()) swap(a, b);
         res.bits = a;
-        while (a.size() - b.size())
-            b = "0" + b;
+        while (a.size() - b.size()) b = "0" + b;
         flip(a), flip(b);
         int carry = 0;
         for (int i = 0; i < a.size(); i++)
@@ -29,19 +28,12 @@ public:
             res.bits[i] = (bit % 10) + '0';
             carry = bit / 10;
         }
-        if (carry)
-            res.bits += (carry + '0');
+        if (carry) res.bits += (carry + '0');
         flip(res.bits);
         return res;
     }
-    void operator=(huge_int x)
-    {
-        this->bits = x.bits;
-    }
-    int operator[](int x)
-    {
-        return this->bits[x] - '0';
-    }
+    void operator=(huge_int x) { this->bits = x.bits; }
+    int operator[](int x) { return this->bits[x] - '0'; }
     friend ostream &operator<<(ostream &os, const huge_int &x)
     {
         os << x.bits;
@@ -51,11 +43,7 @@ public:
 class link_hash
 {
 public:
-    struct data
-    {
-        int key;
-        huge_int val;
-    };
+    struct data { int key; huge_int val; };
     vector<data> v[MOD];
     int size = 0;
     huge_int &operator[](const int sta)
@@ -63,28 +51,51 @@ public:
         int key = sta % MOD;
         for (int i = 0; i < v[key].size(); i++)
         {
-            if (v[key][i].key == sta)
-                return v[key][i].val;
+            if (v[key][i].key == sta) return v[key][i].val;
             if (i == v[key].size() - 1)
             {
                 huge_int tmp;
                 tmp.bits = "0";
                 v[key].push_back((data){sta, tmp});
                 size++;
-                i = 0;
             }
         }
     }
 };
 link_hash dp[2];
+int type(int sta, int index) { return (sta >> ((index - 1) << 1)) & 3; }
+int pair(int sta, int x)
+{
+    int num = 0, delta = (type(sta, x) == 1 ? 1 : -1);
+    for (int i = x; i && i <= m + 1; i += delta)
+    {
+        int y = type(sta, i);
+        if (y == 1) num++;
+        else if (y == 2) num--;
+        if (!num) return i;
+    }
+    return -1;
+}
 void transfer(int x, int y)
 {
+    int now = ((x - 1) * m + y) & 1;
+    int last = !now;
+    for (int i = 0; i < MOD; i++)
+    {
+        for (int j = 0; j < dp[now].v[i].size(); j++)
+        {
+            int sta = dp[now].v[i][j].key;
+            huge_int val = dp[now].v[i][j].val;
+            int left = type(sta, y), up = type(sta, y + 1);
+            
+        }
+    }
 }
 huge_int ans;
 int main()
 {
-    int n, m;
     cin >> n >> m;
+    if (m > n) swap(n, m);
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= m; j++)
