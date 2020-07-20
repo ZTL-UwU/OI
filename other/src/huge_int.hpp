@@ -7,12 +7,12 @@ class huge_int
 private:
     std::string bits;
     bool positive;
-    void flip(std::string &str)
+    inline void flip(std::string &str)
     {
         for (int i = 0; i < str.size() / 2; i++)
             std::swap(str[i], str[str.size() - i - 1]);
     }
-    bool bigger(std::string a, std::string b)
+    inline bool bigger(std::string a, std::string b)
     {
         if (a.size() != b.size())
             return a.size() > b.size();
@@ -21,7 +21,7 @@ private:
                 return a[i] > b[i];
         return false;
     }
-    bool smaller(std::string a, std::string b)
+    inline bool smaller(std::string a, std::string b)
     {
         if (a.size() != b.size())
             return a.size() < b.size();
@@ -31,7 +31,7 @@ private:
         return false;
     }
     // Add
-    std::string add(std::string a, std::string b)
+    inline std::string add(std::string a, std::string b)
     {
         if (b.size() > a.size())
             swap(a, b);
@@ -53,7 +53,7 @@ private:
         return c;
     }
     // Difference
-    std::string diff(std::string a, std::string b)
+    inline std::string diff(std::string a, std::string b)
     {
         if (bigger(b, a))
             swap(a, b);
@@ -85,20 +85,26 @@ public:
     {
         positive = true;
     }
+    ~huge_int()
+    {
+        this->bits.clear();
+        this->bits.shrink_to_fit();
+        this->positive = true;
+    }
     // Get huge_int's lenth
-    int size()
+    inline int size()
     {
         return bits.size();
     }
     // Clear huge_int
-    void clear()
+    inline void clear()
     {
         this->bits.clear();
         this->bits.shrink_to_fit();
         this->positive = true;
     }
     // Convert int to huge_int
-    void convert_int(int x)
+    inline void convert_int(int x)
     {
         huge_int res;
         if (x < 0)
@@ -117,7 +123,7 @@ public:
         }
     }
     // Convert long long to huge_int
-    void convert_long_long(long long x)
+    inline void convert_long_long(long long x)
     {
         huge_int res;
         if (x < 0)
@@ -136,7 +142,7 @@ public:
         }
     }
     // Operator >
-    bool operator>(const huge_int x)
+    inline bool operator>(const huge_int x)
     {
         if (this->positive != x.positive)
             return this->positive > x.positive;
@@ -150,7 +156,7 @@ public:
         return false;
     }
     // Operator <
-    bool operator<(const huge_int x)
+    inline bool operator<(const huge_int x)
     {
         if (this->positive != x.positive)
             return this->positive < x.positive;
@@ -164,7 +170,7 @@ public:
         return false;
     }
     // Operator ==
-    bool operator==(const huge_int x)
+    inline bool operator==(const huge_int x)
     {
         if (this->positive != x.positive)
             return false;
@@ -176,7 +182,7 @@ public:
         return true;
     }
     // Operator !=
-    bool operator!=(const huge_int x)
+    inline bool operator!=(const huge_int x)
     {
         if (this->positive != x.positive)
             return true;
@@ -188,14 +194,14 @@ public:
         return false;
     }
     // Operator =
-    huge_int &operator=(huge_int x)
+    inline huge_int &operator=(huge_int x)
     {
         this->bits = x.bits;
         this->positive = x.positive;
         return *this;
     }
     // Operator []
-    int operator[](const int x)
+    inline int operator[](const int x)
     {
         if (x >= this->bits.size())
         {
@@ -234,7 +240,7 @@ public:
         return is;
     }
     // Operator +
-    huge_int operator+(const huge_int x)
+    inline huge_int operator+(const huge_int x)
     {
         huge_int res;
         if (this->positive == x.positive)
@@ -266,7 +272,7 @@ public:
         return res;
     }
     // Operator -
-    huge_int operator-(const huge_int x)
+    inline huge_int operator-(const huge_int x)
     {
         huge_int res;
         if (this->positive == x.positive)
