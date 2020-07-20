@@ -319,4 +319,9 @@ public:
     {
         *this = *this + x;
     }
+    // Operator -=
+    inline void operator-=(huge_int x)
+    {
+        *this = *this - x;
+    }
 };
