@@ -8,6 +8,7 @@ class huge_int
 {
 public:
     string bits;
+    huge_int() { bits = "0"; }
     void flip(string &a) { for (int i = 0; i < a.size() / 2; i++) swap(a[i], a[a.size() - i - 1]); }
     huge_int operator+(huge_int x)
     {
@@ -26,6 +27,7 @@ public:
         }
         if (carry) res.bits += (carry + '0');
         flip(res.bits);
+        if (!res.bits.size()) res.bits = "0";
         return res;
     }
     void operator=(huge_int x) { this->bits = x.bits; }
@@ -39,6 +41,7 @@ public:
     struct data { int key; huge_int val; };
     vector<data> v[MOD];
     int size = 0;
+    link_hash() { size = 0; }
     huge_int &operator[](const int sta)
     {
         int key = sta % MOD;
@@ -54,6 +57,7 @@ public:
             }
         }
     }
+    void init() { size = 0; for (int i = 0; i < MOD; i++) v[i].clear(); }
 };
 link_hash dp[2];
 void set(int &sta, int x, int val) { x = (x - 1) << 1, sta |= (3 << x), sta ^= (3 << x), sta |= (val << x); }
@@ -70,20 +74,20 @@ int link(int sta, int x)
     }
     return -1;
 }
+huge_int ans;
 void transfer(int x, int y)
 {
-    int now = ((x - 1) * m + y) & 1;
-    int last = !now;
+    int now = ((x - 1) * m + y) & 1, last = !now;
+    dp[now].init();
     for (int i = 0; i < MOD; i++)
     {
-        for (int j = 0; j < dp[now].v[i].size(); j++)
+        for (int j = 0; j < dp[last].v[i].size(); j++)
         {
-            int sta = dp[now].v[i][j].key;
-            huge_int val = dp[now].v[i][j].val;
+            int sta = dp[last].v[i][j].key;
+            huge_int val = dp[last].v[i][j].val;
             int left = type(sta, y), up = type(sta, y + 1);
             if (link(sta, y) == -1 || link(sta, y + 1) == -1) continue;
-            if (!left && !up) // Case 1
-                if (x != n && y != m) set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
+            if (!left && !up) if (x != n && y != m) set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
             else if (left && !up)
             {
                 if (x != n) dp[now][sta] += val;
@@ -94,28 +98,23 @@ void transfer(int x, int y)
                 if (x != n) set(sta, y, up), set(sta, y + 1, 0), dp[now][sta] += val;
                 if (y != m) dp[now][sta] += val;
             }
-            else if (left == 1 && up == 1)
-                set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            else if (left == 1 && up == 1) set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
             else if (left == 1 && up == 2) if (x == n && y == m) ans += val;
             else if (left == 2 && up == 1) set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
-            else if (left == 2 && up == 2)
-                set(sta, link(sta, y + 1), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            else if (left == 2 && up == 2) set(sta, link(sta, y + 1), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
         }
     }
 }
-huge_int ans;
 int main()
 {
-    cin >> n >> m;
-    if (m > n) swap(n, m);
+    cin >> n >> m; if (m > n) swap(n, m);
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= m; j++)
-            transfer(i, j);
+        for (int j = 1; j <= m; j++) transfer(i, j);
         if (i != n)
         {
             int now = (i * m) & 1;
-            for (int j = 0; j < MOD; j++
+            for (int j = 0; j < MOD; j++)
                 for (int k = 0; k < dp[now].v[j].size(); k++)
                     dp[now].v[j][k].key <<= 2;
         }
