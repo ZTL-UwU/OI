@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+// Huge_int by ZTL
 class huge_int
 {
 private:
@@ -88,6 +89,44 @@ public:
     int len()
     {
         return bits.size();
+    }
+    // Convert int to huge_int
+    void convert_int(int x)
+    {
+        huge_int res;
+        if (x < 0)
+        {
+            this->positive = false;
+            x = -x;
+        }
+        else
+            this->positive = true;
+        while (x)
+        {
+            std::string tmp = "#";
+            tmp[0] = x % 10 + '0';
+            this->bits = tmp + this->bits;
+            x /= 10;
+        }
+    }
+    // Convert long long to huge_int
+    void convert_long_long(long long x)
+    {
+        huge_int res;
+        if (x < 0)
+        {
+            this->positive = false;
+            x = -x;
+        }
+        else
+            this->positive = true;
+        while (x)
+        {
+            std::string tmp = "#";
+            tmp[0] = x % 10 + '0';
+            this->bits = tmp + this->bits;
+            x /= 10;
+        }
     }
     // Operator >
     bool operator>(const huge_int x)
