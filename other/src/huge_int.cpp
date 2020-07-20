@@ -5,7 +5,6 @@ int main()
 {
     huge_int a, b;
     cin >> a >> b;
-    bool tmp = a != b;
-    cout << tmp;
+    cout << a + b;
     return 0;
 }

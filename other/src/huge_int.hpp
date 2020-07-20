@@ -29,6 +29,53 @@ private:
                 return a[i] < b[i];
         return false;
     }
+    // Add
+    std::string add(std::string a, std::string b)
+    {
+        if (b.size() > a.size())
+            swap(a, b);
+        std::string c = a;
+        while (a.size() - b.size() > 0)
+            b = "0" + b;
+        flip(a);
+        flip(b);
+        int carry = 0;
+        for (int i = 0; i < a.size(); i++)
+        {
+            int tmp = a[i] - '0' + b[i] - '0' + carry;
+            c[i] = (tmp % 10) + '0';
+            carry = tmp / 10;
+        }
+        if (carry)
+            c += (carry + '0');
+        flip(c);
+        return c;
+    }
+    // Difference
+    std::string diff(std::string a, std::string b)
+    {
+        if (bigger(b, a))
+            swap(a, b);
+        std::string c = a;
+        while (a.size() > b.size())
+            b = "0" + b;
+        flip(a);
+        flip(b);
+        int carry = 0;
+        for (int i = 0; i < a.size(); i++)
+        {
+            int tmp = a[i] - b[i] - carry;
+            a[i] += (tmp < 0 ? 10 : 0);
+            c[i] = a[i] - b[i] - carry + '0';
+            carry = (tmp < 0 ? 1 : 0);
+        }
+        int k = 0;
+        while (c[c.size() - k - 1] == '0')
+            k++;
+        c = c.substr(0, c.size() - k);
+        flip(c);
+        return c;
+    }
 
 public:
     huge_int()
@@ -110,9 +157,7 @@ public:
             std::cerr << "x > this->bits.size()\n";
             return -1;
         }
-        char tmp = this->bits[x];
-        int res = tmp - '0';
-        return res;
+        return this->bits[x] - '0';
     }
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const huge_int &x)
@@ -142,70 +187,40 @@ public:
     // Operator +
     huge_int operator+(const huge_int x)
     {
-        std::string a = this->bits;
-        std::string b = x.bits;
+        huge_int res;
         if (this->positive == x.positive)
         {
-            if (b.size() > a.size())
-                swap(a, b);
-            std::string c = a;
-            while (a.size() - b.size() > 0)
-                b = "0" + b;
-            flip(a);
-            flip(b);
-            int carry = 0;
-            for (int i = 0; i < a.size(); i++)
-            {
-                int tmp = a[i] - '0' + b[i] - '0' + carry;
-                c[i] = (tmp % 10) + '0';
-                carry = tmp / 10;
-            }
-            if (carry)
-                c += (carry + '0');
-            flip(c);
-            huge_int res;
-            res.bits = c;
+            res.bits = add(this->bits, x.bits);
             if (this->positive == 1)
-            {
                 res.positive = true;
-                return res;
-            }
             else
-            {
                 res.positive = false;
-                return res;
-            }
         }
         else
         {
-            if (this->positive == 0)
-                swap(a, b);
-            std::string c = a;
-            while (a.size() > b.size())
-                b = "0" + b;
-            flip(a);
-            flip(b);
-            int carry = 0;
-            for (int i = 0; i < a.size(); i++)
+            if (this->positive == 1)
             {
-                int tmp = a[i] - b[i] - carry;
-                a[i] += (tmp < 0 ? 10 : 0);
-                c[i] = a[i] - b[i] - carry + '0';
-                carry = (tmp < 0 ? 1 : 0);
+                res.bits = diff(this->bits, x.bits);
+                if (smaller(this->bits, x.bits))
+                    res.positive = false;
+                else
+                    res.positive = true;
             }
-            int k = 0;
-            while (c[c.size() - k - 1] == '0')
-                k++;
-            c = c.substr(0, c.size() - k);
-            flip(c);
-            huge_int res;
-            res.bits = c;
+            else
+            {
+                res.bits = diff(this->bits, x.bits);
+                if (smaller(this->bits, x.bits))
+                    res.positive = true;
+                else
+                    res.positive = false;
+            }
         }
+        return res;
     }
     // Operator -
-    huge_int operator-(const huge_int x)
-    {
-        std::string a = this->bits;
-        std::string b = x.bits;
-    }
+    // huge_int operator-(const huge_int x)
+    // {
+    //     std::string a = this->bits;
+    //     std::string b = x.bits;
+    // }
 };
