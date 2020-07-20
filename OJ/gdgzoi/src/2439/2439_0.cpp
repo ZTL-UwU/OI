@@ -3,7 +3,6 @@
 #include <vector>
 using namespace std;
 const int MOD = 49999;
-// Huge int
 class huge_int
 {
 public:
@@ -35,6 +34,10 @@ public:
         flip(res.bits);
         return res;
     }
+    void operator=(huge_int x)
+    {
+        this->bits = x.bits;
+    }
     int operator[](int x)
     {
         return this->bits[x] - '0';
@@ -45,13 +48,12 @@ public:
         return os;
     }
 };
-// Link hash
 class link_hash
 {
 public:
     struct data
     {
-        int sta;
+        int key;
         huge_int val;
     };
     vector<data> v[MOD];
@@ -61,7 +63,7 @@ public:
         int key = sta % MOD;
         for (int i = 0; i < v[key].size(); i++)
         {
-            if (v[key][i].sta == sta)
+            if (v[key][i].key == sta)
                 return v[key][i].val;
             if (i == v[key].size() - 1)
             {
@@ -75,19 +77,27 @@ public:
     }
 };
 link_hash dp[2];
-// DP transfer
 void transfer(int x, int y)
 {
 }
+huge_int ans;
 int main()
 {
     int n, m;
     cin >> n >> m;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        for (int j = 0; j < m; j++)
+        for (int j = 1; j <= m; j++)
             transfer(i, j);
-        if ()
+        if (i != n)
+        {
+            int now = (i * m) & 1;
+            for (int j = 0; j < MOD; j++)
+                for (int k = 0; k < dp[now].v[j].size(); k++)
+                    dp[now].v[j][k].key <<= 2;
+        }
     }
+    ans = ans + ans;
+    cout << ans;
     return 0;
 }
