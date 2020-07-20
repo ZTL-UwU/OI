@@ -1,3 +1,4 @@
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -84,12 +85,6 @@ public:
     huge_int()
     {
         positive = true;
-    }
-    ~huge_int()
-    {
-        this->bits.clear();
-        this->bits.shrink_to_fit();
-        this->positive = true;
     }
     // Get huge_int's lenth
     inline int size()
@@ -193,31 +188,27 @@ public:
         return *this;
     }
     // Operator []
-    inline int operator[](const int x)
+    inline int operator[](const size_t __index)
     {
-        if (x >= this->bits.size())
-        {
-            std::cerr << "huge_int:\n";
-            std::cerr << "int &Operator[int x]\n";
-            std::cerr << "              ^~~~~\n";
-            std::cerr << "x > this->bits.size()\n";
-            return -1;
-        }
-        return this->bits[x] - '0';
+        if (__index >= this->bits.size())
+            throw std::range_error("[HugeInt - operator[]] Index out of range");
+
+        return this->bits[__index] - '0';
     }
-    // Convert huge_int to int
+
+    /**
+	 * @brief Convert huge_int to int
+	 * @return int: the val of huge_int
+	 * @throw overflow_error, which in case the int is bigger than INT_MAX
+	 */
     inline int export_int()
     {
         if (bigger(this->bits, "2147483647"))
-        {
-            std::cerr << "huge_int:\n";
-            std::cerr << "int export_int()\n";
-            std::cerr << "*this > INT_MAX or *this < INT_MIN\n";
-            return -1;
-        }
+            throw std::overflow_error("[HugeInt - export_int] Interger lager than INT_MAX");
+
         int ans = 0;
         int bit = 1;
-        for (int i = this->size()  - 1; i >= 0; i--)
+        for (int i = this->size() - 1; i >= 0; i--)
         {
             ans += (*this)[i] * bit;
             bit *= 10;
