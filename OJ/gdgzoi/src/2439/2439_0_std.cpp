@@ -1,7 +1,7 @@
-#include <cstdio>
-#include <cstring>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
+#include <cstring>
 using namespace std;
 typedef long long LL;
 const int cube = (int)1e9, mod = 2601;
@@ -9,15 +9,24 @@ int n, m;
 struct Data_Analysis
 {
     int bit[6];
-    inline void Clear() { memset(bit, 0, sizeof(bit)); }
-    Data_Analysis() { Clear(); }
+    inline void Clear()
+    {
+        memset(bit, 0, sizeof(bit));
+    }
+    Data_Analysis()
+    {
+        Clear();
+    }
     inline void Set(int t)
     {
         Clear();
         while (t)
             bit[++bit[0]] = t % cube, t /= cube;
     }
-    inline int &operator[](int x) { return bit[x]; }
+    inline int &operator[](int x)
+    {
+        return bit[x];
+    }
     inline void Print()
     {
         printf("%d", bit[bit[0]]);
@@ -36,8 +45,14 @@ struct Data_Analysis
             c[0]--;
         return c;
     }
-    inline void operator+=(Data_Analysis b) { *this = *this + b; }
-    inline void operator=(int x) { Set(x); }
+    inline void operator+=(Data_Analysis b)
+    {
+        *this = *this + b;
+    }
+    inline void operator=(int x)
+    {
+        Set(x);
+    }
 } Ans;
 struct Hash_Sheet
 {
@@ -48,7 +63,10 @@ struct Hash_Sheet
         memset(val, 0, sizeof(val)), memset(key, -1, sizeof(key));
         size = 0, memset(hash, 0, sizeof(hash));
     }
-    inline void Newhash(int id, int v) { hash[id] = ++size, key[size] = v; }
+    inline void Newhash(int id, int v)
+    {
+        hash[id] = ++size, key[size] = v;
+    }
     Data_Analysis &operator[](const int State)
     {
         for (int i = State % mod;; i = (i + 1 == mod) ? 0 : i + 1)
@@ -60,7 +78,10 @@ struct Hash_Sheet
         }
     }
 } f[2];
-inline int Find(int State, int id) { return (State >> ((id - 1) << 1)) & 3; }
+inline int Find(int State, int id)
+{
+    return (State >> ((id - 1) << 1)) & 3;
+}
 inline void Set(int &State, int bit, int val)
 {
     bit = (bit - 1) << 1;
