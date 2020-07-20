@@ -162,7 +162,7 @@ public:
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const huge_int &x)
     {
-        if (!x.positive)
+        if (x.positive == false)
             os << '-' << x.bits;
         else
             os << x.bits;
@@ -172,6 +172,7 @@ public:
     friend std::istream &operator>>(std::istream &is, huge_int &x)
     {
         is >> x.bits;
+        x.positive = true;
         if (x.bits[0] == '-')
         {
             x.bits = x.bits.substr(1, x.bits.size() - 1);
@@ -198,9 +199,9 @@ public:
         }
         else
         {
+            res.bits = diff(this->bits, x.bits);
             if (this->positive == 1)
             {
-                res.bits = diff(this->bits, x.bits);
                 if (smaller(this->bits, x.bits))
                     res.positive = false;
                 else
@@ -208,19 +209,44 @@ public:
             }
             else
             {
-                res.bits = diff(this->bits, x.bits);
-                if (smaller(this->bits, x.bits))
-                    res.positive = true;
-                else
+                if (bigger(this->bits, x.bits))
                     res.positive = false;
+                else
+                    res.positive = true;
             }
         }
         return res;
     }
     // Operator -
-    // huge_int operator-(const huge_int x)
-    // {
-    //     std::string a = this->bits;
-    //     std::string b = x.bits;
-    // }
+    huge_int operator-(const huge_int x)
+    {
+        huge_int res;
+        if (this->positive == x.positive)
+        {
+            res.bits = diff(this->bits, x.bits);
+            if (this->positive == 1)
+            {
+                if (smaller(this->bits, x.bits))
+                    res.positive = false;
+                else
+                    res.positive = true;
+            }
+            else
+            {
+                if (bigger(this->bits, x.bits))
+                    res.positive = false;
+                else
+                    res.positive = true;
+            }
+        }
+        else
+        {
+            res.bits = add(this->bits, x.bits);
+            if (this->positive == 1)
+                res.positive = true;
+            else
+                res.positive = false;
+        }
+        return res;
+    }
 };
