@@ -2,18 +2,14 @@
 using namespace std;
 const int databit = 1e9;
 const int MOD = 2601;
-
 int n, m;
-
 struct data
 {
     int bit[6];
-
     inline void clear()
     {
         memset(bit, 0, sizeof(bit));
     }
-
     inline void set(int x)
     {
         clear();
@@ -23,12 +19,10 @@ struct data
             x /= databit;
         }
     }
-
     inline int &operator[](int x)
     {
         return bit[x];
     }
-
     inline data operator+(data b)
     {
         data c;
@@ -40,40 +34,31 @@ struct data
             c[0]--;
         return c;
     }
-
     inline void operator+=(data b)
     {
         *this = *this + b;
     }
-
     inline void operator=(int x)
     {
         set(x);
     }
-
     inline void print()
     {
         printf("%d", bit[bit[0]]);
         for (int i = bit[0] - 1; i >= 1; i--)
-        {
             printf("%09d", bit[i]);
-        }
         puts("");
     }
-
     data()
     {
         clear();
     }
 };
-
 data ans;
-
 struct hashmp
 {
     data val[MOD];
     int key[MOD], sz, hash[MOD];
-
     inline void init()
     {
         memset(val, 0, sizeof(val));
@@ -81,13 +66,11 @@ struct hashmp
         sz = 0;
         memset(hash, 0, sizeof(hash));
     }
-
     inline void newhash(int id, int v)
     {
         hash[id] = ++sz;
         key[sz] = v;
     }
-
     inline data &operator[](int state)
     {
         for (int i = state % MOD;; i = (i + 1 == MOD) ? 0 : i + 1)
@@ -99,14 +82,11 @@ struct hashmp
         }
     }
 };
-
 hashmp dp[2];
-
 inline int find(int state, int id)
 {
     return (state >> ((id - 1) << 1)) & 3;
 }
-
 inline void dpset(int &state, int bit, int val)
 {
     bit = (bit - 1) << 1;
@@ -114,7 +94,6 @@ inline void dpset(int &state, int bit, int val)
     state ^= 3 << bit;
     state |= val << bit;
 }
-
 inline int link(int state, int pos)
 {
     int cnt = 0, delta = (find(state, pos) == 1) ? 1 : -1;
@@ -130,7 +109,6 @@ inline int link(int state, int pos)
     }
     return -1;
 }
-
 inline void run(int x, int y)
 {
     int now = ((x - 1) * m + y) & 1, last = now ^ 1, tot = dp[last].sz;
@@ -197,7 +175,6 @@ inline void run(int x, int y)
         }
     }
 }
-
 int main()
 {
     scanf("%d%d", &n, &m);

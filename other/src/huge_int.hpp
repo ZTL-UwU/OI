@@ -86,9 +86,16 @@ public:
         positive = true;
     }
     // Get huge_int's lenth
-    int len()
+    int size()
     {
         return bits.size();
+    }
+    // Clear huge_int
+    void clear()
+    {
+        this->bits.clear();
+        this->bits.shrink_to_fit();
+        this->positive = true;
     }
     // Convert int to huge_int
     void convert_int(int x)
