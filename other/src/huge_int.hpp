@@ -104,7 +104,7 @@ public:
         this->positive = true;
     }
     // Convert int to huge_int
-    inline void convert_int(int x)
+    inline void import_int(int x)
     {
         huge_int res;
         if (x < 0)
@@ -123,7 +123,7 @@ public:
         }
     }
     // Convert long long to huge_int
-    inline void convert_long_long(long long x)
+    inline void import_long_long(long long x)
     {
         huge_int res;
         if (x < 0)
@@ -172,26 +172,18 @@ public:
     // Operator ==
     inline bool operator==(const huge_int x)
     {
-        if (this->positive != x.positive)
+        if (*this < x)
             return false;
-        if (this->bits.size() != x.bits.size())
+        if (*this > x)
             return false;
-        for (int i = 0; i < this->bits.size(); i++)
-            if (this->bits[i] != x.bits[i])
-                return false;
         return true;
     }
     // Operator !=
     inline bool operator!=(const huge_int x)
     {
-        if (this->positive != x.positive)
-            return true;
-        if (this->bits.size() != x.bits.size())
-            return true;
-        for (int i = 0; i < this->bits.size(); i++)
-            if (this->bits[i] != x.bits[i])
-                return true;
-        return false;
+        if (*this == x)
+            return false;
+        return true;
     }
     // Operator =
     inline huge_int &operator=(huge_int x)
@@ -212,6 +204,25 @@ public:
             return -1;
         }
         return this->bits[x] - '0';
+    }
+    // Convert huge_int to int
+    inline int export_int()
+    {
+        if (bigger(this->bits, "2147483647"))
+        {
+            std::cerr << "huge_int:\n";
+            std::cerr << "int export_int()\n";
+            std::cerr << "*this > INT_MAX or *this < INT_MIN\n";
+            return -1;
+        }
+        int ans = 0;
+        int bit = 1;
+        for (int i = this->size()  - 1; i >= 0; i--)
+        {
+            ans += (*this)[i] * bit;
+            bit *= 10;
+        }
+        return ans;
     }
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const huge_int &x)
@@ -302,5 +313,10 @@ public:
                 res.positive = false;
         }
         return res;
+    }
+    // Operator +=
+    inline void operator+=(huge_int x)
+    {
+        *this = *this + x;
     }
 };
