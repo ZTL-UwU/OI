@@ -74,6 +74,8 @@ private:
             k++;
         c = c.substr(0, c.size() - k);
         flip(c);
+        if (c.size() == 0)
+            c = "0";
         return c;
     }
 
