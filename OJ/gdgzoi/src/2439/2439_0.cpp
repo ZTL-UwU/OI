@@ -8,11 +8,7 @@ class huge_int
 {
 public:
     string bits;
-    void flip(string &a)
-    {
-        for (int i = 0; i < a.size() / 2; i++)
-            swap(a[i], a[a.size() - i - 1]);
-    }
+    void flip(string &a) { for (int i = 0; i < a.size() / 2; i++) swap(a[i], a[a.size() - i - 1]); }
     huge_int operator+(huge_int x)
     {
         huge_int res;
@@ -33,12 +29,9 @@ public:
         return res;
     }
     void operator=(huge_int x) { this->bits = x.bits; }
+    void operator+=(huge_int x) { *this = *this + x; }
     int operator[](int x) { return this->bits[x] - '0'; }
-    friend ostream &operator<<(ostream &os, const huge_int &x)
-    {
-        os << x.bits;
-        return os;
-    }
+    friend ostream &operator<<(ostream &os, const huge_int &x) { os << x.bits; return os; }
 };
 class link_hash
 {
@@ -63,8 +56,9 @@ public:
     }
 };
 link_hash dp[2];
-int type(int sta, int index) { return (sta >> ((index - 1) << 1)) & 3; }
-int pair(int sta, int x)
+void set(int &sta, int x, int val) { x = (x - 1) << 1, sta |= (3 << x), sta ^= (3 << x), sta |= (val << x); }
+int type(int sta, int x) { return (sta >> ((x - 1) << 1)) & 3; }
+int link(int sta, int x)
 {
     int num = 0, delta = (type(sta, x) == 1 ? 1 : -1);
     for (int i = x; i && i <= m + 1; i += delta)
@@ -87,7 +81,25 @@ void transfer(int x, int y)
             int sta = dp[now].v[i][j].key;
             huge_int val = dp[now].v[i][j].val;
             int left = type(sta, y), up = type(sta, y + 1);
-            
+            if (link(sta, y) == -1 || link(sta, y + 1) == -1) continue;
+            if (!left && !up) // Case 1
+                if (x != n && y != m) set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
+            else if (left && !up)
+            {
+                if (x != n) dp[now][sta] += val;
+                if (y != m) set(sta, y, 0), set(sta, y + 1, left), dp[now][sta] += val;
+            }
+            else if (!left && up)
+            {
+                if (x != n) set(sta, y, up), set(sta, y + 1, 0), dp[now][sta] += val;
+                if (y != m) dp[now][sta] += val;
+            }
+            else if (left == 1 && up == 1)
+                set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            else if (left == 1 && up == 2) if (x == n && y == m) ans += val;
+            else if (left == 2 && up == 1) set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            else if (left == 2 && up == 2)
+                set(sta, link(sta, y + 1), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
         }
     }
 }
@@ -103,7 +115,7 @@ int main()
         if (i != n)
         {
             int now = (i * m) & 1;
-            for (int j = 0; j < MOD; j++)
+            for (int j = 0; j < MOD; j++
                 for (int k = 0; k < dp[now].v[j].size(); k++)
                     dp[now].v[j][k].key <<= 2;
         }
