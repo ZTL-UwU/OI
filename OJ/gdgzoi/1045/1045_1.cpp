@@ -12,14 +12,15 @@ int pre[MAXN];
 int EK_bfs()
 {
     memset(minn, 127, sizeof(minn));
-    memset(pre, -1, sizeof(pre));
+    for (int i = 0; i < MAXN; i++)
+        pre[i] = -1;
     queue<int> q;
     q.push(s);
     while (!q.empty())
     {
         int u = q.front();
         q.pop();
-        for (int i = 0; i <= f + n + d + 1; i++)
+        for (int i = s; i <= t; i++)
         {
             if (pre[i] == -1 && g[u][i])
             {
@@ -48,15 +49,15 @@ int EK()
             g[pre[u]][u] -= tmp;
             u = pre[u];
         }
-        ans += tmp;
+        ans++;
     }
     return ans;
 }
 int main()
 {
     cin >> n >> f >> d;
-    int s = 0;
-    int t = f + d + n + 1;
+    s = 0;
+    t = f + d + n + 1;
     for (int i = 1; i <= n; i++)
     {
         int ff, dd;
@@ -65,15 +66,15 @@ int main()
         {
             int fff;
             cin >> fff;
-            g[s][fff] = INF;
-            g[fff][f + i]++;
+            g[s][fff] = 1;
+            g[fff][f + i] = 1;
         }
         for (int j = 0; j < dd; j++)
         {
             int ddd;
             cin >> ddd;
-            g[f + n + ddd][t] = INF;
-            g[f + i][f + n + ddd]++;
+            g[f + n + ddd][t] = 1;
+            g[f + i][f + n + ddd] = 1;
         }
     }
     cout << EK();
