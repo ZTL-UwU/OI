@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <vector>
 using namespace std;
 const int MOD = 49999;
@@ -32,7 +31,6 @@ public:
     }
     void operator=(huge_int x) { this->bits = x.bits; }
     void operator+=(huge_int x) { *this = *this + x; }
-    int operator[](int x) { return this->bits[x] - '0'; }
     friend ostream &operator<<(ostream &os, const huge_int &x) { os << x.bits; return os; }
 };
 class link_hash
@@ -45,16 +43,11 @@ public:
     huge_int &operator[](int sta)
     {
         int key = sta % MOD;
-        for (int i = 0; i < v[key].size(); i++)
-        {
-            if (v[key][i].key == sta) return v[key][i].val;
-            if (i == v[key].size() - 1)
-            {
-                huge_int tmp;
-                v[key].push_back((data){sta, tmp});
-                size++;
-            }
-        }
+        for (int i = 0; i < v[key].size(); i++) if (v[key][i].key == sta) return v[key][i].val;
+        huge_int tmp;
+        v[key].push_back((data){sta, tmp});
+        size++;
+        return v[key][v[key].size() - 1].val;
     }
     void init() { size = 0; for (int i = 0; i < MOD; i++) v[i].clear(); }
 };
