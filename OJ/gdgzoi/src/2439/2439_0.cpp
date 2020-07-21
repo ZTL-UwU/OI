@@ -30,7 +30,7 @@ public:
         return res;
     }
     void operator=(huge_int x) { this->bits = x.bits; }
-    void operator+=(huge_int x) { *this = *this + x; }
+    void operator+=(const huge_int x) { *this = *this + x; }
     friend ostream &operator<<(ostream &os, const huge_int &x) { os << x.bits; return os; }
 };
 class link_hash
@@ -93,7 +93,7 @@ void transfer(int x, int y)
             else if (left == 1 && up == 1) set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
             else if (left == 1 && up == 2) if (x == n && y == m) ans += val;
             else if (left == 2 && up == 1) set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
-            else if (left == 2 && up == 2) set(sta, link(sta, y + 1), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            else if (left == 2 && up == 2) set(sta, link(sta, y), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
         }
     }
 }
