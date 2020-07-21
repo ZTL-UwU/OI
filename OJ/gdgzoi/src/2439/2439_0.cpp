@@ -42,7 +42,7 @@ public:
     vector<data> v[MOD];
     int size = 0;
     link_hash() { size = 0; }
-    huge_int &operator[](const int sta)
+    huge_int &operator[](int sta)
     {
         int key = sta % MOD;
         for (int i = 0; i < v[key].size(); i++)
@@ -51,7 +51,6 @@ public:
             if (i == v[key].size() - 1)
             {
                 huge_int tmp;
-                tmp.bits = "0";
                 v[key].push_back((data){sta, tmp});
                 size++;
             }
@@ -77,7 +76,7 @@ int link(int sta, int x)
 huge_int ans;
 void transfer(int x, int y)
 {
-    int now = ((x - 1) * m + y) & 1, last = !now;
+    int now = ((x - 1) * m + y) & 1, last = now ^ 1;
     dp[now].init();
     for (int i = 0; i < MOD; i++)
     {
@@ -108,6 +107,9 @@ void transfer(int x, int y)
 int main()
 {
     cin >> n >> m; if (m > n) swap(n, m);
+    huge_int tmp;
+    tmp.bits = "1";
+    dp[0][0] = tmp;
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= m; j++) transfer(i, j);
