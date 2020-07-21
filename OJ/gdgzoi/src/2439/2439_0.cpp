@@ -75,6 +75,7 @@ void transfer(int x, int y)
     {
         for (int j = 0; j < dp[last].v[i].size(); j++)
         {
+            cout << "hi";
             int sta = dp[last].v[i][j].key;
             huge_int val = dp[last].v[i][j].val;
             int left = type(sta, y), up = type(sta, y + 1);
