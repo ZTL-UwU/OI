@@ -1,0 +1,95 @@
+class Graph
+{
+private:
+    int s, t;
+    int cnt;
+    int Head[maxN];
+    int Next[maxM];
+    int V[maxM];
+    int W[maxM];
+    int Depth[maxN];
+
+public:
+    int n;
+    void init(int nn, int ss, int tt) //初始化
+    {
+        n = nn;
+        s = ss;
+        t = tt;
+        cnt = -1;
+        memset(Head, -1, sizeof(Head));
+        memset(Next, -1, sizeof(Next));
+        return;
+    }
+    void _Add(int u, int v, int w)
+    {
+        cnt++;
+        Next[cnt] = Head[u];
+        V[cnt] = v;
+        W[cnt] = w;
+        Head[u] = cnt;
+    }
+    void Add_Edge(int u, int v, int w) //加边，同时加正向和反向的
+    {
+        _Add(u, v, w);
+        _Add(v, u, 0);
+    }
+    int dfs(int u, int dist)
+    {
+        //cout<<"Dfs:"<<u<<' '<<dist<<endl;
+        if (u == t)
+            return dist;
+        for (int i = Head[u]; i != -1; i = Next[i])
+        {
+            if ((Depth[V[i]] == Depth[u] + 1) && (W[i] != 0))
+            {
+                int di = dfs(V[i], min(dist, W[i]));
+                if (di > 0)
+                {
+                    W[i] -= di;
+                    W[i ^ 1] += di;
+                    return di;
+                }
+            }
+        }
+        return 0;
+    }
+    int bfs()
+    {
+        //cout<<"Bfs.begin:"<<endl;
+        queue<int> Q;
+        while (!Q.empty())
+            Q.pop();
+        memset(Depth, 0, sizeof(Depth));
+        Depth[s] = 1;
+        Q.push(s);
+        do
+        {
+            int u = Q.front();
+            //cout<<u<<endl;
+            Q.pop();
+            for (int i = Head[u]; i != -1; i = Next[i])
+            {
+                if ((W[i] > 0) && (Depth[V[i]] == 0))
+                {
+                    Depth[V[i]] = Depth[u] + 1;
+                    Q.push(V[i]);
+                }
+            }
+        } while (!Q.empty());
+        //cout<<"Bfs.end"<<endl;
+        if (Depth[t] > 0)
+            return 1;
+        return 0;
+    }
+    int Dinic()
+    {
+        int Ans = 0;
+        while (bfs())
+        {
+            while (int d = dfs(s, inf))
+                Ans += d;
+        }
+        return Ans;
+    }
+};
