@@ -8,11 +8,13 @@ const int MAXN = 2e3;
 int g[MAXN][MAXN];
 int minn[MAXN];
 int pre[MAXN];
-int m, n, s = 0, t;
+int in[MAXN];
+int m, n, s, t;
 int EK_bfs()
 {
     memset(minn, 127, sizeof(minn));
-    for (int i = 0; i < MAXN; i++) pre[i] = -1;
+    for (int i = 0; i < MAXN; i++)
+        pre[i] = -1;
     queue<int> q;
     q.push(s);
     while (!q.empty())
@@ -70,12 +72,13 @@ int main()
         {
             int k;
             cin >> k;
-            bool flag = true;
-            for (int l = 1; l <= n; l++)
-                if (g[k][l])
-                    flag = false;
-            if (flag)
-                g[k][m + 1] = INF;
+            if (!in[k])
+            {
+                g[k][m + i] = INF;
+                in[k] = m + i;
+            }
+            else
+                g[in[k]][m + i] = INF;
         }
         int b;
         cin >> b;
