@@ -95,7 +95,9 @@ void EK()
 }
 int main()
 {
-    cin >> n >> m >> s >> t;
+    cin >> n >> m;
+    s = 1;
+    t = n;
     for (int i = 0; i < m; i++)
     {
         int u, v, w, f;
@@ -103,6 +105,6 @@ int main()
         g[u].push_back((data){v, w, f});
     }
     EK();
-    cout << ans1 << " " << ans2;
+    cout << ans2;
     return 0;
 }
