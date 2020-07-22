@@ -13,6 +13,7 @@ bool dinic_bfs()
     memset(depth, 0, sizeof(depth));
     queue<int> q;
     q.push(s);
+    depth[s] = 1;
     while (!q.empty())
     {
         int u = q.front();

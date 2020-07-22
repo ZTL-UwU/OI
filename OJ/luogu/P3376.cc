@@ -75,9 +75,7 @@ long long dinic()
 }
 int main()
 {
-    cin >> m >> n;
-    s = 1;
-    t = n;
+    cin >> n >> m >> s >> t;
     for (int i = 0; i < m; i++)
     {
         int u, v, w;
