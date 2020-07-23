@@ -7,6 +7,7 @@ using namespace std;
 struct data { int x, y; };
 const int INF = 0x7fffffff;
 const int MAXN = 1e3;
+bool vis[MAXN][MAXN];
 int n, m, d, s, t;
 queue<data> q_tmp;
 int g[MAXN][MAXN];
@@ -63,13 +64,14 @@ void bfs()
     {
         data u = q_tmp.front();
         q_tmp.pop();
+        vis[u.x][u.y] = true;
         for (int i = -d; i <= d; i++)
         {
             for (int j = -(d - abs(i)); j <= d - abs(i); j++)
             {
                 int x = u.x + i;
                 int y = u.y + j;
-                if (x > 0 && y > 0 && x <= n && y <= m && (map[x][y - 1] - '0'))
+                if (x > 0 && y > 0 && x <= n && y <= m && (map[x][y - 1] - '0') && !vis[x][y])
                 {
                     q_tmp.push((data){x, y});
                     g[m * n + (u.x - 1) * n + u.y][(x - 1) * n + y] = INF;
