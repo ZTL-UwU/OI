@@ -106,7 +106,7 @@ int main()
     {
         int u, v, f;
         cin >> u >> v >> f;
-        g[u + n].push_back((data){v, INF, f});
+        g[u + n].push_back((data){v, 1, f});
     }
     EK();
     cout << ans1 << " " << ans2;
