@@ -64,6 +64,8 @@ void EK()
         data2 tmp = EK_bfs();
         if (tmp.minn == -1)
             break;
+        ans1 += tmp.minn;
+        ans2 += tmp.minn * tmp.dis;
         int u = t;
         while (u != s)
         {
@@ -89,25 +91,21 @@ void EK()
                 g[u].push_back((data){pre[u], tmp.minn, -tmp_f});
             u = pre[u];
         }
-        ans1 += tmp.minn;
-        ans2 += tmp.minn * tmp.dis;
     }
 }
 int main()
 {
     cin >> n >> m;
     s = 1;
-    t = n;
+    t = n * 2;
+    g[s].push_back((data){n + s, INF, 0});
+    g[n].push_back((data){n + n, INF, 0});
+    for (int i = 2; i < n; i++)
+        g[i].push_back((data){n + i, 1, 0});
     for (int i = 0; i < m; i++)
     {
         int u, v, f;
         cin >> u >> v >> f;
-        bool flag = true;
-        for (int i = 0; i < g[u].size(); i++)
-            if (g[u][i].v == u + n)
-                flag = false;
-        if (flag)
-            g[u].push_back((data){u + n, 1, 0});
         g[u + n].push_back((data){v, INF, f});
     }
     EK();
