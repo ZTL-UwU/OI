@@ -111,6 +111,7 @@ inline void Execution(int x, int y)
     {
         int State = f[last].key[i];
         Data_Analysis Val = f[last].val[i];
+        Val.Print();
         int plug1 = Find(State, y), plug2 = Find(State, y + 1);
         if (Link(State, y) == -1 || Link(State, y + 1) == -1)
             continue;

@@ -5,7 +5,7 @@
 #include <queue>
 using namespace std;
 struct data { int x, y; };
-const int INF = 0x7fffffff;
+const int INF = 100;
 const int MAXN = 1e3;
 bool vis[MAXN][MAXN];
 int n, m, d, s, t;
@@ -82,6 +82,7 @@ void bfs()
 }
 int main()
 {
+    int cnt = 0;
     cin >> n >> m >> d;
     s = 0;
     t = n * m * 2 + 1;
@@ -110,6 +111,7 @@ int main()
         {
             if (tmp[j - 1] == 'L')
             {
+                cnt++;
                 int u = (i - 1) * n + j;
                 int v = m * n + u;
                 g[s][u] = INF;
@@ -118,6 +120,6 @@ int main()
         }
     }
     bfs();
-    cout << EK();
+    cout << cnt - EK();
     return 0;
 }

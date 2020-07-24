@@ -52,7 +52,7 @@ public:
     void init() { size = 0; for (int i = 0; i < MOD; i++) v[i].clear(); }
 };
 link_hash dp[2];
-void set(int &sta, int x, int val) { x = (x - 1) << 1, sta |= (3 << x), sta ^= (3 << x), sta |= (val << x); }
+void set(int &sta, int x, int val) { x = (x - 1) << 1; sta |= (3 << x); sta ^= (3 << x); sta |= (val << x); }
 int type(int sta, int x) { return (sta >> ((x - 1) << 1)) & 3; }
 int link(int sta, int x)
 {
@@ -75,7 +75,6 @@ void transfer(int x, int y)
     {
         for (int j = 0; j < dp[last].v[i].size(); j++)
         {
-            cout << "hi";
             int sta = dp[last].v[i][j].key;
             huge_int val = dp[last].v[i][j].val;
             int left = type(sta, y), up = type(sta, y + 1);
@@ -101,6 +100,7 @@ void transfer(int x, int y)
 int main()
 {
     cin >> n >> m; if (m > n) swap(n, m);
+    dp[0].init();
     huge_int tmp;
     tmp.bits = "1";
     dp[0][0] = tmp;
