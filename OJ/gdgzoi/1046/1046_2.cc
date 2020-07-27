@@ -103,6 +103,7 @@ inline void init()
         g[i].clear();
     home.clear();
     men.clear();
+    ans = 0;
 }
 int main()
 {
@@ -126,7 +127,7 @@ int main()
                 else if (str[j] == 'm')
                 {
                     men.push_back((coord){i, j});
-                    g[s].push_back((data){men.size(), INF, 0});
+                    g[s].push_back((data){men.size(), 1, 0});
                 }
             }
         }
