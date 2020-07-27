@@ -8,14 +8,20 @@ class huge_int
 public:
     string bits;
     huge_int() { bits = "0"; }
-    void flip(string &a) { for (int i = 0; i < a.size() / 2; i++) swap(a[i], a[a.size() - i - 1]); }
+    void flip(string &a)
+    {
+        for (int i = 0; i < a.size() / 2; i++)
+            swap(a[i], a[a.size() - i - 1]);
+    }
     huge_int operator+(huge_int x)
     {
         huge_int res;
         string a = this->bits, b = x.bits;
-        if (b.size() > a.size()) swap(a, b);
+        if (b.size() > a.size())
+            swap(a, b);
         res.bits = a;
-        while (a.size() - b.size()) b = "0" + b;
+        while (a.size() - b.size())
+            b = "0" + b;
         flip(a), flip(b);
         int carry = 0;
         for (int i = 0; i < a.size(); i++)
@@ -24,35 +30,58 @@ public:
             res.bits[i] = (bit % 10) + '0';
             carry = bit / 10;
         }
-        if (carry) res.bits += (carry + '0');
+        if (carry)
+            res.bits += (carry + '0');
         flip(res.bits);
-        if (!res.bits.size()) res.bits = "0";
+        if (!res.bits.size())
+            res.bits = "0";
         return res;
     }
     void operator=(huge_int x) { this->bits = x.bits; }
     void operator+=(const huge_int x) { *this = *this + x; }
-    friend ostream &operator<<(ostream &os, const huge_int &x) { os << x.bits; return os; }
+    friend ostream &operator<<(ostream &os, const huge_int &x)
+    {
+        os << x.bits;
+        return os;
+    }
 };
 class link_hash
 {
 public:
-    struct data { int key; huge_int val; };
+    struct data
+    {
+        int key;
+        huge_int val;
+    };
     vector<data> v[MOD];
     int size = 0;
     link_hash() { size = 0; }
     huge_int &operator[](int sta)
     {
         int key = sta % MOD;
-        for (int i = 0; i < v[key].size(); i++) if (v[key][i].key == sta) return v[key][i].val;
+        for (int i = 0; i < v[key].size(); i++)
+            if (v[key][i].key == sta)
+                return v[key][i].val;
         huge_int tmp;
         v[key].push_back((data){sta, tmp});
         size++;
         return v[key][v[key].size() - 1].val;
     }
-    void init() { size = 0; for (int i = 0; i < MOD; i++) v[i].clear(); }
+    void init()
+    {
+        size = 0;
+        for (int i = 0; i < MOD; i++)
+            v[i].clear();
+    }
 };
 link_hash dp[2];
-void set(int &sta, int x, int val) { x = (x - 1) << 1; sta |= (3 << x); sta ^= (3 << x); sta |= (val << x); }
+void set(int &sta, int x, int val)
+{
+    x = (x - 1) << 1;
+    sta |= (3 << x);
+    sta ^= (3 << x);
+    sta |= (val << x);
+}
 int type(int sta, int x) { return (sta >> ((x - 1) << 1)) & 3; }
 int link(int sta, int x)
 {
@@ -60,9 +89,12 @@ int link(int sta, int x)
     for (int i = x; i && i <= m + 1; i += delta)
     {
         int y = type(sta, i);
-        if (y == 1) num++;
-        else if (y == 2) num--;
-        if (!num) return i;
+        if (y == 1)
+            num++;
+        else if (y == 2)
+            num--;
+        if (!num)
+            return i;
     }
     return -1;
 }
@@ -78,35 +110,52 @@ void transfer(int x, int y)
             int sta = dp[last].v[i][j].key;
             huge_int val = dp[last].v[i][j].val;
             int left = type(sta, y), up = type(sta, y + 1);
-            if (link(sta, y) == -1 || link(sta, y + 1) == -1) continue;
-            if (!left && !up) if (x != n && y != m) set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
-            else if (left && !up)
-            {
-                if (x != n) dp[now][sta] += val;
-                if (y != m) set(sta, y, 0), set(sta, y + 1, left), dp[now][sta] += val;
-            }
-            else if (!left && up)
-            {
-                if (x != n) set(sta, y, up), set(sta, y + 1, 0), dp[now][sta] += val;
-                if (y != m) dp[now][sta] += val;
-            }
-            else if (left == 1 && up == 1) set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
-            else if (left == 1 && up == 2) if (x == n && y == m) ans += val;
-            else if (left == 2 && up == 1) set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
-            else if (left == 2 && up == 2) set(sta, link(sta, y), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+            if (link(sta, y) == -1 || link(sta, y + 1) == -1)
+                continue;
+            if (!left && !up)
+                if (x != n && y != m)
+                    set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
+                else if (left && !up)
+                {
+                    if (x != n)
+                        dp[now][sta] += val;
+                    if (y != m)
+                        set(sta, y, 0), set(sta, y + 1, left), dp[now][sta] += val;
+                }
+                else if (!left && up)
+                {
+                    if (x != n)
+                        set(sta, y, up), set(sta, y + 1, 0), dp[now][sta] += val;
+                    if (y != m)
+                        dp[now][sta] += val;
+                }
+                else if (left == 1 && up == 1)
+                    set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+                else if (left == 1 && up == 2)
+                {
+                    if (x == n && y == m)
+                        ans += val;
+                }
+                else if (left == 2 && up == 1)
+                    set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+                else if (left == 2 && up == 2)
+                    set(sta, link(sta, y), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
         }
     }
 }
 int main()
 {
-    cin >> n >> m; if (m > n) swap(n, m);
+    cin >> n >> m;
+    if (m > n)
+        swap(n, m);
     dp[0].init();
     huge_int tmp;
     tmp.bits = "1";
     dp[0][0] = tmp;
     for (int i = 1; i <= n; i++)
     {
-        for (int j = 1; j <= m; j++) transfer(i, j);
+        for (int j = 1; j <= m; j++)
+            transfer(i, j);
         if (i != n)
         {
             int now = (i * m) & 1;
