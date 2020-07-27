@@ -63,8 +63,8 @@ public:
             if (v[key][i].key == sta)
                 return v[key][i].val;
         huge_int tmp;
-        v[key].push_back((data){sta, tmp});
         size++;
+        v[key].push_back((data){sta, tmp});
         return v[key][v[key].size() - 1].val;
     }
     void init()
@@ -75,14 +75,14 @@ public:
     }
 };
 link_hash dp[2];
+int type(int sta, int x) { return (sta >> ((x - 1) << 1)) & 3; }
 void set(int &sta, int x, int val)
 {
     x = (x - 1) << 1;
-    sta |= (3 << x);
-    sta ^= (3 << x);
-    sta |= (val << x);
+    sta |= 3 << x;
+    sta ^= 3 << x;
+    sta |= val << x;
 }
-int type(int sta, int x) { return (sta >> ((x - 1) << 1)) & 3; }
 int link(int sta, int x)
 {
     int num = 0, delta = (type(sta, x) == 1 ? 1 : -1);
@@ -114,32 +114,58 @@ void transfer(int x, int y)
                 continue;
             if (!left && !up)
                 if (x != n && y != m)
-                    set(sta, y, 1), set(sta, y + 1, 2), dp[now][sta] += val;
+                {
+                    set(sta, y, 1);
+                    set(sta, y + 1, 2);
+                    dp[now][sta] += val;
+                }
                 else if (left && !up)
                 {
                     if (x != n)
                         dp[now][sta] += val;
                     if (y != m)
-                        set(sta, y, 0), set(sta, y + 1, left), dp[now][sta] += val;
+                    {
+                        set(sta, y, 0);
+                        set(sta, y + 1, left);
+                        dp[now][sta] += val;
+                    }
                 }
                 else if (!left && up)
                 {
                     if (x != n)
-                        set(sta, y, up), set(sta, y + 1, 0), dp[now][sta] += val;
+                    {
+                        set(sta, y, up);
+                        set(sta, y + 1, 0);
+                        dp[now][sta] += val;
+                    }
                     if (y != m)
                         dp[now][sta] += val;
                 }
                 else if (left == 1 && up == 1)
-                    set(sta, link(sta, y + 1), 1), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+                {
+                    set(sta, link(sta, y + 1), 1);
+                    set(sta, y, 0);
+                    set(sta, y + 1, 0);
+                    dp[now][sta] += val;
+                }
                 else if (left == 1 && up == 2)
                 {
                     if (x == n && y == m)
                         ans += val;
                 }
                 else if (left == 2 && up == 1)
-                    set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+                {
+                    set(sta, y, 0);
+                    set(sta, y + 1, 0);
+                    dp[now][sta] += val;
+                }
                 else if (left == 2 && up == 2)
-                    set(sta, link(sta, y), 2), set(sta, y, 0), set(sta, y + 1, 0), dp[now][sta] += val;
+                {
+                    set(sta, link(sta, y), 2);
+                    set(sta, y, 0);
+                    set(sta, y + 1, 0);
+                    dp[now][sta] += val;
+                }
         }
     }
 }
