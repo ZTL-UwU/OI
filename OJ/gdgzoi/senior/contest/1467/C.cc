@@ -13,11 +13,7 @@ inline int gcd(int n, int m)
     if (m == 0)
         return n;
     if (n < m)
-    {
-        int tmp = n;
-        n = m;
-        m = tmp;
-    }
+        swap(n, m);
     return gcd(m, n % m);
 }
 int main()
@@ -53,7 +49,7 @@ int main()
             bool flag = true;
             while (u != v)
             {
-                if (dis[u] < dis[v])
+                if (fa[u].size() == 0)
                 {
                     flag = false;
                     break;
