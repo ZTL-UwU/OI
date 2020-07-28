@@ -16,7 +16,7 @@ int fa[10000];
 int find(int x)
 {
 	if (fa[x] == x) return x;
-	return f[x] = find(f[x]);
+	return fa[x] = find(fa[x]);
 }
 void merge(int x, int y)
 {
@@ -34,7 +34,7 @@ int main()
 		{
 			int w;
 			cin >> w;
-			e.push_back((edge){u, v, w});
+			e.push_back((edge){i, j, w});
 		}
 	}
 	int ans = 0;
