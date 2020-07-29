@@ -1,14 +1,16 @@
 #include <iostream>
 #include <string.h>
+#include <stdio.h>
 #include <vector>
 #include <queue>
 using namespace std;
 struct data { int v, w; };
+const int INF = 0x7fffffff;
 vector<data> g[2010];
 int love[1010][30];
 int minn[2010];
 int pre[2010];
-int val[30];
+int vol[30];
 int n, b, s, t;
 inline int EK_bfs()
 {
@@ -69,6 +71,7 @@ inline int EK()
             }
             if (flag)
                 g[u].push_back((data){pre[u], tmp});
+            u = pre[u];
         }
     }
     return ans;
@@ -80,32 +83,34 @@ inline void init()
 }
 int main()
 {
-    cin >> n >> b;
+    scanf("%d %d", &n, &b);
     s = 0;
     t = n + b + 1;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= b; j++)
-            cin >> love[i][j];
+            scanf("%d", &love[i][j]);
     for (int i = 1; i <= b; i++)
-        cin >> val[i];
-    int ans = -1;
+        scanf("%d", &vol[i]);
+    int ans = INF;
     for (int l = 1; l <= b; l++)
     {
-        for (int r = l; r <= n; r++)
+        for (int r = l; r <= b; r++)
         {
+            if (r - l > ans)
+                continue;
             init();
             for (int i = 1; i <= n; i++)
             {
                 g[s].push_back((data){i, 1});
                 for (int j = l ; j <= r; j++)
-                    g[i].push_back((data){j, 1});
+                    g[i].push_back((data){n + love[i][j], 1});
             }
             for (int i = 1; i <= b; i++)
-                g[i].push_back((data){s, val[i]});
+                g[n + i].push_back((data){t, vol[i]});
             if (EK() >= n)
-                ans = max(ans, r - l);
+                ans = min(ans, r - l);
         }
     }
-    cout << ans;
+    printf("%d", ans + 1);
     return 0;
 }
