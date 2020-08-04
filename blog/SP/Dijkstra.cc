@@ -1,20 +1,20 @@
-struct data // 邻接表 u 的对应点 v 和边权 w
+struct node // 邻接表 u 的对应点 v 和边权 w
 {
     int v;
     int w;
 };
-vector<data> g[MAX]; // vector 邻接表存图
-// 已确定 dis 值的点集 C, vis[x] 为 true 表示在集合中
-bool vis[MAX];
-int dis[MAX]; // 最短路长度
+vector<node> g[MAX]; // vector 邻接表存图
+bool vis[MAX];       // 已确定 dis 值的点集 C, vis[x] 为 true 表示在集合中
+int dis[MAX];        // 最短路长度
 
-inline void Dijkstra()
+void Dijkstra()
 {
     // 初始化为无穷大
     for (int i = 0; i < MAX; i++)
         dis[i] = INF;
     dis[1] = 0;
     // 由于每次确定一个点的 dis 值，所以需要循环 n 次才使得 C = V
+    // 从算法思路中的图可以看出
     for (int i = 0; i < n; i++)
     {
         int u = 0;
@@ -29,7 +29,7 @@ inline void Dijkstra()
         {
             int v = g[u][j].v;
             int w = g[u][j].w;
-            if (dis[u] + w < dis[v])
+            if (!vis[v] && dis[u] + w < dis[v])
                 dis[v] = dis[u] + w;
         }
     }
