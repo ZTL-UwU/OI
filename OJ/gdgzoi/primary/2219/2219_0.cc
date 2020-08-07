@@ -4,7 +4,7 @@
 #include <queue>
 using namespace std;
 int g[1000][1000];
-int n, f, d, s, t;
+int n, k, s, t;
 int minn[1000];
 int pre[1000];
 inline int EK_bfs()
@@ -22,8 +22,8 @@ inline int EK_bfs()
         {
             if (pre[i] == -1 && g[u][i])
             {
-                minn[i] = min(minn[u], g[u][i]);
                 pre[i] = u;
+                minn[i] = min(minn[u], g[u][i]);
                 q.push(i);
             }
         }
@@ -40,12 +40,12 @@ inline int EK()
         int tmp = EK_bfs();
         if (tmp == -1)
             break;
-        ans += tmp;
         int u = t;
+        ans += tmp;
         while (u != s)
         {
-            g[u][pre[u]] += tmp;
             g[pre[u]][u] -= tmp;
+            g[u][pre[u]] += tmp;
             u = pre[u];
         }
     }
@@ -53,27 +53,22 @@ inline int EK()
 }
 int main()
 {
-    cin >> n >> f >> d;
+    cin >> n >> k;
     s = 0;
-    t = n + n + f + d + 1;
+    t = n + n + 1;
     for (int i = 1; i <= n; i++)
     {
-        int ff, dd;
-        cin >> ff >> dd;
-        for (int j = 0; j < ff; j++)
+        g[s][i] = k;
+        g[n + i][t] = k;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
         {
-            int fff;
-            cin >> fff;
-            g[s][fff] = 1;
-            g[fff][f + i] = 1;
-        }
-        g[f + i][f + n + i] = 1;
-        for (int j = 0; j < dd; j++)
-        {
-            int ddd;
-            cin >> ddd;
-            g[f + n + i][f + n + n + ddd] = 1;
-            g[f + n + n + ddd][t] = 1;
+            char ch;
+            cin >> ch;
+            if (ch == 'Y')
+                g[i][n + j] = 1;
         }
     }
     cout << EK();
