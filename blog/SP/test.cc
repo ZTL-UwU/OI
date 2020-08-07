@@ -1,65 +1,67 @@
 #include <iostream>
-#include <stdio.h>
-#include <vector>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+#include <algorithm>
 #include <queue>
+#define in(a) a = read()
+#define REP(i, k, n) for (long long i = k; i <= n; i++)
+#define MAXN 100010
 using namespace std;
-struct data
+typedef pair<long long, long long> P;
+inline long long read()
 {
-    int v, w;
-};
-const int MAXN = 1e5 + 10;
-int dis[MAXN];
-bool inque[MAXN];
-vector<data> g[MAXN];
-inline void spfa(int s)
+    long long x = 0, t = 1, c;
+    while (!isdigit(c = getchar()))
+        if (c == '-')
+            t = -1;
+    while (isdigit(c))
+        x = x * 10 + c - '0', c = getchar();
+    return x * t;
+}
+long long n, m, s;
+long long total = 0, head[MAXN], nxt[MAXN * 2], to[MAXN * 2], val[MAXN * 2];
+long long dis[MAXN], vis[MAXN];
+priority_queue<P, vector<P>, greater<P>> Q; //优先队列优化
+inline void adl(long long a, long long b, long long c)
 {
-    for (int i = 1; i <= MAXN; i++)
-        dis[i] = 0x7fffffff;
+    total++;
+    to[total] = b;
+    val[total] = c;
+    nxt[total] = head[a];
+    head[a] = total;
+    return;
+}
+inline void Dijkstra()
+{
+    REP(i, 1, n)
+    dis[i] = 2147483647;
     dis[s] = 0;
-    queue<int> q;    // 创建队列
-    q.push(s);       // 初始化队列
-    inque[s] = true; // 记录 inque 状态
-    int sum = 0;
-    while (!q.empty())
+    Q.push(P(0, s));
+    while (!Q.empty())
     {
-        int u = q.front();
-        if (q.size() * dis[u] > sum)
-        {
-            q.push(u);
-            sum += dis[u];
+        long long u = Q.top().second; //取出dis最小的点
+        Q.pop();                      //弹出
+        if (vis[u])
             continue;
-        }
-        q.pop();
-        inque[u] = false;
-        for (int i = 0; i < g[u].size(); i++)
-        {
-            int v = g[u][i].v;
-            int w = g[u][i].w;
-            if (dis[u] + w < dis[v])
+        vis[u] = 1;
+        for (long long e = head[u]; e; e = nxt[e])
+            if (dis[to[e]] > dis[u] + val[e])
             {
-                dis[v] = dis[u] + w;
-                if (!inque[v])
-                {
-                    inque[v] = true;
-                    q.push(v);
-                    sum += dis[v];
-                }
+                dis[to[e]] = dis[u] + val[e];
+                Q.push(P(dis[to[e]], to[e])); //插入
             }
-        }
     }
+    return;
 }
 int main()
 {
-    int n, m, s;
-    scanf("%d%d%d", &n, &m, &s);
-    for (int i = 0; i < m; i++)
-    {
-        int u, v, w;
-        scanf("%d%d%d", &u, &v, &w);
-        g[u].push_back((data){v, w});
-    }
-    spfa(s);
-    for (int i = 1; i <= n; i++)
-        printf("%d ", dis[i]);
-    return 0;
+    in(n), in(m), in(s);
+    long long a, b, c;
+    REP(i, 1, m)
+    in(a), in(b), in(c), adl(a, b, c);
+    Dijkstra();
+    REP(i, 1, n)
+    printf("%lld ", dis[i]);
 }
