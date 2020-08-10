@@ -1,30 +1,43 @@
 #include <iostream>
 #include <string.h>
+#include <stdio.h>
 #include <vector>
 #include <queue>
 using namespace std;
-int g[1000][1000];
+struct data
+{
+    int v;
+    int w;
+};
+const int INF = 0x7fffffff;
+const int MAXN = 1000;
+vector<data> g[MAXN];
+char mp[MAXN][MAXN];
+int minn[MAXN];
+int pre[MAXN];
 int n, k, s, t;
-int minn[1000];
-int pre[1000];
 inline int EK_bfs()
 {
-    memset(minn, 127, sizeof(minn));
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < MAXN; i++)
+    {
+        minn[i] = INF;
         pre[i] = -1;
+    }
     queue<int> q;
     q.push(s);
     while (!q.empty())
     {
         int u = q.front();
         q.pop();
-        for (int i = s; i <= t; i++)
+        for (int i = 0; i < g[u].size(); i++)
         {
-            if (pre[i] == -1 && g[u][i])
+            int v = g[u][i].v;
+            int w = g[u][i].w;
+            if (pre[v] == -1 && w)
             {
-                pre[i] = u;
-                minn[i] = min(minn[u], g[u][i]);
-                q.push(i);
+                minn[v] = min(minn[u], w);
+                pre[v] = u;
+                q.push(v);
             }
         }
     }
@@ -40,37 +53,81 @@ inline int EK()
         int tmp = EK_bfs();
         if (tmp == -1)
             break;
-        int u = t;
         ans += tmp;
+        int u = t;
         while (u != s)
         {
-            g[pre[u]][u] -= tmp;
-            g[u][pre[u]] += tmp;
+            for (int i = 0; i < g[pre[u]].size(); i++)
+            {
+                if (g[pre[u]][i].v == u)
+                {
+                    g[pre[u]][i].w -= tmp;
+                    break;
+                }
+            }
+            bool found = false;
+            for (int i = 0; i < g[u].size(); i++)
+            {
+                if (g[u][i].v == pre[u])
+                {
+                    g[u][i].w += tmp;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                g[u].push_back((data){pre[u], tmp});
             u = pre[u];
         }
     }
     return ans;
 }
-int main()
+inline void build(int limit)
 {
-    cin >> n >> k;
-    s = 0;
-    t = n + n + 1;
+    for (int i = 0; i < MAXN; i++)
+        g[i].clear();
     for (int i = 1; i <= n; i++)
     {
-        g[s][i] = k;
-        g[n + i][t] = k;
+        g[s].push_back((data){i, limit});
+        g[i].push_back((data){n + i, k});
+        g[3 * n + i].push_back((data){t, limit});
+        g[2 * n + i].push_back((data){3 * n + i, k});
     }
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= n; j++)
         {
-            char ch;
-            cin >> ch;
-            if (ch == 'Y')
-                g[i][n + j] = 1;
+            if (mp[i][j] == 'Y')
+                g[i].push_back((data){3 * n + j, 1});
+            else
+                g[n + i].push_back((data){2 * n + j, 1});
         }
     }
-    cout << EK();
+}
+inline int solve()
+{
+    int l = 0;
+    int r = n;
+    while (r - l > 1)
+    {
+        int mid = (r + l) / 2;
+        build(mid);
+        if (EK() == mid * n)
+            l = mid;
+        else
+            r = mid;
+    }
+    build(r);
+    return EK() == r * n ? r : l;
+}
+int main()
+{
+    cin >> n >> k;
+    s = 0;
+    t = 4 * n + 1;
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            cin >> mp[i][j];
+    cout << solve();
     return 0;
 }
