@@ -85,7 +85,7 @@ inline int EK()
 inline void add_edge(int u, int v, int w)
 {
     g[u].push_back((data){v, w});
-    g[v].push_back((data){u, w});
+    g[v].push_back((data){u, 0});
 }
 inline void init()
 {
@@ -95,13 +95,13 @@ inline void init()
 inline void build()
 {
     init();
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 1; j <= n; j++)
         {
             if (mp[i][j] == 'N')
                 add_edge(i, j, INF);
-            if (mp[i][j] == 'O')
+            else if (mp[i][j] == 'O')
                 add_edge(i, j, 1);
         }
     }
