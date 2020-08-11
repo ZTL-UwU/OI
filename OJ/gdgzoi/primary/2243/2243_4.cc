@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdio.h>
 #include <vector>
 using std::vector;
@@ -16,20 +15,20 @@ namespace tzy
         bool is_negative();
         void push_up();
     };
-    bool node::is_negative()
+    inline bool node::is_negative()
     {
         if (this->cnt * alpha < this->left->cnt
             || this->cnt * alpha < this->right->cnt)
             return true;
         return false;
     }
-    void node::push_up()
+    inline void node::push_up()
     {
         this->size = !this->deleted + this->left->size + this->right->size;
         this->cnt = 1 + this->left->cnt + this->right->cnt;
     }
     node *null;
-    void get_subtree(node *now, vector<node *> &nodes)
+    inline void get_subtree(node *now, vector<node *> &nodes)
     {
         if (now == null)
             return;
@@ -40,7 +39,7 @@ namespace tzy
         if (now->deleted)
             delete now;
     }
-    node *build(int l, int r, vector<node *> &nodes)
+    inline node *build(int l, int r, vector<node *> &nodes)
     {
         if (l >= r)
             return null;
@@ -51,13 +50,13 @@ namespace tzy
         tree->push_up();
         return tree;
     }
-    void rebuild(node *&tree)
+    inline void rebuild(node *&tree)
     {
         vector<node *> nodes;
         get_subtree(tree, nodes);
         tree = build(0, nodes.size(), nodes);
     }
-    void insert(node *&tree, int val)
+    inline void insert(node *&tree, int val)
     {
         if (tree == null)
         {
@@ -79,7 +78,7 @@ namespace tzy
         if (tree->is_negative())
             rebuild(tree);
     }
-    void erase(node *&tree, int rank)
+    inline void erase(node *&tree, int rank)
     {
         if (!tree->deleted && rank == tree->left->size + 1)
         {
@@ -93,7 +92,7 @@ namespace tzy
         else
             erase(tree->right, rank - tree->left->size - !tree->deleted);
     }
-    void delete_tree(node *now)
+    inline void delete_tree(node *now)
     {
         if (now == null)
             return;
@@ -101,7 +100,7 @@ namespace tzy
         delete_tree(now->right);
         delete now;
     }
-    int rank(node *now, int val)
+    inline int rank(node *now, int val)
     {
         int ans = 1;
         while (now != null)
@@ -116,7 +115,7 @@ namespace tzy
         }
         return ans;
     }
-    int find(node *now, int rank)
+    inline int find(node *now, int rank)
     {
         while (now != null)
         {
