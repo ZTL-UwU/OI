@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <vector>
 #include <queue>
+#include "dbg.h"
 
 #define rg register int
 #define ll long long
@@ -210,8 +211,7 @@ int main()
         u = gi(), v = gi(), Eadd(u, v);
     dfs1(1, 0);
     dfs2(1, 1);
-    for (int i = 1; i <= n; i++)
-    
+    dbg(fa, son, dep, siz, top, id, rid);
     build(1, 1, n);
     for (rg a, b, c, i = 1; i <= m; ++i)
     {

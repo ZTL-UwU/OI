@@ -2,59 +2,56 @@
 #include <string.h>
 #include <stdio.h>
 #include <vector>
+#include "dbg.h"
 using namespace std;
 const int MAXN = 1e5 + 10;
 vector<int> tree[MAXN];
-int l_color[4 * MAXN];
-int r_color[4 * MAXN];
-int tag[4 * MAXN];
-int st[4 * MAXN];
+int l_color[MAXN * 4];
+int r_color[MAXN * 4];
+int tag[MAXN * 4];
+int st[MAXN * 4];
 int depth[MAXN];
-int size[MAXN];
+int color[MAXN];
+int siz[MAXN];
 int son[MAXN];
 int top[MAXN];
-int val[MAXN];
 int fa[MAXN];
 int id[MAXN];
 int rk[MAXN];
-int new_id = 1;
-int LC, RC;
 int n, q;
-inline void set_color(int k, int val)
+inline void commit(int l, int r, int k, int val)
 {
     st[k] = 1;
     tag[k] = val;
-    l_color[k] = l_color[k * 2];
-    l_color[k] = r_color[k * 2 + 1];
+    l_color[k * 2] = val;
+    r_color[k * 2 + 1] = val;
 }
 inline void push_up(int k)
 {
     int ls = k * 2;
     int rs = k * 2 + 1;
+    st[k] = st[ls] + st[rs];
+    if (r_color[ls] == l_color[rs])
+        st[k]--;
     l_color[k] = l_color[ls];
-    l_color[k] = r_color[rs];
-    st[k] = st[ls] + st[rs] - (r_color[ls] == l_color[rs]);
+    r_color[k] = r_color[rs];
 }
-inline void push_down(int k)
+inline void push_down(int l, int r, int k)
 {
-    if (tag[k])
-    {
-        int ls = k * 2;
-        int rs = k * 2 + 1;
-        if (ls)
-            set_color(ls, tag[k]);
-        if (rs)
-            set_color(rs, tag[k]);
-        tag[k] = 0;
-    }
+    int mid = (l + r) / 2;
+    int ls = k * 2;
+    int rs = k * 2 + 1;
+    commit(l, mid, ls, tag[k]);
+    commit(mid + 1, r, rs, tag[k]);
+    tag[k] = 0;
 }
 inline void build(int l, int r, int k)
 {
     if (l == r)
     {
         st[k] = 1;
-        l_color[k] = val[rk[l]];
-        r_color[k] = l_color[k];
+        l_color[k] = color[rk[l]];
+        r_color[k] = color[rk[l]];
         return;
     }
     int mid = (l + r) / 2;
@@ -68,14 +65,13 @@ inline void update(int l, int r, int k, int x, int y, int val)
 {
     if (x <= l && r <= y)
     {
-        l_color[k] = val;
-        r_color[k] = val;
+        commit(l, r, k, val);
         return;
     }
     int mid = (l + r) / 2;
     int ls = k * 2;
     int rs = k * 2 + 1;
-    push_down(k);
+    push_down(l, r, k);
     if (x <= mid)
         update(l, mid, ls, x, y, val);
     if (y > mid)
@@ -85,63 +81,52 @@ inline void update(int l, int r, int k, int x, int y, int val)
 inline int query(int l, int r, int k, int x, int y)
 {
     if (x <= l && r <= y)
-    {
-        if (l == x)
-            LC = k * 2;
-        if (r == y)
-            RC = k * 2 + 1;
         return st[k];
-    }
     int mid = (l + r) / 2;
     int ls = k * 2;
     int rs = k * 2 + 1;
-    push_down(k);
+    push_down(l, r, k);
     int sum = 0;
     if (x <= mid)
         sum += query(l, mid, ls, x, y);
     if (y > mid)
         sum += query(mid + 1, r, rs, x, y);
-    sum -= r_color[ls] == l_color[rs];
+    if (r_color[ls] == l_color[rs])
+        sum--;
     return sum;
 }
-inline void dfs1(int u)
+inline void dfs1(int u, int father, int dep)
 {
-    depth[u] = depth[fa[u]] + 1;
-    size[u] = 1;
+    siz[u] = 1;
+    fa[u] = father;
+    depth[u] = dep;
     for (int i = 0; i < tree[u].size(); i++)
     {
         int v = tree[u][i];
-        if (v == fa[u])
+        if (v == father)
             continue;
-        fa[v] = u;
-        dfs1(v);
-        size[u] += size[v];
-        if (size[son[u]] < size[v])
+        dfs1(v, u, dep + 1);
+        siz[u] += siz[v];
+        if (siz[son[u]] < siz[v])
             son[u] = v;
     }
 }
-inline void dfs2(int u)
+int new_id;
+inline void dfs2(int u, int tp)
 {
+    id[u] = ++new_id;
+    top[u] = tp;
     if (son[u])
-    {
-        id[son[u]] = ++new_id;
-        top[son[u]] = top[u];
-        rk[new_id] = son[u];
-        dfs2(son[u]);
-    }
+        dfs2(son[u], top[u]);
     for (int i = 0; i < tree[u].size(); i++)
     {
         int v = tree[u][i];
-        if (!top[v] && v != fa[u])
-        {
-            id[v] = ++new_id;
-            rk[new_id] = v;
-            top[v] = v;
-            dfs2(v);
-        }
+        if (v == son[u] || v == fa[u])
+            continue;
+        dfs2(v, v);
     }
 }
-inline void route1(int x, int y, int val)
+inline void change(int x, int y, int val)
 {
     int fx = top[x];
     int fy = top[y];
@@ -153,18 +138,16 @@ inline void route1(int x, int y, int val)
             swap(x, y);
         }
         update(1, n, 1, id[fx], id[x], val);
-        x = top[fx];
+        x = fa[fx];
         fx = top[x];
     }
     if (depth[x] < depth[y])
         swap(x, y);
     update(1, n, 1, id[x], id[y], val);
 }
-inline int route2(int x, int y)
+inline int sum(int x, int y)
 {
     int ans = 0;
-    int pos1 = 0;
-    int pos2 = 0;
     int fx = top[x];
     int fy = top[y];
     while (fx != fy)
@@ -173,29 +156,21 @@ inline int route2(int x, int y)
         {
             swap(fx, fy);
             swap(x, y);
-            swap(pos1, pos2);
         }
         ans += query(1, n, 1, id[fx], id[x]);
-        if (RC == pos1)
-            ans--;
-        pos1 = RC;
         x = fa[fx];
         fx = top[x];
     }
     if (depth[x] < depth[y])
         swap(x, y);
     ans += query(1, n, 1, id[x], id[y]);
-    if (LC == pos1)
-        ans--;
-    if (RC == pos2)
-        ans--;
     return ans;
 }
 int main()
 {
     cin >> n >> q;
     for (int i = 1; i <= n; i++)
-        cin >> val[i];
+        cin >> color[i];
     for (int i = 0; i < n - 1; i++)
     {
         int u, v;
@@ -203,27 +178,32 @@ int main()
         tree[u].push_back(v);
         tree[v].push_back(u);
     }
-    dfs1(1);
-    id[1] = 1;
-    rk[1] = 1;
-    top[1] = 1;
-    dfs2(1);
-    build(1, n, 1);
+    dfs1(1, 1, 1);
+    dfs2(1, 1);
+    // build(1, n, 1);
+    for (int i = 1; i <= n + 10; i++)
+        cout << st[i] << " ";
+    cout << "\n";
+    for (int i = 1; i <= n; i++)
+        update(1, n, 1, id[i], id[i], color[i]);
+    for (int i = 1; i <= n + 10; i++)
+        cout << st[i] << " ";
+    cout << "\n";
     while (q--)
     {
         char type;
         cin >> type;
         if (type == 'C')
         {
-            int a, b, val;
-            cin >> a >> b >> val;
-            route1(a, b, val);
+            int x, y, val;
+            cin >> x >> y >> val;
+            change(x, y, val);
         }
         if (type == 'Q')
         {
-            int a, b;
-            cin >> a >> b;
-            cout << route2(a, b) << "\n";
+            int x, y;
+            cin >> x >> y;
+            cout << sum(x, y) << "\n";
         }
     }
     return 0;

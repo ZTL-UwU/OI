@@ -41,8 +41,7 @@ inline void update(long long l, long long r, long long k, long long x, long long
 {
     if (x <= l && r <= y)
     {
-        tag[k] += val;
-        st[k] += (r - l + 1) * val;
+        commit(l, r, k, val);
         return;
     }
     long long mid = (l + r) / 2;
