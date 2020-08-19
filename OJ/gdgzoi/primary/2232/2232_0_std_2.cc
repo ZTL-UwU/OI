@@ -125,15 +125,12 @@ int query(int rt, int l, int r, int L, int R)
     int mid = (segtree[rt].l + segtree[rt].r) >> 1;
     if (r <= mid)
         return query(L(rt), l, r, L, R);
-    else if (l > mid)
+    if (l > mid)
         return query(R(rt), l, r, L, R);
-    else
-    {
-        int ans = query(L(rt), l, mid, L, R) + query(R(rt), mid + 1, r, L, R);
-        if (segtree[L(rt)].rc == segtree[R(rt)].lc)
-            ans--;
-        return ans;
-    }
+    int ans = query(L(rt), l, mid, L, R) + query(R(rt), mid + 1, r, L, R);
+    if (segtree[L(rt)].rc == segtree[R(rt)].lc)
+        ans--;
+    return ans;
     push_up(rt);
 }
 int solve(int u, int v, int id, int c)
