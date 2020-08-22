@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 using std::vector;
+using std::cout;
+using std::cin;
+using std::min;
+const int INF = 0x7fffffff;
 const double alpha = 0.7;
 namespace tzy
 {
@@ -68,7 +72,7 @@ namespace tzy
     {
         if (tree == null)
         {
-            tree == new node;
+            tree = new node;
             tree->cnt = 1;
             tree->size = 1;
             tree->val = val;
@@ -124,16 +128,30 @@ int main()
     null = new node;
     node *root = null;
     int n;
-    std::cin >> n;
-    int ans = 0;
-    for (int i = 0; i < n; i++)
+    cin >> n;
+    int x;
+    cin >> x;
+    insert(root, x);
+    int ans = x;
+    for (int i = 1; i < n; i++)
     {
-        int x;
-        std::cin >> x;
+        bool flag = false;
+        cin >> x;
+        if (find(root, rank(root, x)) == x)
+            flag = true;
         insert(root, x);
-        ans += std::min(x - find(root, rank(root, x) - 1), find(root, rank(root, x + 1)) - x);
+        if (flag)
+            continue;
+        int smaller = find(root, rank(root, x) - 1);
+        int larger = find(root, rank(root, x + 1));
+        int minn = INF;
+        if (smaller != -1)
+            minn = x - smaller;    
+        if (larger != -1)
+            minn = min(minn, larger - x);
+        ans += minn;
     }
-    std::cout << ans;
+    cout << ans;
     delete_tree(root);
     return 0;
 }
