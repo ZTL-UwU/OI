@@ -146,7 +146,7 @@ int main()
         int larger = find(root, rank(root, x + 1));
         int minn = INF;
         if (smaller != -1)
-            minn = x - smaller;    
+            minn = x - smaller;
         if (larger != -1)
             minn = min(minn, larger - x);
         ans += minn;
