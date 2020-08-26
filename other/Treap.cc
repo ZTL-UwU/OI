@@ -138,7 +138,7 @@ namespace Treap
     }
     int get_pre(int val, node *start)
     {
-        node *ans = new node;
+        node *ans;
         new_node(ans, -INF);
         node *now = start;
         while (now != null)
@@ -165,7 +165,7 @@ namespace Treap
     }
     int get_next(int val, node *start)
     {
-        node *ans = new node;
+        node *ans;
         new_node(ans, INF);
         node *now = start;
         while (now != null)
