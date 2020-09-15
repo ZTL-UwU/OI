@@ -4,7 +4,10 @@ tempCodeRunnerFile.*
 *.PNG
 *.in
 *.out
+*.ans
 *.o
 test.*
 *.gif
 *.jfif
+
+.vscode/
