@@ -59,8 +59,10 @@ inline int query(int l, int r, int val)
 
 int main()
 {
-    freopen("./2301_6.in", "r", stdin);
-    freopen("./2301_6.out", "w", stdout);
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
     std::cin >> n;
     block_size = std::sqrt(n);
     for (int i = 1; i <= n; i++)
