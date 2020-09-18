@@ -58,7 +58,6 @@ inline int query(int l, int r, int val)
             }
             tag[i] = val;
         }
-        
     }
     return ans;
 }
