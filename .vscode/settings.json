@@ -85,8 +85,15 @@
         "ctgmath": "cpp",
         "filesystem": "cpp",
         "ios": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "any": "cpp",
+        "bit": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false,
-    "clock.active": false
+    "clock.active": false,
+    "cSpell.enableFiletypes": [
+        "vue",
+        "vue-html",
+        "vue-postcss"
+    ]
 }
