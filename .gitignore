@@ -1,13 +1,16 @@
 *.exe
 tempCodeRunnerFile.*
+
 *.png
 *.PNG
+*.gif
+*.jfif
+*.jpg
+
 *.in
 *.out
 *.ans
 *.o
 test.*
-*.gif
-*.jfif
 
 .vscode/
