@@ -18,6 +18,7 @@ namespace Treap
     };
     void node::push_up() { this->size = this->left->size + this->right->size + this->cnt; }
     node *null;
+
     void new_node(node *&tree, int val)
     {
         tree = new node;
@@ -28,6 +29,7 @@ namespace Treap
         tree->val = val;
         tree->rand_val = rand();
     }
+
     void delete_tree(node *now)
     {
         if (now == null)
@@ -36,6 +38,7 @@ namespace Treap
         delete_tree(now->right);
         delete now;
     }
+
     void zig(node *&now)
     {
         node *tmp = now->left;
@@ -45,6 +48,7 @@ namespace Treap
         now->right->push_up();
         now->push_up();
     }
+
     void zag(node *&now)
     {
         node *tmp = now->right;
@@ -54,6 +58,7 @@ namespace Treap
         now->left->push_up();
         now->push_up();
     }
+
     int rank(node *now, int val)
     {
         if (now == null)
@@ -64,6 +69,7 @@ namespace Treap
             return rank(now->left, val);
         return rank(now->right, val) + now->left->size + now->cnt;
     }
+
     int find(node *now, int rk)
     {
         if (now == null)
@@ -74,6 +80,7 @@ namespace Treap
             return now->val;
         return find(now->right, rk - now->left->size - now->cnt);
     }
+
     void insert(node *&tree, int val)
     {
         if (tree == null)
@@ -99,6 +106,7 @@ namespace Treap
         }
         tree->push_up();
     }
+
     void erase(node *&tree, int val)
     {
         if (tree == null)
@@ -136,6 +144,7 @@ namespace Treap
             tree->push_up();
         }
     }
+
     int get_pre(int val, node *start)
     {
         node *ans;
@@ -163,6 +172,7 @@ namespace Treap
         }
         return ans->val;
     }
+
     int get_next(int val, node *start)
     {
         node *ans;

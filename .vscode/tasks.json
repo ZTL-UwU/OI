@@ -2,17 +2,21 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "cpp.exe build active file",
-            "command": "C:\\FPC\\2.4.0\\bin\\i386-win32\\cpp.exe",
+            "label": "Compile OI Code",
+            "command": "clang++",
             "args": [
-                "-g",
-                "${file}",
+                "'${file}'",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "C:\\FPC\\2.4.0\\bin\\i386-win32"
-            }
+                "'${fileDirname}/${fileBasenameNoExtension}.exe'",
+                "-Wall",
+                "-Wextra",
+                "-fsanitize=undefined"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "Run OI Code",
+            "command": "'${fileDirname}/${fileBasenameNoExtension}.exe'"
         }
     ],
     "version": "2.0.0"
