@@ -3,37 +3,18 @@
 #include <cstring>
 #include <cstdio>
 #include <vector>
-#include <queue>
 
-const int INF = 10000;
-struct data
+struct edge
 {
-    int max = INF;
-    int min = -INF;
+    int u;
+    int v;
+    int w;
 };
 
-const int MAXN = 1e4;
-data diff[MAXN][MAXN];
-int g[MAXN][MAXN];
-int n, m;
-
-inline void floyd()
-{
-    for (int k = 1; k <= n; k++)
-    {
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= n; j++)
-            {
-                if (diff[i][k].max != -INF && diff[k][j].max != INF && diff[i][j].max != INF && ((double)diff[i][j].max / diff[i][j].min) > ((double)std::max(diff[i][k].max, diff[k][j].max)) / std::min(diff[i][k].min, diff[k][j].min))
-                {
-                    diff[i][j].max = std::max(diff[i][k].max, diff[k][j].max);
-                    diff[i][j].min = std::min(diff[i][k].min, diff[k][j].min);
-                }
-            }
-        }
-    }
-}
+const int INF = 0x7fffffff;
+const int MAXN = 1e5;
+std::vector<edge> e;
+int fa[MAXN];
 
 inline int gcd(int a, int b)
 {
@@ -42,35 +23,85 @@ inline int gcd(int a, int b)
     return gcd(b, a % b);
 }
 
+inline void init_union_find()
+{
+    for (int i = 0; i < MAXN; i++)
+        fa[i] = i;
+}
+
+inline int find(int x)
+{
+    if (fa[x] == x)
+        return x;
+    return fa[x] = find(fa[x]);
+}
+
+inline void merge(int x, int y)
+{
+    int fx = find(x);
+    int fy = find(y);
+    fa[fx] = fy;
+}
+
+inline bool cmp(edge x, edge y)
+{
+    return x.w > y.w;
+}
+
 int main()
 {
-    std::ios::sync_with_stdio(false);
-    std::cout.tie(0);
-    std::cin.tie(0);
-
+    int n, m;
     std::cin >> n >> m;
+    init_union_find();
     for (int i = 0; i < m; i++)
     {
-        int x, y, v;
-        std::cin >> x >> y >> v;
-        diff[x][y].max = v;
-        diff[y][x].max = v;
-        diff[x][y].min = v;
-        diff[y][x].min = v;
+        int u, v, w;
+        std::cin >> u >> v >> w;
+
+        e.push_back((edge){u, v, w});
+        merge(u, v);
     }
     int start, end;
     std::cin >> start >> end;
 
-    floyd();
+    if (find(start) != find(end))
+    {
+        std::cout << "IMPOSSIBLE";
+        return 0;
+    }
 
-    int max, min;
-    max = diff[start][end].max;
-    min = diff[start][end].min;
-    std::cout << max << ":" << min << "\n";
-    int gg = gcd(max, min);
-    if (min / gg == 1)
-        std::cout << max / gg;
-    else
-        std::cout << max / gg << "/" << min / gg;
+    int ans_a = 0;
+    int ans_b = 0;
+    double ans = INF;
+    std::sort(e.begin(), e.end(), cmp);
+    for (size_t i = 0; i < e.size(); i++)
+    {
+        init_union_find();
+        for (size_t j = i; j < e.size(); j++)
+        {
+            merge(e[j].u, e[j].v);
+            if (find(start) == find(end))
+            {
+                double tmp = ((double)e[i].w) / ((double)e[j].w);
+                if (tmp < ans)
+                {
+                    ans_a = e[i].w;
+                    ans_b = e[j].w;
+                    ans = tmp;
+                }
+
+                break;
+            }
+        }
+    }
+
+    int gg = gcd(ans_a, ans_b);
+    if (ans_a / ans_b * ans_b == ans_a)
+    {
+        std::cout << ans_a / ans_b;
+        return 0;
+    }
+
+    std::cout << ans_a / gg << "/" << ans_b / gg;
     return 0;
 }
