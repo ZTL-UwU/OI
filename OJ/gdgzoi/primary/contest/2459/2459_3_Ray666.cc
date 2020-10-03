@@ -16,7 +16,6 @@ struct node
 
 int f[201], m[201], tot = 0, n, ans = 0;
 bool check[20000001];
-
 // x: strength
 // y: state
 // tot: id -> head
@@ -45,6 +44,7 @@ void dfs(int x, int y, int z)
 
 void work(int x, int y, int z)
 {
+    std::cout << y << " ";
     for (int i = id[y]; i; i = a[i].next)
     {
         if (!check[a[i].state + z])
