@@ -13,4 +13,10 @@ tempCodeRunnerFile.*
 *.o
 test.*
 
+*.zip
+*.rar
+*.7z
+*.tar
+*.x
+
 .vscode/
