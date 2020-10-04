@@ -189,19 +189,23 @@ inline void dfs2(int u)
 inline int route(int u, int v, int c) // Sum of value from u to v with color c
 {
     int res = 0;
-    while (top[u] != top[v])
+    int fu = top[u];
+    int fv = top[v];
+    while (fu != fv)
     {
-        if (depth[top[u]] < depth[top[v]])
+        if (depth[fu] < depth[fv])
+        {
+            std::swap(fu, fv);
             std::swap(u, v);
-
-        res += query(dfn[top[u]], dfn[u], c);
-        u = fa[top[u]];
+        }
+        res += query(dfn[fu], dfn[u], c);
+        u = fa[fu];
+        fu = top[u];
     }
-
     if (depth[u] > depth[v])
         std::swap(u, v);
-    res += query(dfn[u], dfn[v], c);
 
+    res += query(dfn[u], dfn[v], c);
     return res;
 }
 
@@ -242,7 +246,7 @@ int main()
     for (int i = 1; i <= n; i++)
         block[i] = (i - 1) / block_size + 1;
 
-    for (int i = 1; i <= block_size; i++)
+    for (int i = 1; i <= block_size + 1; i++)
         commit_value(i);
 
     // Query
