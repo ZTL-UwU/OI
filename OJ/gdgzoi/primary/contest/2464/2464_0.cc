@@ -35,8 +35,6 @@ inline void dfs(int u, int end, int end_val, int val)
 
 int main()
 {
-    freopen("./2464_0_large.in", "r", stdin);
-
     std::ios::sync_with_stdio(false);
     std::cout.tie(0);
     std::cin.tie(0);

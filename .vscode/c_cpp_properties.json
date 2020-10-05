@@ -10,10 +10,21 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "intelliSenseMode": "gcc-x64",
-            "compilerPath": "C:\\\\MinGW\\bin\\g++.exe",
-            "cppStandard": "c++11",
-            "cStandard": "c11"
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/clang++",
+            "cppStandard": "c++20",
+            "cStandard": "c18"
+        },
+        {
+            "name": "Ubuntu20.04.1",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4
