@@ -1,22 +1,25 @@
+# Run files
 *.exe
 tempCodeRunnerFile.*
 
+# Images
 *.png
 *.PNG
 *.gif
 *.jfif
 *.jpg
 
+# Test files
 *.in
 *.out
 *.ans
 *.o
 test.*
+tmp.*
 
+# Compressed files
 *.zip
 *.rar
 *.7z
 *.tar
 *.x
-
-.vscode/
