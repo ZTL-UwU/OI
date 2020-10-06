@@ -16,6 +16,7 @@ tempCodeRunnerFile.*
 *.o
 test.*
 tmp.*
+dbg.h
 
 # Compressed files
 *.zip
