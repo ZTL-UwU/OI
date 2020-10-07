@@ -38,7 +38,7 @@ void insert(string str)
     endf[u] ++;
 }
 // AC Automata
-void build(string str)
+void build()
 {
     queue<int> q;
     /*
@@ -138,7 +138,7 @@ int query(string str)
         int v = u;
         while (v && endf[v] != -1)
         {
-            // If it't not the end point -> endf = 0 -> ans += 0 (no changes)
+            // If it's not the end point -> endf = 0 -> ans += 0 (no changes)
             ans += endf[v];
             // visited
             endf[v] = -1;
@@ -160,7 +160,7 @@ int main()
     }
     string str;
     cin >> str;
-    build(str);
+    build();
     cout << query(str) << "\n";
     return 0;
 }
