@@ -145,5 +145,6 @@
         "vue",
         "vue-html",
         "vue-postcss"
-    ]
+    ],
+    "compile-hero.disable-compile-files-on-did-save-code": true
 }
