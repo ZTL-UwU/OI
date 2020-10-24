@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.html": "html",
         "array": "cpp",
         "initializer_list": "cpp",
         "iostream": "cpp",
@@ -88,7 +89,10 @@
         "locale": "cpp",
         "any": "cpp",
         "bit": "cpp",
-        "version": "cpp"
+        "version": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "ranges": "cpp"
     },
     "code-runner.executorMap": {
         "javascript": "node",
