@@ -13,7 +13,7 @@
             "intelliSenseMode": "clang-x64",
             "compilerPath": "/usr/bin/clang++",
             "cppStandard": "c++20",
-            "cStandard": "c18"
+            "cStandard": "c11"
         },
         {
             "name": "Ubuntu20.04.1",
