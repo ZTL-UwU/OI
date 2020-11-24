@@ -14,8 +14,9 @@ tempCodeRunnerFile.*
 *.out
 *.ans
 *.o
-test.*
-tmp.*
+test*.*
+tmp*.*
+temp*.*
 dbg.h
 
 # Compressed files
