@@ -19,7 +19,7 @@ int n;
 inline long long int dfs(int x, int y, int z)
 {
     if (x >= n) // Village
-        return [](int x, int y, int z) { return 1LL * c[x] * (a[x] + y) * (b[x] + z); }(x - n + 1, y, z);
+        return [=](int x) { return 1LL * c[x] * (a[x] + y) * (b[x] + z); }(x - n + 1);
 
     if (dp[x][y][z] != dp[0][0][0]) // Visited
         return dp[x][y][z];
