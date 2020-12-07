@@ -24,13 +24,13 @@ int main()
     {
         int n = get_rand_range(10, 5000);
 
-        std::cout << "  \n" << n << "  \n  ";
+        std::cout << "  \n" << n << "  \n\n\n ";
 
         for (int i = 0; i < n; i++)
         {
             std::cout << (std::rand() % 2 == 0 ? " c " : "  q ");
 
-            std::cout << get_rand_range(1, n) << "     " << get_rand_range(1, n) << "  \n";
+            std::cout << get_rand_range(1, n) << "     " << get_rand_range(1, n) << " \n \n";
         }
     }
 
@@ -42,7 +42,7 @@ int main()
     {
         std::cout << (std::rand() % 2 == 0 ? " c " : "  q ");
 
-        std::cout << get_rand_range(1, n) << "     " << get_rand_range(1, n) << "  \n";
+        std::cout << get_rand_range(1, n) << "     " << get_rand_range(1, n) << " \n\n \n";
     }
     std::cout << (std::rand() % 2 == 0 ? " c " : "  q ");
 

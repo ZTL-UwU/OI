@@ -46,11 +46,11 @@ int main()
         std::stringstream ss;
         ss << str;
 
-        char opt;
-        int x = -1, y = -1;
+        char opt = '#';
+        int x = -100, y = -100;
         ss >> opt >> x >> y;
 
-        if (opt >= '0' and opt <= '9' and (x == -1 or y == -1))
+        if (opt >= '0' and opt <= '9' and (x == -100 or y == -100))
         {
             init();
             if (not first_n)
@@ -61,7 +61,7 @@ int main()
             no = 0;
             continue;
         }
-        else if (x == -1 or y == -1)
+        else if (x == -100 or y == -100)
         {
             continue;
         }
