@@ -2,7 +2,7 @@
 #include <sstream>
 #include <string>
 
-const int MAX_N = 1e5;
+const int MAX_N = 2e4;
 
 int fa[MAX_N];
 
@@ -50,7 +50,7 @@ int main()
         int x = -1, y = -1;
         ss >> opt >> x >> y;
 
-        if ((opt != 'c' and opt != 'q') and (x == -1 or y == -1))
+        if (opt >= '0' and opt <= '9' and (x == -1 or y == -1))
         {
             init();
             if (not first_n)
@@ -70,7 +70,7 @@ int main()
         {
             merge(x, y);
         }
-        else
+        if (opt == 'q')
         {
             if (find(x) == find(y))
                 yes++;
