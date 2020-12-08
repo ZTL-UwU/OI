@@ -24,7 +24,7 @@ int main()
     {
         int n = get_rand_range(10, 5000);
 
-        std::cout << "  \n" << n << "  \n\n\n ";
+        std::cout << "  \n" << n << "  \n     \n\n ";
 
         for (int i = 0; i < n; i++)
         {
@@ -36,7 +36,7 @@ int main()
 
     int n = get_rand_range(10, 5000);
 
-    std::cout << "  " << n << "  \n  ";
+    std::cout << "  " << n << "  \n\n  ";
 
     for (int i = 0; i < n - 1; i++)
     {
