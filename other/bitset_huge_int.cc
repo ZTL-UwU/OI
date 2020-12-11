@@ -1,5 +1,5 @@
-#include <functional>
 #include <iostream>
+#include <sstream>
 #include <bitset>
 #include <string>
 #include <vector>
@@ -34,9 +34,9 @@ public:
     void operator*=(const huge_int<Size> &huge_int_num);
 
     std::string to_string();
+    std::bitset<Size> huge_int_base;
 
 private:
-    std::bitset<Size> huge_int_base;
 };
 
 template <size_t Size>
@@ -175,7 +175,7 @@ std::string huge_int<Size>::to_string()
 
     for (auto i = this->huge_int_base.size() - 1; i <= this->huge_int_base.size() - 1; i--)
     {
-        int front = this->huge_int_base[i];
+        int front = this->huge_int_base.test(i);
 
         for (auto &col : res_v)
         {
@@ -191,7 +191,7 @@ std::string huge_int<Size>::to_string()
             front = back;
         }
 
-        if (front xor 0)
+        if (front ^ 0)
             res_v.push_back(1);
     }
 
@@ -200,9 +200,9 @@ std::string huge_int<Size>::to_string()
 
     res += std::to_string(res_v[res_v.size() - 1] & 0x0f);
 
-    if (res_v.size() > 2)
+    if (res_v.size() >= 2)
         for (auto i = res_v.size() - 2; i <= res_v.size() - 2; i--)
-            res += std::to_string(((res_v[i] & 0xf0) >> 4) << (res_v[i] & 0x0f));
+            res += std::to_string((res_v[i] & 0xf0) >> 4) + std::to_string(res_v[i] & 0x0f);
 
     return res;
 }
@@ -212,7 +212,7 @@ int main()
     huge_int<128> a;
     huge_int<128> b;
 
-    a = 10;
+    a = 100;
     b = 20;
 
     std::cout << (a + b).to_string();
