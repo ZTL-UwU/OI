@@ -40,9 +40,7 @@ private:
 };
 
 template <size_t Size>
-huge_int<Size>::huge_int()
-{
-}
+huge_int<Size>::huge_int() {}
 
 template <size_t Size>
 huge_int<Size>::huge_int(const std::bitset<Size> &bitset_src)
