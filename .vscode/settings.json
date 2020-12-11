@@ -92,7 +92,10 @@
         "version": "cpp",
         "compare": "cpp",
         "concepts": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "numbers": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp"
     },
     "code-runner.executorMap": {
         "javascript": "node",
