@@ -26,8 +26,7 @@ public:
     huge_int<Size> operator+(const huge_int<Size> &huge_int_num);
     void operator+=(const huge_int<Size> &huge_int_num);
 
-    huge_int<Size> operator-();
-    huge_int<Size> operator-(const huge_int<Size> &huge_int_num) const;
+    huge_int<Size> operator-(const huge_int<Size> &huge_int_num);
     void operator-=(const huge_int<Size> &huge_int_num);
 
     huge_int<Size> operator*(huge_int<Size> huge_int_num);
@@ -121,15 +120,9 @@ huge_int<Size> huge_int<Size>::operator+(const huge_int<Size> &huge_int_num)
 }
 
 template <size_t Size>
-huge_int<Size> huge_int<Size>::operator-()
+huge_int<Size> huge_int<Size>::operator-(const huge_int<Size> &huge_int_num)
 {
-    return huge_int(std::bitset<Size>(1)) + huge_int(~this->huge_int_base);
-}
-
-template <size_t Size>
-huge_int<Size> huge_int<Size>::operator-(const huge_int<Size> &huge_int_num) const
-{
-    return *this + (-huge_int_num);
+    return *this + (huge_int(std::bitset<Size>(1)) + huge_int(~huge_int_num.huge_int_base));
 }
 
 template <size_t Size>
@@ -213,6 +206,6 @@ int main()
     a = 100;
     b = 20;
 
-    std::cout << (a + b).to_string();
+    std::cout << (a - b).to_string();
     return 0;
 }
