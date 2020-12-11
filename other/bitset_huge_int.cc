@@ -1,3 +1,5 @@
+#include <bits/types/error_t.h>
+#include <stdexcept>
 #include <iostream>
 #include <sstream>
 #include <bitset>
@@ -9,10 +11,18 @@ class huge_int
 {
 public:
     huge_int();
-    huge_int(const std::bitset<Size> &bitset_src);
-
     template <typename T>
-    void operator=(const T &src);
+    huge_int(const T &src);
+
+    void operator=(const std::bitset<Size> &src);
+    void operator=(const std::string &src);
+    void operator=(const int &src);
+    void operator=(const unsigned int &src);
+    void operator=(const long long int &src);
+    void operator=(const unsigned long long int &src);
+
+    huge_int<Size> operator<<(const size_t &position) const;
+    void operator<<=(const size_t &position);
 
     bool operator==(const huge_int<Size> &huge_int_num) const;
     bool operator!=(const huge_int<Size> &huge_int_num) const;
@@ -23,28 +33,95 @@ public:
     bool operator<=(const huge_int<Size> &huge_int_num) const;
     bool operator>=(const huge_int<Size> &huge_int_num) const;
 
-    huge_int<Size> operator+(const huge_int<Size> &huge_int_num);
+    huge_int<Size> operator+(const huge_int<Size> &huge_int_num) const;
     void operator+=(const huge_int<Size> &huge_int_num);
+    huge_int<Size> operator+(const unsigned int &num) const;
+    void operator+=(const unsigned int &num);
+    huge_int<Size> operator+(const unsigned long long int &num) const;
+    void operator+=(const unsigned long long int &num);
 
-    huge_int<Size> operator-(const huge_int<Size> &huge_int_num);
+    huge_int<Size> operator-(const huge_int<Size> &huge_int_num) const;
     void operator-=(const huge_int<Size> &huge_int_num);
 
-    huge_int<Size> operator*(huge_int<Size> huge_int_num);
+    huge_int<Size> operator*(huge_int<Size> huge_int_num) const;
     void operator*=(const huge_int<Size> &huge_int_num);
 
-    std::string to_string();
-    std::bitset<Size> huge_int_base;
+    huge_int<Size> operator/(const huge_int<Size> &huge_int_num) const;
+    void operator/=(const huge_int<Size> &huge_int_num);
+
+    std::string to_string() const;
+    unsigned int to_uint() const;
+    unsigned long long int to_ullong() const;
+    std::string to_bin_string() const;
+    std::bitset<Size> to_bitset() const;
 
 private:
+    std::bitset<Size> huge_int_base;
 };
 
 template <size_t Size>
-huge_int<Size>::huge_int() {}
+huge_int<Size>::huge_int()
+{
+    this->huge_int_base = std::bitset<Size>(0);
+}
 
 template <size_t Size>
-huge_int<Size>::huge_int(const std::bitset<Size> &bitset_src)
+template <typename T>
+huge_int<Size>::huge_int(const T &src)
 {
-    this->huge_int_base = bitset_src;
+    this->huge_int_base = std::bitset<Size>(src);
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const std::bitset<Size> &src)
+{
+    this->huge_int_base = src;
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const std::string &src)
+{
+    huge_int res;
+    for (auto ch : src)
+        res = huge_int(res.huge_int_base << 3) + huge_int(res.huge_int_base << 1) + huge_int(ch - '0');
+
+    this->huge_int_base = res.huge_int_base;
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const int &src)
+{
+    *this = std::to_string(src);
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const unsigned int &src)
+{
+    *this = std::to_string(src);
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const long long int &src)
+{
+    *this = std::to_string(src);
+}
+
+template <size_t Size>
+void huge_int<Size>::operator=(const unsigned long long int &src)
+{
+    *this = std::to_string(src);
+}
+
+template <size_t Size>
+huge_int<Size> huge_int<Size>::operator<<(const size_t &position) const
+{
+    return this->huge_int_base << position;
+}
+
+template <size_t Size>
+void huge_int<Size>::operator<<=(const size_t &position)
+{
+    this->huge_int_base <<= position;
 }
 
 template <size_t Size>
@@ -104,25 +181,12 @@ bool huge_int<Size>::operator>=(const huge_int<Size> &huge_int_num) const
 }
 
 template <size_t Size>
-template <typename T>
-void huge_int<Size>::operator=(const T &src)
-{
-    this->huge_int_base = std::bitset<Size>(src);
-}
-
-template <size_t Size>
-huge_int<Size> huge_int<Size>::operator+(const huge_int<Size> &huge_int_num)
+huge_int<Size> huge_int<Size>::operator+(const huge_int<Size> &huge_int_num) const
 {
     huge_int a(this->huge_int_base ^ huge_int_num.huge_int_base);
     huge_int b((this->huge_int_base & huge_int_num.huge_int_base) << 1);
 
     return huge_int_num.huge_int_base.any() ? a + b : a;
-}
-
-template <size_t Size>
-huge_int<Size> huge_int<Size>::operator-(const huge_int<Size> &huge_int_num)
-{
-    return *this + (huge_int(std::bitset<Size>(1)) + huge_int(~huge_int_num.huge_int_base));
 }
 
 template <size_t Size>
@@ -133,6 +197,41 @@ void huge_int<Size>::operator+=(const huge_int<Size> &huge_int_num)
 }
 
 template <size_t Size>
+huge_int<Size> huge_int<Size>::operator+(const unsigned int &num) const
+{
+    return *this + huge_int(num);
+}
+
+template <size_t Size>
+void huge_int<Size>::operator+=(const unsigned int &num)
+{
+    huge_int<Size> res = (*this + huge_int_num);
+    this->huge_int_base = res.huge_int_base;
+}
+
+template <size_t Size>
+huge_int<Size> huge_int<Size>::operator+(const unsigned long long int &num) const
+{
+    huge_int a(this->huge_int_base ^ huge_int_num.huge_int_base);
+    huge_int b((this->huge_int_base & huge_int_num.huge_int_base) << 1);
+
+    return huge_int_num.huge_int_base.any() ? a + b : a;
+}
+
+template <size_t Size>
+void huge_int<Size>::operator+=(const unsigned long long int &num)
+{
+    huge_int<Size> res = (*this + huge_int_num);
+    this->huge_int_base = res.huge_int_base;
+}
+
+template <size_t Size>
+huge_int<Size> huge_int<Size>::operator-(const huge_int<Size> &huge_int_num) const
+{
+    return *this + (huge_int(std::bitset<Size>(1)) + huge_int(~huge_int_num.huge_int_base));
+}
+
+template <size_t Size>
 void huge_int<Size>::operator-=(const huge_int<Size> &huge_int_num)
 {
     huge_int<Size> res = *this - huge_int_num;
@@ -140,7 +239,7 @@ void huge_int<Size>::operator-=(const huge_int<Size> &huge_int_num)
 }
 
 template <size_t Size>
-huge_int<Size> huge_int<Size>::operator*(huge_int<Size> huge_int_num)
+huge_int<Size> huge_int<Size>::operator*(huge_int<Size> huge_int_num) const
 {
     huge_int tmp_this;
     tmp_this = *this;
@@ -158,7 +257,24 @@ huge_int<Size> huge_int<Size>::operator*(huge_int<Size> huge_int_num)
 }
 
 template <size_t Size>
-std::string huge_int<Size>::to_string()
+huge_int<Size> huge_int<Size>::operator/(const huge_int<Size> &huge_int_num) const
+{
+    huge_int<Size> tmp = *this;
+    huge_int<Size> res;
+
+    while (tmp > huge_int_num)
+    {
+        int k = 0;
+        for (huge_int c = tmp; tmp >= c; c <<= 1, k++)
+            if (tmp < huge_int_num + c)
+                res += 1 << k;
+    }
+
+    return res;
+}
+
+template <size_t Size>
+std::string huge_int<Size>::to_string() const
 {
     std::string res;
     std::vector<unsigned char> res_v;
@@ -198,13 +314,45 @@ std::string huge_int<Size>::to_string()
     return res;
 }
 
+template <size_t Size>
+unsigned int huge_int<Size>::to_uint() const
+{
+    if (Size > 32)
+        throw std::overflow_error("huge_int size (" + std::to_string(Size) + ") out of unsigned int (32)");
+
+    return this->huge_int_base.to_ulong();
+}
+
+template <size_t Size>
+unsigned long long int huge_int<Size>::to_ullong() const
+{
+    if (Size > 64)
+        throw std::overflow_error("huge_int size (" + std::to_string(Size) + ") out of unsigned int (64)");
+
+    return this->huge_int_base.to_ullong();
+}
+
+template <size_t Size>
+std::string huge_int<Size>::to_bin_string() const
+{
+    return this->huge_int_base.to_string();
+}
+
+template <size_t Size>
+std::bitset<Size> huge_int<Size>::to_bitset() const
+{
+    return this->huge_int_base;
+}
+
 int main()
 {
-    huge_int<128> a;
-    huge_int<128> b;
+    huge_int<1024> a;
+    huge_int<1024> b;
 
-    a = 100;
-    b = 20;
+    a = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+        "1111111111111";
+    b = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+        "1111111111100";
 
     std::cout << (a - b).to_string();
     return 0;
