@@ -1,9 +1,10 @@
-#ifndef AMATH_INTERGER_HPP
-#define AMATH_INTERGER_HPP
+#ifndef INTERGER_HPP
+#define INTERGER_HPP
 
 #include <bitset>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -57,6 +58,9 @@ public:
 
     interger<Size> operator/(const interger<Size> &value) const;
     void operator/=(const interger<Size> &value);
+
+    interger<Size> operator%(const interger<Size> &value) const;
+    void operator%=(const interger<Size> &value);
 
     std::string to_string() const;
     unsigned int to_uint() const;
@@ -133,7 +137,10 @@ interger<Size>::interger(const std::string &src)
 {
     interger res;
     for (auto ch : src)
-        res = interger(res._base << 3) + interger(res._base << 1) + interger(ch - '0');
+    {
+        const interger<Size> tmp = interger(res._base << 3) + interger(res._base << 1) + interger(ch - '0');
+        res = tmp;
+    }
 
     this->_base = res._base;
 }
@@ -178,11 +185,7 @@ interger<Size> interger<Size>::operator>>=(const std::size_t position)
 template <std::size_t Size>
 bool interger<Size>::operator==(const interger<Size> &value) const
 {
-    for (auto i = this->_base.size() - 1; i <= this->_base.size() - 1; i--)
-        if (this->_base[i] != value._base[i])
-            return false;
-
-    return true;
+    return this->_base == value._base;
 }
 
 template <std::size_t Size>
@@ -305,32 +308,96 @@ interger<Size> interger<Size>::operator/(const interger<Size> &value) const
     interger<Size> tmp_this = *this;
     interger<Size> res;
 
-    if (value == 0)
-        
-    if (value < tmp_this or tmp_this._base.none())
-        return 0;
+    if (value == interger<Size>("0"))
+        throw std::domain_error("divided by zero");
 
-    while (tmp_this > value)
+    if (value > tmp_this or tmp_this._base.none())
+        return interger<Size>("0");
+
+    while (tmp_this >= value)
     {
         int k = 0;
         interger<Size> c;
 
         for (c = value; tmp_this >= c; c <<= 1, k++)
-        {
             if (tmp_this < value + c)
-            {
-                res += 1 << k;
                 break;
-            }
-        }
 
-        if (tmp_this < value + c)
-            break;
-        res += 1 << (k - 1);
-        tmp_this -= c >> 1;
+        if (c == tmp_this)
+            return interger<Size>(res + (1 << k));
+
+        if (c > tmp_this)
+        {
+            res += (1 << (k - 1));
+            tmp_this -= (c >> 1);
+        }
+        else
+        {
+            res += (1 << k);
+            tmp_this -= c;
+        }
     }
 
     return res;
+}
+
+template <std::size_t Size>
+void interger<Size>::operator/=(const interger<Size> &value)
+{
+    interger<Size> res = *this / value;
+
+    this->_base = res._base;
+}
+
+template <std::size_t Size>
+interger<Size> interger<Size>::operator%(const interger<Size> &value) const
+{
+    interger<Size> tmp_this = *this;
+    interger<Size> res;
+
+    if (value == interger<Size>("0"))
+        throw std::domain_error("divided by zero");
+
+    if (value > tmp_this or tmp_this._base.none())
+        return tmp_this;
+
+    while (tmp_this >= value)
+    {
+        int k = 0;
+        interger<Size> c;
+
+        for (c = value; tmp_this >= c; c <<= 1, k++)
+            if (tmp_this < value + c)
+                break;
+
+        if (c == tmp_this)
+        {
+            const interger<Size> tmp = "0";
+            tmp_this = tmp;
+            return tmp_this;
+        }
+
+        if (c > tmp_this)
+        {
+            res += (1 << (k - 1));
+            tmp_this -= (c >> 1);
+        }
+        else
+        {
+            res += (1 << k);
+            tmp_this -= c;
+        }
+    }
+
+    return tmp_this;
+}
+
+template <std::size_t Size>
+void interger<Size>::operator%=(const interger<Size> &value)
+{
+    interger<Size> res = *this % value;
+
+    this->_base = res._base;
 }
 
 template <std::size_t Size>
@@ -377,14 +444,14 @@ std::string interger<Size>::to_string() const
 template <std::size_t Size>
 unsigned int interger<Size>::to_uint() const
 {
-    static_assert(Size <= 32, "to unsigned int overflow.");
+    static_assert(Size <= 32, "to unsigned int overflow");
     return this->_base.to_ulong();
 }
 
 template <std::size_t Size>
 unsigned long long int interger<Size>::to_ullong() const
 {
-    static_assert(Size <= 64, "to unsigned long long overflow.");
+    static_assert(Size <= 64, "to unsigned long long overflow");
     return this->_base.to_ullong();
 }
 
