@@ -2,6 +2,8 @@
 #define AMATH_INTERGER_HPP
 
 #include <bitset>
+#include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 
@@ -17,9 +19,6 @@ public:
     interger(const std::bitset<Size> &src);
     interger(const std::string &src);
     interger(const char *src);
-    interger(const int src);
-    interger(const unsigned int src);
-    interger(const long long int src);
     interger(const unsigned long long int src);
 
     template <typename T>
@@ -29,9 +28,12 @@ public:
     interger operator=(T &&src);
 
     interger operator=(interger &&src);
+    interger<Size> operator=(const interger src);
 
     interger<Size> operator<<(const std::size_t position) const;
-    void operator<<=(const std::size_t position);
+    interger<Size> operator<<=(const std::size_t position);
+    interger<Size> operator>>(const std::size_t position) const;
+    interger<Size> operator>>=(const std::size_t position);
 
     bool operator==(const interger<Size> &value) const;
     bool operator!=(const interger<Size> &value) const;
@@ -44,8 +46,6 @@ public:
 
     interger<Size> operator+(const interger<Size> &value) const;
     void operator+=(const interger<Size> &value);
-    interger<Size> operator+(const unsigned int num) const;
-    void operator+=(const unsigned int &num);
     interger<Size> operator+(const unsigned long long int num) const;
     void operator+=(const unsigned long long int num);
 
@@ -88,6 +88,13 @@ template <std::size_t Size>
 interger<Size> interger<Size>::operator=(interger &&src)
 {
     this->_base = std::move(src._base);
+    return *this;
+}
+
+template <std::size_t Size>
+interger<Size> interger<Size>::operator=(const interger src)
+{
+    this->_base = std::move(interger(src)._base);
     return *this;
 }
 
@@ -137,24 +144,6 @@ interger<Size>::interger(const char *src) : interger<Size>::interger<Size>(std::
 }
 
 template <std::size_t Size>
-interger<Size>::interger(const int src)
-{
-    this->_base = src;
-}
-
-template <std::size_t Size>
-interger<Size>::interger(const unsigned int src)
-{
-    this->_base = src;
-}
-
-template <std::size_t Size>
-interger<Size>::interger(const long long int src)
-{
-    this->_base = src;
-}
-
-template <std::size_t Size>
 interger<Size>::interger(const unsigned long long int src)
 {
     this->_base = src;
@@ -167,15 +156,29 @@ interger<Size> interger<Size>::operator<<(const std::size_t position) const
 }
 
 template <std::size_t Size>
-void interger<Size>::operator<<=(const std::size_t position)
+interger<Size> interger<Size>::operator<<=(const std::size_t position)
 {
     this->_base <<= position;
+    return *this;
+}
+
+template <std::size_t Size>
+interger<Size> interger<Size>::operator>>(const std::size_t position) const
+{
+    return this->_base >> position;
+}
+
+template <std::size_t Size>
+interger<Size> interger<Size>::operator>>=(const std::size_t position)
+{
+    this->_base >>= position;
+    return *this;
 }
 
 template <std::size_t Size>
 bool interger<Size>::operator==(const interger<Size> &value) const
 {
-    for (auto i = this->_base.size() - 1; i >= 0; i--)
+    for (auto i = this->_base.size() - 1; i <= this->_base.size() - 1; i--)
         if (this->_base[i] != value._base[i])
             return false;
 
@@ -185,7 +188,7 @@ bool interger<Size>::operator==(const interger<Size> &value) const
 template <std::size_t Size>
 bool interger<Size>::operator!=(const interger<Size> &value) const
 {
-    if (this == value)
+    if (*this == value)
         return false;
 
     return true;
@@ -194,7 +197,7 @@ bool interger<Size>::operator!=(const interger<Size> &value) const
 template <std::size_t Size>
 bool interger<Size>::operator<(const interger<Size> &value) const
 {
-    for (auto i = this->_base.size() - 1; i >= 0; i--)
+    for (auto i = this->_base.size() - 1; i <= this->_base.size() - 1; i--)
         if (this->_base[i] != value._base[i])
             return this->_base[i] < value._base[i];
 
@@ -204,7 +207,7 @@ bool interger<Size>::operator<(const interger<Size> &value) const
 template <std::size_t Size>
 bool interger<Size>::operator>(const interger<Size> &value) const
 {
-    if (this < value or this == value)
+    if (*this < value or *this == value)
         return false;
 
     return true;
@@ -213,7 +216,7 @@ bool interger<Size>::operator>(const interger<Size> &value) const
 template <std::size_t Size>
 bool interger<Size>::operator<=(const interger<Size> &value) const
 {
-    if (this < value or this == value)
+    if (*this < value or *this == value)
         return true;
 
     return false;
@@ -222,7 +225,7 @@ bool interger<Size>::operator<=(const interger<Size> &value) const
 template <std::size_t Size>
 bool interger<Size>::operator>=(const interger<Size> &value) const
 {
-    if (this > value or this == value)
+    if (*this > value or *this == value)
         return true;
 
     return false;
@@ -245,19 +248,6 @@ void interger<Size>::operator+=(const interger<Size> &value)
 }
 
 template <std::size_t Size>
-interger<Size> interger<Size>::operator+(const unsigned int value) const
-{
-    return *this + interger(value);
-}
-
-template <std::size_t Size>
-void interger<Size>::operator+=(const unsigned int &value)
-{
-    interger<Size> res = (*this + value);
-    this->_base = res._base;
-}
-
-template <std::size_t Size>
 interger<Size> interger<Size>::operator+(const unsigned long long int value) const
 {
     return *this + interger(value);
@@ -266,7 +256,7 @@ interger<Size> interger<Size>::operator+(const unsigned long long int value) con
 template <std::size_t Size>
 void interger<Size>::operator+=(const unsigned long long int value)
 {
-    interger<Size> res = (*this + value);
+    interger<Size> res = *this + value;
     this->_base = res._base;
 }
 
@@ -294,6 +284,7 @@ interger<Size> interger<Size>::operator*(interger<Size> value) const
     {
         if (value._base[0])
             res += tmp_this;
+
         value._base >>= 1;
         tmp_this += tmp_this;
     }
@@ -302,17 +293,41 @@ interger<Size> interger<Size>::operator*(interger<Size> value) const
 }
 
 template <std::size_t Size>
+void interger<Size>::operator*=(const interger<Size> &value)
+{
+    interger<Size> res = *this * value;
+    this->_base = res._base;
+}
+
+template <std::size_t Size>
 interger<Size> interger<Size>::operator/(const interger<Size> &value) const
 {
-    interger<Size> tmp = *this;
+    interger<Size> tmp_this = *this;
     interger<Size> res;
 
-    while (tmp > value)
+    if (value == 0)
+        
+    if (value < tmp_this or tmp_this._base.none())
+        return 0;
+
+    while (tmp_this > value)
     {
         int k = 0;
-        for (interger c = tmp; tmp >= c; c <<= 1, k++)
-            if (tmp < value + c)
+        interger<Size> c;
+
+        for (c = value; tmp_this >= c; c <<= 1, k++)
+        {
+            if (tmp_this < value + c)
+            {
                 res += 1 << k;
+                break;
+            }
+        }
+
+        if (tmp_this < value + c)
+            break;
+        res += 1 << (k - 1);
+        tmp_this -= c >> 1;
     }
 
     return res;
@@ -332,13 +347,9 @@ std::string interger<Size>::to_string() const
         for (auto &col : res_v)
         {
             if ((col & 0xf0) >= 0x50)
-            {
                 col += 0x30;
-            }
             if ((col & 0x0f) >= 5)
-            {
                 col += 3;
-            }
 
             int back = col > 127 ? 1 : 0;
             col <<= 1;
@@ -348,25 +359,17 @@ std::string interger<Size>::to_string() const
         }
 
         if (front ^ 0)
-        {
             res_v.push_back(1);
-        }
     }
 
     if (res_v[res_v.size() - 1] & 0xf0)
-    {
         res += std::to_string(res_v[res_v.size() - 1] >> 4);
-    }
 
     res += std::to_string(res_v[res_v.size() - 1] & 0x0f);
 
     if (res_v.size() >= 2)
-    {
         for (auto i = res_v.size() - 2; i <= res_v.size() - 2; i--)
-        {
             res += std::to_string((res_v[i] & 0xf0) >> 4) + std::to_string(res_v[i] & 0x0f);
-        }
-    }
 
     return res;
 }
