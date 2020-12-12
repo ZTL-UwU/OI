@@ -1,7 +1,3 @@
-#ifndef INTERGER_HPP
-#define INTERGER_HPP
-
-#include <bits/c++config.h>
 #include <bitset>
 #include <iostream>
 #include <istream>
@@ -487,4 +483,14 @@ std::bitset<Size> interger<Size>::to_bitset() const
     return this->_base;
 }
 
-#endif
+int main()
+{
+    interger<1024> a, b, c;
+    std::cin >> a >> b;
+
+    const interger<1024> tmp = interger<1024>(a - b);
+    c = tmp;
+
+    std::cout << c;
+    return 0;
+}

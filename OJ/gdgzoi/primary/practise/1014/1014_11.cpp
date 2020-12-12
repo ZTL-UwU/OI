@@ -1,7 +1,3 @@
-#ifndef INTERGER_HPP
-#define INTERGER_HPP
-
-#include <bits/c++config.h>
 #include <bitset>
 #include <iostream>
 #include <istream>
@@ -257,10 +253,26 @@ bool interger<Size>::operator>=(const interger<Size> &value) const
 template <std::size_t Size>
 interger<Size> interger<Size>::operator+(const interger<Size> &value) const
 {
-    interger a(this->_base ^ value._base);
-    interger b((this->_base & value._base) << 1);
+    // interger a(this->_base ^ value._base);
+    // interger b((this->_base & value._base) << 1);
 
-    return value._base.any() ? a + b : a;
+    // return value._base.any() ? a + b : a;
+
+    interger<Size> res;
+
+    int carry = 0;
+    for (auto i = Size - 1; i <= Size - 1; i--)
+    {
+        bool a = this->_base[i];
+        bool b = value._base[i];
+
+        int c = a + b + carry;
+
+        res._base[i] = c % 2;
+        carry = c / 2;
+    }
+
+    return res;
 }
 
 template <std::size_t Size>
@@ -336,7 +348,7 @@ interger<Size> interger<Size>::operator/(const interger<Size> &value) const
 
     while (tmp_this >= value)
     {
-        int k = 0;
+        unsigned long long int k = 0;
         interger<Size> c;
 
         for (c = value; tmp_this >= c; c <<= 1, k++)
@@ -487,4 +499,25 @@ std::bitset<Size> interger<Size>::to_bitset() const
     return this->_base;
 }
 
-#endif
+int main()
+{
+    interger<500000> a, b, c, d;
+    // std::cin >> a >> b;
+    std::string str1, str2;
+    std::cin >> str1 >> str2;
+    a = str1;
+    std::cout << a.to_bitset() << " " << b << "\n";
+
+    // const interger<5000000> tmp = a + b;
+    // c = tmp;
+
+    // std::cout << c;
+
+    const interger<500000> tmp1 = interger<500000>(a / b);
+    c = tmp1;
+    const interger<500000> tmp2 = interger<500000>(a % b);
+    d = tmp2;
+
+    std::cout << c << "\n" << d;
+    return 0;
+}
