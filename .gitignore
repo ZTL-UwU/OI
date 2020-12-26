@@ -3,11 +3,11 @@
 tempCodeRunnerFile.*
 
 # Images
-*.png
-*.PNG
-*.gif
-*.jfif
-*.jpg
+# *.png
+# *.PNG
+# *.gif
+# *.jfif
+# *.jpg
 
 # Test files
 *.in
