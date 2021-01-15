@@ -1,0 +1,12 @@
+/*
+    输入的数为 n
+    n 的各位为 n[1 ... f]
+    ans = n % MOD
+*/
+
+Function Read()
+    for i <- 1 to f do
+        ans <- (ans * 10 + n[i]) % MOD
+    end
+
+    Return ans

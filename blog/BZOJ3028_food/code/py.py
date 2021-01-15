@@ -1,0 +1,1 @@
+../../../OJ/gdgzoi/primary/practise/2357/2357_1_BZOJ3028_food.py
