@@ -19,9 +19,19 @@ tempCodeRunnerFile.*
 *temp*.*
 dbg.h
 
+# Log
+*.log
+
 # Compressed files
 *.zip
 *.rar
 *.7z
 *.tar
 *.x
+*.gz
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.pdf
