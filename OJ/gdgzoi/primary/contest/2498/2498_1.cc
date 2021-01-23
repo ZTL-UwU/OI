@@ -1,33 +1,39 @@
-#include <algorithm>
 #include <iostream>
-#include <cstring>
 
-const int MAX_N = 2.1e3;
+const int MAX_N = 3e3;
+const int MOD = 10;
 
-int ans[MAX_N][MAX_N];
+int ans[MAX_N];
+int dp[MAX_N];
 int w[MAX_N];
-int n, m;
 
-int solve()
 int main()
 {
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
+    int n, m;
     std::cin >> n >> m;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
         std::cin >> w[i];
 
-    std::sort(w, w + n);
+    dp[0] = 1;
+    ans[0] = 1;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
+        for (int j = m; j >= w[i]; j--)
+            dp[j] = (dp[j] + dp[j - w[i]]) % MOD;
+
+    for (int i = 1; i <= n; i++)
     {
+        for (int j = 1; j < w[i]; j++)
+            ans[j] = dp[j];
+        for (int j = w[i]; j <= m; j++)
+            ans[j] = (dp[j] - ans[j - w[i]] + MOD) % MOD;
         for (int j = 1; j <= m; j++)
-        {
-            if (ans[i][j] != 0)
-                std::cout << ans[i][j];
-            else
-                std::cout << (ans[i][j] = solve(i, j));
-        }
-
+            std::cout << ans[j];
         std::cout << "\n";
     }
     return 0;
