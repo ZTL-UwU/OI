@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <algorithm>
 #include <vector>
+#include <iostream>
 
 #define MAXN 100005
 #define MAXT 400005
@@ -193,6 +194,10 @@ void Rupdate(int x, int y, int v)
 
 int main()
 {
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
     int root = 1;
     scanf("%d %d", &n, &m);
     for (int i = 1; i <= n; ++i)
@@ -208,7 +213,7 @@ int main()
     dfsA(root, -1);
     dfsB(root, root);
     build(1, 1, n);
-    for (int i = 1; i <= n + 10; i++)
+    for (int i = 1; i <= n; i++)
         printf("%d ", tree[i]);
 
     for (int i = 1; i <= m; ++i)
