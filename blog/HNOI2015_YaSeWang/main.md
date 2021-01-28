@@ -1,5 +1,10 @@
 # HNOI2015 亚瑟王
 
+<div id="hid-block-btn">
+    显示/隐藏 题面
+</div>
+<div id="hid-block">
+
 ## 题面
 
 ### 链接
@@ -112,6 +117,8 @@
 请注意可能存在的实数精度问题，并采取适当措施。
 
 本题使用 `special_judge`。
+
+</div>
 
 ## 题解
 
