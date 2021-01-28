@@ -20,6 +20,7 @@ int main()
 
     for (int t = 0; t < T; t++)
     {
+        // Init
         std::memset(dp, 0, sizeof(dp));
         std::memset(f, 0, sizeof(f));
 
@@ -29,10 +30,12 @@ int main()
         for (int i = 1; i <= n; i++)
             std::cin >> p[i] >> d[i];
 
+        // Init
         dp[1][0] = std::pow(1 - p[1], r);
         dp[1][1] = 1 - dp[1][0];
         f[1] = dp[1][1];
 
+        // Get dp
         for (int i = 2; i <= n; i++)
         {
             for (int j = 0; j <= std::min(i, r); j++)
@@ -46,10 +49,12 @@ int main()
             }
         }
 
+        // Get f
         for (int i = 2; i <= n; i++)
             for (int j = 0; j <= std::min(i - 1, r); j++)
                 f[i] += dp[i - 1][j] * (1 - std::pow(1 - p[i], r - j));
 
+        // Get ans
         double ans = 0;
         for (int i = 1; i <= n; i++)
             ans += f[i] * d[i];
