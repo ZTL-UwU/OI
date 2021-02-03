@@ -1,12 +1,11 @@
 #include <algorithm>
-#include <bits/c++config.h>
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <cmath>
 
 const int MAX_N = 1e5;
-const double PI = 3.1415;
+const double PI = std::acos(-1);
 
 struct cord
 {
@@ -16,7 +15,9 @@ struct cord
 
 cord points[MAX_N];
 
-double dis(cord p1, cord p2) { return std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2)); }
+double sqr(double num) { return num * num; }
+
+double dis(cord p1, cord p2) { return std::sqrt(sqr(p2.x - p1.x) + sqr(p2.y - p1.y)); }
 
 double cross_product(cord p1, cord p2, cord p3)
 {
@@ -37,11 +38,16 @@ int main()
             k = i;
     std::swap(points[0], points[k]);
 
-    std::sort(points + 1, points + n, [](cord p1, cord p2) {
+    std::sort(points + 1, points + n, [](cord p1, cord p2) -> bool {
         double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
         double theta2 = std::atan2(p2.y - points[0].y, p2.x - points[0].x);
         if (theta1 == theta2)
+        {
+            if (p1.y == p2.y)
+                return p1.x > p2.x;
             return p1.y > p2.y;
+        }
+
         return theta1 < theta2;
     });
 
@@ -51,7 +57,7 @@ int main()
 
     for (int i = 2; i < n; i++)
     {
-        while (cross_product(hull[hull.size() - 2], hull[hull.size() - 1], points[i]) < 0)
+        while (cross_product(hull[hull.size() - 2], hull[hull.size() - 1], points[i]) <= 0)
             hull.pop_back();
         hull.push_back(points[i]);
     }
@@ -61,6 +67,6 @@ int main()
         c += dis(hull[i - 1], hull[i]);
     c += dis(hull[0], hull.back());
 
-    std::cout << (int)(c + 2 * PI * l);
+    std::cout << static_cast<int>(c + 2 * PI * l + 0.5);
     return 0;
 }
