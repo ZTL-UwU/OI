@@ -40,11 +40,9 @@ int main()
         return 0;
     }
 
-    int k = 0;
     for (int i = 0; i < n; i++)
-        if (points[i].x < points[k].x or (points[i].x == points[k].x and points[i].y < points[k].y))
-            k = i;
-    std::swap(points[0], points[k]);
+        if (points[i].x < points[0].x or (points[i].x == points[0].x and points[i].y < points[0].y))
+            std::swap(points[0], points[i]);
 
     std::sort(points + 1, points + n, [](cord p1, cord p2) {
         double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
