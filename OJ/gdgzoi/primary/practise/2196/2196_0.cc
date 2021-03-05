@@ -83,10 +83,6 @@ int main()
             hull.push_back(points[i]);
         }
 
-        // std::cout << "\n";
-        // for (auto i : hull)
-        //     std::cout << i.x << " " << i.y << "\n";
-
         int last = 0;
         bool stable = true;
         for (std::size_t i = 1; i < hull.size() - 1; i++)
