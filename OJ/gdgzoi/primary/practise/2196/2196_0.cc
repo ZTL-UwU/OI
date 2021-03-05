@@ -24,6 +24,10 @@ double cross_product(cord p1, cord p2, cord p3)
 
 int main()
 {
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
     int t;
     std::cin >> t;
 
