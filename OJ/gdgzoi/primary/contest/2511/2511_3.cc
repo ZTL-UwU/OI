@@ -21,15 +21,15 @@ int n, m;
 class union_search
 {
 public:
-    union_search(int n)
+    inline union_search(int n)
     {
-        for (int i = 0; i <= n + 5; i++)
+        for (int i = 0; i <= n; i++)
             fa[i] = i;
     }
 
-    int find(int x) { return fa[x] == x ? x : find(fa[x]); }
+    inline int find(int x) { return fa[x] == x ? x : find(fa[x]); }
 
-    void merge(int x, int y)
+    inline void merge(int x, int y)
     {
         int fx = find(x);
         int fy = find(y);
