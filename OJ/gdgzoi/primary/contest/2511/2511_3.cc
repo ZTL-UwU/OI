@@ -27,7 +27,12 @@ public:
             fa[i] = i;
     }
 
-    inline int find(int x) { return fa[x] == x ? x : find(fa[x]); }
+    inline int find(int x)
+    {
+        if (fa[x] == x)
+            return x;
+        return fa[x] = find(fa[x]);
+    }
 
     inline void merge(int x, int y)
     {
