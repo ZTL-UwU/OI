@@ -1,3 +1,5 @@
+#include <bits/c++config.h>
+#include <ios>
 #include <iostream>
 
 const int MAX_ALPHABAT = 26;
@@ -24,17 +26,21 @@ void insert(std::string str)
 bool find(std::string str)
 {
     int u = 0;
-    int k = 0;
-    while (not end[u] and k < str.size())
+    std::size_t k = 0;
+    while (k < str.size() and trie[u][str[k] - 'A'] != 0)
         u = trie[u][str[k++] - 'A'];
 
-    if (k == str.size())
+    if (k == str.size() and end[u])
         return true;
     return false;
 }
 
 int main()
 {
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
     int n;
     std::cin >> n;
 
@@ -42,11 +48,11 @@ int main()
     {
         std::string op, str;
         std::cin >> op >> str;
-        
+
         if (op == "insert")
             insert(str);
         else
-            std::cout << find(str);
+            std::cout << (find(str) ? "yes" : "no") << "\n";
     }
     return 0;
 }
