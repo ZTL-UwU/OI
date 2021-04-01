@@ -1,0 +1,1 @@
+../../../OJ/gdgzoi/primary/practise/2197/2197_2_new.cc
