@@ -49,7 +49,6 @@ int main()
         std::stack<loop> st;
         std::unordered_map<int, bool> val_name_map;
 
-        int tot_ans = 0;
         int ans = 0;
         bool flag = true;
         for (int i = 0; i < line_cnt; i++)
@@ -67,15 +66,17 @@ int main()
                     loop top = st.top();
                     st.pop();
 
-                    // std::cout << "-" << top.line_num << " " << i << "\n";
+                    // std::cout << "-" << top.o << " " << i << "\n";
                     val_name_map[top.val_name] = false;
                     if (top.line_num == i - 1)
+                    {
                         ans = std::max(ans, top.o);
+
+                        if (i == line_cnt - 1)
+                            ans += top.o;
+                    }
                     else
-                        tot_ans += ans;
-                    
-                    if (i == line_cnt - 1)
-                        tot_ans += ans;
+                        ans += top.o;
                 }
             }
             else
@@ -117,8 +118,13 @@ int main()
             }
         }
 
+        if (!st.empty())
+        {
+            std::cout << "ERR\n";
+            continue;
+        }
         if (flag)
-            std::cout << tot_ans << "\n";
+            std::cout << ans << "\n";
     }
     return 0;
 }
