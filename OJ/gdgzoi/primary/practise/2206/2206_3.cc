@@ -1,12 +1,21 @@
-// Bash Game
+// Nim Game
 
 #include <iostream>
 
 int main()
 {
-    int n, k;
-    std::cin >> n >> k;
+    int n;
+    std::cin >> n;
 
-    std::cout << (n % (k + 1) == 0 ? 2 : 1);
+    int sum = 0;
+    for (int _i = 0; _i < n; _i++)
+    {
+        int a;
+        std::cin >> a;
+
+        sum = sum ^ a;
+    }
+
+    std::cout << (sum != 0 ? "win" : "lose");
     return 0;
 }
