@@ -1,9 +1,10 @@
 #include <algorithm>
-#include <cstddef>
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <cmath>
+
+const double EPS = 1e-6;
 
 struct point
 {
@@ -65,17 +66,27 @@ int main()
                       return p1.x < p2.x;
                   });
 
-        if (insection.size() >= 2 && insection[0].x == insection[1].x && insection[0].y == insection[1].y)
+        std::size_t flag = -1;
+        if (insection.size() != 0)
         {
-            std::cout << insection.size() - 1 << "\n";
-            for (std::size_t i = 1; i < insection.size(); i++)
-                std::cout << std::fixed << std::setprecision(2) << insection[i].x << " " << insection[i].y << "\n";
+            for (std::size_t i = 0; i < insection.size() - 1; i++)
+            {
+                if (insection[i].x == insection[i + 1].x && insection[i].y == insection[i + 1].y)
+                {
+                    flag = i;
+                    break;
+                }
+            }
         }
-        else
+
+        std::cout << insection.size() - (flag == -1 ? 0 : 1) << "\n";
+        for (std::size_t i = 0; i < insection.size(); i++)
         {
-            std::cout << insection.size() << "\n";
-            for (auto p : insection)
-                std::cout << std::fixed << std::setprecision(2) << p.x << " " << p.y << "\n";
+            if (i == flag)
+                continue;
+            std::cout << std::fixed << std::setprecision(2)
+                      << (std::abs(insection[i].x) == 0 ? std::abs(insection[i].x) : insection[i].x) << " "
+                      << (std::abs(insection[i].y) == 0 ? std::abs(insection[i].y) : insection[i].y) << "\n";
         }
     }
     return 0;
