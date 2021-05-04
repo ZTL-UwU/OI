@@ -41,13 +41,12 @@ int query(int x, int y)
 
     return res;
 }
-
 void diff_update(int a, int b, int c, int d, int val)
 {
-    update(a, b, val);
+    update(a, c, val);
     update(a, d + 1, -val);
-    update(c + 1, b, -val);
-    update(c + 1, d + 1, val);
+    update(b + 1, c, -val);
+    update(b + 1, d + 1, val);
 }
 
 int diff_query(int a, int b, int c, int d)
@@ -63,23 +62,21 @@ int main()
 
     char ch;
     std::cin >> ch >> n >> m;
-
     while (std::cin >> ch)
     {
         if (ch == 'L')
         {
-            int a, b, c, d, delta;
-            std::cin >> a >> b >> c >> d >> delta;
-
-            diff_update(a, b, c, d, delta);
+            int a, b, c, d, val;
+            std::cin >> a >> c >> b >> d >> val;
+            diff_update(a, b, c, d, val);
         }
         if (ch == 'k')
         {
             int a, b, c, d;
             std::cin >> a >> b >> c >> d;
-
             std::cout << diff_query(a, b, c, d) << "\n";
         }
     }
+
     return 0;
 }
