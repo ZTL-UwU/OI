@@ -1,0 +1,1 @@
+../../gdgzoi/primary/contest/2525/2525_3.cc
