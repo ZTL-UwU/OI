@@ -157,5 +157,6 @@
     "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
     "cSpell.words": [
         "ufind"
-    ]
+    ],
+    "python.formatting.provider": "black"
 }
