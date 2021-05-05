@@ -74,9 +74,7 @@ int main()
                     ans = std::min(ans, tmp[i] - tmp[i - 1]);
             }
 
-            for (std::size_t i = 1; i < tmp.size(); i++)
-
-                pos[key_y] = tmp;
+            pos[key_y] = tmp;
             pos[key_x].clear();
             std::cout << ans << "\n";
         }
