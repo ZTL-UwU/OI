@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Win32Home",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
@@ -12,6 +12,21 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "compilerPath": "C:/MinGW/bin/g++.exe",
+            "cppStandard": "c++20",
+            "cStandard": "c11"
+        },
+        {
+            "name": "Win32School",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "G:/B/env/mingw_9.2.0_x64/bin/g++.exe",
             "cppStandard": "c++20",
             "cStandard": "c11"
         },
