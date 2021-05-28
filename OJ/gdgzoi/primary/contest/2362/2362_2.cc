@@ -82,10 +82,7 @@ inline void set(int u, int c, int val) // Set color and value
     commit_value(block[dfn[u]]);    // Commit value
 }
 
-inline void solve_update(int u, int x, int y)
-{
-    update(dfn[u], dfn[u] + size[u] - 1, std::make_pair(x, y));
-}
+inline void solve_update(int u, int x, int y) { update(dfn[u], dfn[u] + size[u] - 1, std::make_pair(x, y)); }
 
 // Block
 // Chunking template

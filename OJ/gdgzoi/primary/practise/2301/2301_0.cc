@@ -41,8 +41,8 @@ inline void pre_work(int x)
 
 inline int appeared(int l, int r, int x)
 {
-    int res = std::upper_bound(bucket[x].begin(), bucket[x].end(), r) -
-              std::lower_bound(bucket[x].begin(), bucket[x].end(), l);
+    int res = std::upper_bound(bucket[x].begin(), bucket[x].end(), r)
+              - std::lower_bound(bucket[x].begin(), bucket[x].end(), l);
     return res;
 }
 

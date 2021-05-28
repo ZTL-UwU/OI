@@ -14,7 +14,7 @@ inline long long lowbit(long long x) { return x & -x; }
 inline long long sum(long long u)
 {
     long long ans = 0;
-    while (u > 0)   
+    while (u > 0)
     {
         ans += tree[u];
         u -= lowbit(u);

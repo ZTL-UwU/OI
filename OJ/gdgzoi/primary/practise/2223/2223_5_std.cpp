@@ -13,7 +13,7 @@ void zhs(void)
     return;
 }
 void dtb(int n)
-//dec to bin的简写(我的习惯真奇怪)
+// dec to bin的简写(我的习惯真奇怪)
 {
     bi[0] = 0;
     while (n)
@@ -30,7 +30,7 @@ int round(int n)
     for (i = 1; i < bi[0] - 1; i++)
         for (j = i / 2 + 1; j <= i; j++)
             sum += c[i][j];
-    int z = 0; //z是zero的简写鸭QwQ
+    int z = 0; // z是zero的简写鸭QwQ
     for (i = bi[0] - 1; i >= 1; i--)
         if (bi[i])
             for (j = (bi[0] + 1) / 2 - (z + 1); j <= i - 1; j++)

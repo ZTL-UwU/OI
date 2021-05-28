@@ -4,9 +4,18 @@
 #include <math.h>
 #include <queue>
 using namespace std;
-struct data2 { int minn, dis; };
-struct data { int v, w, f; };
-struct coord { int x, y; };
+struct data2
+{
+    int minn, dis;
+};
+struct data
+{
+    int v, w, f;
+};
+struct coord
+{
+    int x, y;
+};
 const int INF = 0x7fffffff;
 const int MAXN = 1e3;
 vector<data> g[MAXN];

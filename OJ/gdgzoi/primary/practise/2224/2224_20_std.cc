@@ -94,48 +94,48 @@ int main()
     }
     //  for(int i = 1; i <= 10; ++i) printf("%d ", Isprime[i]); printf("\n");
     std::cin >> n;
-        mp.clear();
-        nw = 0;
-        memset(vis, 0, sizeof(vis));
-        memset(head, -1, sizeof(head));
-        tot = 0;
+    mp.clear();
+    nw = 0;
+    memset(vis, 0, sizeof(vis));
+    memset(head, -1, sizeof(head));
+    tot = 0;
 
-        for (int i = 1; i < n; ++i)
+    for (int i = 1; i < n; ++i)
+    {
+        int a, b;
+        scanf("%d %d", &a, &b);
+        add(a, b);
+        add(b, a);
+    }
+    for (int i = 1; i <= n; ++i)
+    {
+        scanf("%d", &val[i]);
+        int tt = val[i];
+        //  printf("%d ", val[i]);
+        for (int j = 1; 1ll * Isprime[j] * Isprime[j] <= tt; ++j)
         {
-            int a, b;
-            scanf("%d %d", &a, &b);
-            add(a, b);
-            add(b, a);
-        }
-        for (int i = 1; i <= n; ++i)
-        {
-            scanf("%d", &val[i]);
-            int tt = val[i];
-            //  printf("%d ", val[i]);
-            for (int j = 1; 1ll * Isprime[j] * Isprime[j] <= tt; ++j)
+            if (tt % Isprime[j] == 0)
             {
-                if (tt % Isprime[j] == 0)
+                mp[Isprime[j]].push_back(i);
+                while (tt % Isprime[j] == 0)
                 {
-                    mp[Isprime[j]].push_back(i);
-                    while (tt % Isprime[j] == 0)
-                    {
-                        tt /= Isprime[j];
-                    }
+                    tt /= Isprime[j];
                 }
             }
-            if (tt != 1)
-            {
-                mp[tt].push_back(i);
-            }
         }
-        //  printf("hh\n");
-
-        ans = -1;
-        for (it = mp.begin(); it != mp.end(); ++it)
+        if (tt != 1)
         {
-            solve(it->first);
+            mp[tt].push_back(i);
         }
+    }
+    //  printf("hh\n");
 
-        printf("%d\n", ans);
+    ans = -1;
+    for (it = mp.begin(); it != mp.end(); ++it)
+    {
+        solve(it->first);
+    }
+
+    printf("%d\n", ans);
     return 0;
 }

@@ -82,15 +82,9 @@ private:
     }
 
 public:
-    huge_int()
-    {
-        positive = true;
-    }
+    huge_int() { positive = true; }
     // Get huge_int's lenth
-    inline int size()
-    {
-        return bits.size();
-    }
+    inline int size() { return bits.size(); }
     // Clear huge_int
     inline void clear()
     {
@@ -197,10 +191,10 @@ public:
     }
 
     /**
-	 * @brief Convert huge_int to int
-	 * @return int: the val of huge_int
-	 * @throw overflow_error, which in case the int is bigger than INT_MAX
-	 */
+     * @brief Convert huge_int to int
+     * @return int: the val of huge_int
+     * @throw overflow_error, which in case the int is bigger than INT_MAX
+     */
     inline int export_int()
     {
         if (bigger(this->bits, "2147483647"))
@@ -306,13 +300,7 @@ public:
         return res;
     }
     // Operator +=
-    inline void operator+=(huge_int x)
-    {
-        *this = *this + x;
-    }
+    inline void operator+=(huge_int x) { *this = *this + x; }
     // Operator -=
-    inline void operator-=(huge_int x)
-    {
-        *this = *this - x;
-    }
+    inline void operator-=(huge_int x) { *this = *this - x; }
 };

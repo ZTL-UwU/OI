@@ -11,7 +11,7 @@ int p[21000002];
 
 int Init()
 {                        //形成新的字符串
-    int len = strlen(s); //len是输入字符串的长度
+    int len = strlen(s); // len是输入字符串的长度
     s_new[0] = '$';      //处理边界，防止越界
     s_new[1] = '#';
     int j = 2;
@@ -37,9 +37,9 @@ int Manacher()
         else
             p[i] = 1;
         while (s_new[i - p[i]] == s_new[i + p[i]]) //不需边界判断，因为左有'$'，右有'\0'标记；
-            p[i]++;                                //mx对此回文中点的贡献已经结束，现在是正常寻找扩大半径
+            p[i]++; // mx对此回文中点的贡献已经结束，现在是正常寻找扩大半径
         if (mx < i + p[i])
-        {                  //每走移动一个回文中点，都要和mx比较，使mx是最大，提高p[i]=min(p[2*id-i],mx-i)效率
+        { //每走移动一个回文中点，都要和mx比较，使mx是最大，提高p[i]=min(p[2*id-i],mx-i)效率
             id = i;        //更新id
             mx = i + p[i]; //更新mx
         }

@@ -76,7 +76,8 @@ inline void update(int l, int r, int k, int x, int y, int val, int op)
 {
     bool check = true;
     if (op == DIV_OP)
-        check = tree[k].max - std::floor((double)tree[k].max / val) == tree[k].min - std::floor((double)tree[k].min / val);
+        check =
+            tree[k].max - std::floor((double)tree[k].max / val) == tree[k].min - std::floor((double)tree[k].min / val);
 
     if (x <= l and r <= y and check)
     {

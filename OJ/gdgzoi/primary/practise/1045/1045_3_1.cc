@@ -12,7 +12,7 @@ int pre[MAXN];
 int EK_bfs()
 {
     memset(minn, 127, sizeof(minn));
-    for (int i = 0 ; i < MAXN; i++)
+    for (int i = 0; i < MAXN; i++)
         pre[i] = -1;
     queue<int> q;
     q.push(s);
@@ -96,8 +96,8 @@ int main()
                     for (int l = 1; l <= m; l++)
                     {
                         int v = (k - 1) * m + l;
-                        if ((mp[i][j] - '0' != 0) && (k != i || l != j)\
-                        && (d * d >= (i - k) * (i - k) + (j - l) * (j - l)))
+                        if ((mp[i][j] - '0' != 0) && (k != i || l != j)
+                            && (d * d >= (i - k) * (i - k) + (j - l) * (j - l)))
                             g[u1][v] = INF;
                     }
                 }

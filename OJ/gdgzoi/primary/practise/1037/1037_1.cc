@@ -1,84 +1,77 @@
 /*
-*
-* Name: Segment Tree
-* Copyright (C) 2017-2019 zhangtianli
-*
-*/
+ *
+ * Name: Segment Tree
+ * Copyright (C) 2017-2019 zhangtianli
+ *
+ */
 
 /*
-*
-* basic operation
-*
-* - in main
-*   - tree "name"
-*   - init()  *important
-*	- build_single/_long()
-*	- operation by changing val in struct "tree"
-*   - used functions below
-*	** don't change the basic items
-*
-* functions:
-*
-*	1. void init(void)  make int Tree[] & add[]
-*
-*	2. void build_single(long long l, long long r, long long k)  bulid segnent tree by single update & query
-*      l , r : build tree from point "l" to point "r"
-*      k : start from which point number **should be 1 in defult
-*
-*   3. void bulid_long(long long l, long long r, long long k)  bulid segnent tree by long update & query
-*      l , r : build tree from point "l" to point "r"
-*      k : start from which point number **should be 1 in defult
-*
-*	4. void single_update(long long l, long long r, long long k, long long place, long long val) modify single element
-*      l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult
-*      k : start point  **should be 1 in defult
-*      val : modify key (could be change into others)
-*
-*   5. void long_update(long long l, long long r, long long k, long long a, long long b, long long val)  modify elements in a section
-*      l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult
-*      k : start point  **should be 1 in defult
-*      a , b : section's left point & right point
-*      val : modify key (could be change into others)
-*
-*   6. inline long long long_query_single(long long l, long long r, long long k, long long a, long long b) querying a section
-*      use with "build_single" & "single_update"
-*      l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult
-*      k : start point  **should be 1 in defult
-*      a , b : section's left point & right point
-*      return : could be changed by user functions (basicly add and sum)
-*
-*   7. inline long long long_query_long(long long l, long long r, long long k, long long a, long long b) querying a section
-*      use with "long_build" & "long_update"
-*      l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult
-*      k : start point  **should be 1 in defult
-*      a , b : section's left point & right point
-*      return : could be changed by user functions (basicly add and sum)
-*
-* user functions:
-*   changeable function **do not change
-*
-*   1. seted_single : use INF for normal
-*   2. max_len : max_len of tree **it will be times 4 automatically
-*   3. void make_tree_basic_single(long long x) last layer's operation in tree. used in "build_single"
-*   4. void make_tree_basic_long(long long x) last layer's operation in tree. used in "build_long"
-*   5. long long make_tree_single(long long l, long long r) normal point tree make. used in "build_single"
-*   6. long long make_tree_long(long long l, long long r) normal point tree make. used in "build_long"
-*   7. void update_single(long long pos, long long val) change single element used in "single_update" normally is Tree[pos] += val
-*      pos : place that change val
-*      val : val the change
-*   8. void update_long(long long pos, long long val) change single element used in "long_update" normally is add[pos] += val;
-*      pos : place that change val
-*      val : val the change
-*   9. inline long long comp_single(long long v1, long long v2) compare v1 & v2 used in "long_query_single"
-*      sum : return v1 + v2
-*      min : return std::min(v1, v2);
-*      max : return std::max(v1, v2);
-*   10. inline long long comp_long(long long v1, long long v2)  compare v1 & v2 used in "long_query_long"
-*      sum : return v1 + v2
-*      min : return std::min(v1, v2);
-*      max : return std::max(v1, v2);
-*
-*/
+ *
+ * basic operation
+ *
+ * - in main
+ *   - tree "name"
+ *   - init()  *important
+ *	- build_single/_long()
+ *	- operation by changing val in struct "tree"
+ *   - used functions below
+ *	** don't change the basic items
+ *
+ * functions:
+ *
+ *	1. void init(void)  make int Tree[] & add[]
+ *
+ *	2. void build_single(long long l, long long r, long long k)  bulid segnent tree by single update & query
+ *      l , r : build tree from point "l" to point "r"
+ *      k : start from which point number **should be 1 in defult
+ *
+ *   3. void bulid_long(long long l, long long r, long long k)  bulid segnent tree by long update & query
+ *      l , r : build tree from point "l" to point "r"
+ *      k : start from which point number **should be 1 in defult
+ *
+ *	4. void single_update(long long l, long long r, long long k, long long place, long long val) modify single element
+ *      l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult
+ *      k : start point  **should be 1 in defult
+ *      val : modify key (could be change into others)
+ *
+ *   5. void long_update(long long l, long long r, long long k, long long a, long long b, long long val)  modify
+ *elements in a section l , r : search from point "l" to point "r" **should be 1 & n (element number) in defult k :
+ *start point  **should be 1 in defult a , b : section's left point & right point val : modify key (could be change into
+ *others)
+ *
+ *   6. inline long long long_query_single(long long l, long long r, long long k, long long a, long long b) querying a
+ *section use with "build_single" & "single_update" l , r : search from point "l" to point "r" **should be 1 & n
+ *(element number) in defult k : start point  **should be 1 in defult a , b : section's left point & right point return
+ *: could be changed by user functions (basicly add and sum)
+ *
+ *   7. inline long long long_query_long(long long l, long long r, long long k, long long a, long long b) querying a
+ *section use with "long_build" & "long_update" l , r : search from point "l" to point "r" **should be 1 & n (element
+ *number) in defult k : start point  **should be 1 in defult a , b : section's left point & right point return : could
+ *be changed by user functions (basicly add and sum)
+ *
+ * user functions:
+ *   changeable function **do not change
+ *
+ *   1. seted_single : use INF for normal
+ *   2. max_len : max_len of tree **it will be times 4 automatically
+ *   3. void make_tree_basic_single(long long x) last layer's operation in tree. used in "build_single"
+ *   4. void make_tree_basic_long(long long x) last layer's operation in tree. used in "build_long"
+ *   5. long long make_tree_single(long long l, long long r) normal point tree make. used in "build_single"
+ *   6. long long make_tree_long(long long l, long long r) normal point tree make. used in "build_long"
+ *   7. void update_single(long long pos, long long val) change single element used in "single_update" normally is
+ *Tree[pos] += val pos : place that change val val : val the change
+ *   8. void update_long(long long pos, long long val) change single element used in "long_update" normally is add[pos]
+ *+= val; pos : place that change val val : val the change
+ *   9. inline long long comp_single(long long v1, long long v2) compare v1 & v2 used in "long_query_single"
+ *      sum : return v1 + v2
+ *      min : return std::min(v1, v2);
+ *      max : return std::max(v1, v2);
+ *   10. inline long long comp_long(long long v1, long long v2)  compare v1 & v2 used in "long_query_long"
+ *      sum : return v1 + v2
+ *      min : return std::min(v1, v2);
+ *      max : return std::max(v1, v2);
+ *
+ */
 
 #include <iostream>
 #include <string.h>
@@ -107,8 +100,7 @@ struct tree
     }
 
     void make_tree_basic_long(long long x)
-    {
-        /* val */
+    { /* val */
     }
 
     inline long long make_tree_single(long long l, long long r)
@@ -118,8 +110,7 @@ struct tree
     }
 
     inline long long make_tree_long(long long l, long long r)
-    {
-        /* val */
+    { /* val */
     }
 
     void update_single(long long pos, long long val)
@@ -129,8 +120,7 @@ struct tree
     }
 
     void update_long(long long pos, long long val)
-    {
-        /* val */
+    { /* val */
     }
 
     inline long long comp_single(long long v1, long long v2)
@@ -140,8 +130,7 @@ struct tree
     }
 
     inline long long comp_long(long long v1, long long v2)
-    {
-        /* val */
+    { /* val */
     }
 
     // user functions------------------------------------------------------------

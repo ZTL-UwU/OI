@@ -40,7 +40,7 @@ int SG::operator[](const std::size_t state)
     for (auto sub_state : this->g[state])
         set.insert((*this)[sub_state]);
 
-    for (int i = 0; ; i++)
+    for (int i = 0;; i++)
     {
         if (set.count(i) == 0)
         {

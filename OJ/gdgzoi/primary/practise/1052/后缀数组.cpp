@@ -12,21 +12,32 @@ int main()
     scanf("%s", s + 1);
     n = strlen(s + 1);
     m = max(n, 300);
-    for (i = 1; i <= n; ++i) ++cnt[rk[i] = s[i]];
-    for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
-    for (i = n; i >= 1; --i) sa[cnt[rk[i]]--] = i;
+    for (i = 1; i <= n; ++i)
+        ++cnt[rk[i] = s[i]];
+    for (i = 1; i <= m; ++i)
+        cnt[i] += cnt[i - 1];
+    for (i = n; i >= 1; --i)
+        sa[cnt[rk[i]]--] = i;
     for (w = 1; w < n; w <<= 1)
     {
         memset(cnt, 0, sizeof(cnt));
-        for (i = 1; i <= n; ++i) id[i] = sa[i];
-        for (i = 1; i <= n; ++i) ++cnt[rk[id[i] + w]];
-        for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
-        for (i = n; i >= 1; --i) sa[cnt[rk[id[i] + w]]--] = id[i];
+        for (i = 1; i <= n; ++i)
+            id[i] = sa[i];
+        for (i = 1; i <= n; ++i)
+            ++cnt[rk[id[i] + w]];
+        for (i = 1; i <= m; ++i)
+            cnt[i] += cnt[i - 1];
+        for (i = n; i >= 1; --i)
+            sa[cnt[rk[id[i] + w]]--] = id[i];
         memset(cnt, 0, sizeof(cnt));
-        for (i = 1; i <= n; ++i) id[i] = sa[i];
-        for (i = 1; i <= n; ++i) ++cnt[rk[id[i]]];
-        for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
-        for (i = n; i >= 1; --i) sa[cnt[rk[id[i]]]--] = id[i];
+        for (i = 1; i <= n; ++i)
+            id[i] = sa[i];
+        for (i = 1; i <= n; ++i)
+            ++cnt[rk[id[i]]];
+        for (i = 1; i <= m; ++i)
+            cnt[i] += cnt[i - 1];
+        for (i = n; i >= 1; --i)
+            sa[cnt[rk[id[i]]]--] = id[i];
         memcpy(oldrk, rk, sizeof(rk));
         for (p = 0, i = 1; i <= n; ++i)
         {

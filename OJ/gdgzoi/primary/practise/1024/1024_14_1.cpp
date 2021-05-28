@@ -39,10 +39,7 @@ inline bool bigger(string a, string b)
             return a[i] > b[i];
     return false;
 }
-inline string maxx(string a, string b)
-{
-    return bigger(a, b) ? a : b;
-}
+inline string maxx(string a, string b) { return bigger(a, b) ? a : b; }
 int main()
 {
     ios::sync_with_stdio(0);
@@ -53,7 +50,7 @@ int main()
         cin >> price[i];
     n++;
     for (int i = 0; i < n; i++)
-    { 
+    {
         days[i] = 1;
         for (int j = 0; j < i; j++)
             if (price[j] > price[i])

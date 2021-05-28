@@ -15,6 +15,6 @@ int main()
         cin >> u >> v;
         g1[u].push_back(v);
     }
-    
+
     return 0;
 }

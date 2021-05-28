@@ -35,10 +35,7 @@ void get_root(int u, int fa, int &root)
         root = u;
 }
 
-bool check(int k)
-{
-    
-}
+bool check(int k) {}
 
 int main()
 {

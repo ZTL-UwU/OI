@@ -55,7 +55,7 @@ inline void dfs1(int num, int now)
         }
         return;
     }
-    
+
     for (int i = last1; i < n; i++)
     {
         if (!used1[i])

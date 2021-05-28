@@ -26,8 +26,10 @@ void cout_sort()
     for (int k = 0; k < len; k++)
     {
         memset(b, 0, sizeof(b));
-        for (int i = 0; i < n; i++) b[(a[i] / key) % 10]++;
-        for (int i = 1; i < 10; i++) b[i] += b[i - 1];
+        for (int i = 0; i < n; i++)
+            b[(a[i] / key) % 10]++;
+        for (int i = 1; i < 10; i++)
+            b[i] += b[i - 1];
         for (int i = n - 1; i >= 0; i--)
         {
             tmp[b[(a[i] / key) % 10] - 1] = a[i];

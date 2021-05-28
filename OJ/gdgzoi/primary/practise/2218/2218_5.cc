@@ -3,14 +3,14 @@
 #include <string.h>
 #include <queue>
 using namespace std;
-struct data { long long x, t; };
+struct data
+{
+    long long x, t;
+};
 const int MAXN = 1e5 + 10;
 priority_queue<int> pq;
 data a[MAXN];
-inline bool cmp(data x, data y)
-{
-    return x.x < y.x;
-}
+inline bool cmp(data x, data y) { return x.x < y.x; }
 int main()
 {
     long long n, m;

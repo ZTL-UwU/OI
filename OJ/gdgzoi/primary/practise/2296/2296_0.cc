@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int v, w, f; };
+struct data
+{
+    int v, w, f;
+};
 const int INF = 0x7fffffff;
 const int MAXN = 110;
 vector<data> g[MAXN];
@@ -24,7 +27,9 @@ int main()
     t = n * 2;
     for (int i = 1; i <= n; i++)
         cin >> name[i];
-    g[n].push_back((data){n * 2, });
+    g[n].push_back((data){
+        n * 2,
+    });
     for (int i = 0; i < m; i++)
     {
         string su, sv;
@@ -32,7 +37,6 @@ int main()
         int u, v;
         u = get_num(su);
         v = get_num(sv);
-        
     }
     return 0;
 }

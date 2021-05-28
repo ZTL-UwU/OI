@@ -3,8 +3,10 @@
 using namespace std;
 int gcd(int n, int m)
 {
-    if (m == 0) return n;
-    if (n < m) swap(n, m);
+    if (m == 0)
+        return n;
+    if (n < m)
+        swap(n, m);
     return gcd(m, n % m);
 }
 int main()

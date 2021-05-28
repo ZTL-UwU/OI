@@ -32,7 +32,8 @@ int main()
             if (a[i][j] == '*' && !vis[i][j])
             {
                 int tmp = dfs(i, j);
-                if (tmp > 1) tmp --;
+                if (tmp > 1)
+                    tmp--;
                 ha[tmp]++;
             }
     int ans = 0;

@@ -7,6 +7,6 @@ int main()
     cin >> str;
     int n;
     cin >> n;
-    
+
     return 0;
 }

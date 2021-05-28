@@ -5,10 +5,7 @@ using namespace std;
 struct _data
 {
     int id, t, period;
-    bool operator < (const _data x)const
-    {
-        return this->t > x.t || (this->t == x.t && this->id > x.id);
-    }
+    bool operator<(const _data x) const { return this->t > x.t || (this->t == x.t && this->id > x.id); }
 };
 priority_queue<_data> q;
 int main()
@@ -17,14 +14,15 @@ int main()
     while (1)
     {
         cin >> tmp;
-        if (tmp == "#") break;
+        if (tmp == "#")
+            break;
         int id, period;
         cin >> id >> period;
         q.push((_data){id, period, period});
     }
     int k;
     cin >> k;
-    for (int i = 0; i < k; i ++)
+    for (int i = 0; i < k; i++)
     {
         _data tp = q.top();
         q.pop();

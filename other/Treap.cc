@@ -215,12 +215,18 @@ int main()
     {
         int type, x;
         std::cin >> type >> x;
-        if (type == 1) Treap::insert(root, x);
-        if (type == 2) Treap::erase(root, x);
-        if (type == 3) std::cout << Treap::rank(root, x) << "\n";
-        if (type == 4) std::cout << Treap::find(root, x) << "\n";
-        if (type == 5) std::cout << Treap::get_pre(x, root) << "\n";
-        if (type == 6) std::cout << Treap::get_next(x, root) << '\n';
+        if (type == 1)
+            Treap::insert(root, x);
+        if (type == 2)
+            Treap::erase(root, x);
+        if (type == 3)
+            std::cout << Treap::rank(root, x) << "\n";
+        if (type == 4)
+            std::cout << Treap::find(root, x) << "\n";
+        if (type == 5)
+            std::cout << Treap::get_pre(x, root) << "\n";
+        if (type == 6)
+            std::cout << Treap::get_next(x, root) << '\n';
     }
     delete_tree(root);
     return 0;

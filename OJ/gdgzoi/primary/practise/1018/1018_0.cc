@@ -8,7 +8,7 @@ int main()
 
     for (int i = 0; i < n; i++)
         std::cin >> a[i];
-    
+
     long long ans = 0;
     for (int i = 1; i < n; i++)
         ans += std::max(a[i], a[i - 1]);

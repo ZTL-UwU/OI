@@ -3,9 +3,4 @@
 #include <vector>
 #include <queue>
 using namespace std;
-const int MAXN = 
-int main()
-{
-    
-    return 0;
-}
+const int MAXN = int main() { return 0; }

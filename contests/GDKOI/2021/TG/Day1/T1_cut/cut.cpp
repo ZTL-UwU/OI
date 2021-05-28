@@ -13,7 +13,7 @@ int main()
 {
     std::freopen("cut.in", "r", stdin);
     std::freopen("cut.out", "w", stdout);
-    
+
     int n, m;
     std::scanf("%d %d", &n, &m);
 

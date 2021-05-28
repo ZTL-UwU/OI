@@ -22,7 +22,7 @@ signed main()
             k++;
         nxt[i] = k;
     }
-    for (int i = 0; i <= n + 10; i ++)
+    for (int i = 0; i <= n + 10; i++)
         cout << nxt[i] << " ";
     cout << "\n";
     lli ans = 0;

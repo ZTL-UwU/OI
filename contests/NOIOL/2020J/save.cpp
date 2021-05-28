@@ -4,7 +4,12 @@
 #include <vector>
 using namespace std;
 const int MAXN = 1e6 + 10;
-struct data { int id; string name; int num; };
+struct data
+{
+    int id;
+    string name;
+    int num;
+};
 vector<string> ans_name;
 vector<data> v;
 string str, ptr;
@@ -60,14 +65,14 @@ int main()
     get_next();
     int n;
     cin >> n;
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
         string name;
         cin >> name >> str;
         v.push_back((data){i, name, kmp()});
     }
     sort(v.begin(), v.end(), cmp);
-    for (int i = 0; i < v.size(); i ++)
+    for (int i = 0; i < v.size(); i++)
     {
         cout << v[i].name << " ";
         if (i != 0 && v[i + 1].num != v[i].num)

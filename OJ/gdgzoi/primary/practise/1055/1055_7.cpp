@@ -3,7 +3,10 @@
 #include <stdio.h>
 #include <vector>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 const int MAXN = 100100;
 const int MAXNN = 50100;
 int lg[MAXN];
@@ -21,7 +24,8 @@ inline void init()
     memset(deep, 0, sizeof(deep));
     memset(dis, 0, sizeof(dis));
     memset(rmq, 0, sizeof(rmq));
-    for (int i = 0; i < MAXNN; ++ i) g[i].clear();
+    for (int i = 0; i < MAXNN; ++i)
+        g[i].clear();
 }
 inline int lca(int x, int y)
 {
@@ -32,47 +36,51 @@ inline int lca(int x, int y)
 }
 void dfs(int u, int d, int fa)
 {
-    first[u] = ++ size;
+    first[u] = ++size;
     deep[size] = d;
     num[size] = u;
-    for (int i = 0; i < g[u].size(); ++ i)
+    for (int i = 0; i < g[u].size(); ++i)
     {
         int v = g[u][i].v, w = g[u][i].w;
-        if (v == fa) continue;
+        if (v == fa)
+            continue;
         dis[v] = dis[u] + w;
         dfs(v, d + 1, u);
-        deep[++ size] = d;
+        deep[++size] = d;
         num[size] = u;
     }
 }
 int main()
 {
-    #ifdef WIN32
+#ifdef WIN32
     freopen("in.in", "r", stdin);
     freopen("out.out", "w", stdout);
-    #endif
+#endif
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
     lg[0] = -1;
-    for (int i = 1; i < MAXN; ++ i) lg[i] = lg[i >> 1] + 1;
+    for (int i = 1; i < MAXN; ++i)
+        lg[i] = lg[i >> 1] + 1;
     int n, u, v, w, q, x, y, z;
     while (cin >> n)
     {
         init();
-        for (int i = 0; i < n - 1; ++ i)
+        for (int i = 0; i < n - 1; ++i)
         {
             cin >> u >> v >> w;
             g[u].push_back((data){v, w});
             g[v].push_back((data){u, w});
         }
         dfs(0, 1, -1);
-        for (int i = 1; i <= size; ++ i) rmq[i][0] = i;
-        for (int i = 1; i <= 19; ++ i)
-            for (int j = 1; j + (1 << i) + 1 <= size; ++ j)
-                rmq[j][i] = deep[rmq[j][i - 1]] < deep[rmq[j + (1 << (i - 1))][i - 1]] ? rmq[j][i - 1] : rmq[j + (1 << (i - 1))][i - 1];
+        for (int i = 1; i <= size; ++i)
+            rmq[i][0] = i;
+        for (int i = 1; i <= 19; ++i)
+            for (int j = 1; j + (1 << i) + 1 <= size; ++j)
+                rmq[j][i] = deep[rmq[j][i - 1]] < deep[rmq[j + (1 << (i - 1))][i - 1]] ? rmq[j][i - 1] :
+                                                                                         rmq[j + (1 << (i - 1))][i - 1];
         cin >> q;
-        for (int i = 0; i < q; ++ i)
+        for (int i = 0; i < q; ++i)
         {
             int cost;
             cin >> x >> y >> z;

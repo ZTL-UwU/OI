@@ -7,10 +7,7 @@ typedef long long ll;
 const int MAXN = 1e5 + 10;
 ll ans[MAXN];
 ll tree[MAXN];
-ll lowbit(ll x)
-{
-    return x & (-x);
-}
+ll lowbit(ll x) { return x & (-x); }
 void add(ll x, ll num)
 {
     while (x < MAXN)
@@ -33,16 +30,16 @@ int main()
 {
     ll n;
     cin >> n;
-    for (ll i = 0; i < n; i ++)
+    for (ll i = 0; i < n; i++)
     {
         ll a;
         cin >> a;
-        a ++;
+        a++;
         ans[a] += i - query(a);
         add(a, 1);
     }
     ll tmp = 0;
-    for (ll i = 1; i <= n; i ++)
+    for (ll i = 1; i <= n; i++)
     {
         cout << tmp << "\n";
         tmp += ans[i];

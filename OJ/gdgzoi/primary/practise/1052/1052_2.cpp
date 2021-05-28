@@ -12,36 +12,40 @@ int tmp[MAXN];
 string s;
 string str;
 int n, m, i, w, k;
-//get suffix_array
-bool check_suf()
-{
-    return old_rnk[suf[i]] == old_rnk[suf[i - 1]] && old_rnk[suf[i] + w] == old_rnk[suf[i - 1] + w];
-}
+// get suffix_array
+bool check_suf() { return old_rnk[suf[i]] == old_rnk[suf[i - 1]] && old_rnk[suf[i] + w] == old_rnk[suf[i - 1] + w]; }
 inline void get_suf()
 {
     m = 150;
     n = str.size() - 1;
-    //discretization
-    for (i = 1; i <= n; i++) ++bsk[rnk[i] = str[i]];
-    for (i = 1; i <= m; i++) bsk[i] += bsk[i - 1];
-    for (i = n; i >= 1; i--) suf[bsk[rnk[i]]--] = i;
-    //radix_sort
+    // discretization
+    for (i = 1; i <= n; i++)
+        ++bsk[rnk[i] = str[i]];
+    for (i = 1; i <= m; i++)
+        bsk[i] += bsk[i - 1];
+    for (i = n; i >= 1; i--)
+        suf[bsk[rnk[i]]--] = i;
+    // radix_sort
     for (w = 1; w < n; w *= 2, m = k)
     {
-        for (k = 0, i = n; i > n - w; i--) sot[++k] = i;
+        for (k = 0, i = n; i > n - w; i--)
+            sot[++k] = i;
         for (i = 1; i <= n; i++)
             if (suf[i] > w)
                 sot[++k] = suf[i] - w;
         memset(bsk, 0, sizeof(bsk));
-        for (i = 1; i <= n; i++) ++bsk[tmp[i] = rnk[sot[i]]];
-        for (i = 1; i <= m; i++) bsk[i] += bsk[i - 1];
-        for (i = n; i >= 1; i--) suf[bsk[tmp[i]]--] = sot[i];
+        for (i = 1; i <= n; i++)
+            ++bsk[tmp[i] = rnk[sot[i]]];
+        for (i = 1; i <= m; i++)
+            bsk[i] += bsk[i - 1];
+        for (i = n; i >= 1; i--)
+            suf[bsk[tmp[i]]--] = sot[i];
         memcpy(old_rnk, rnk, sizeof(rnk));
         for (k = 0, i = 1; i <= n; i++)
             rnk[suf[i]] = check_suf() ? k : ++k;
     }
 }
-//binary search
+// binary search
 int check_bin(int key)
 {
     int size = s.size() - 1;

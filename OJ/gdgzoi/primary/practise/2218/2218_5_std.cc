@@ -11,10 +11,7 @@ struct Node
 {
     long long x;
     int t;
-    friend inline bool operator<(Node a, Node b)
-    {
-        return a.x < b.x;
-    }
+    friend inline bool operator<(Node a, Node b) { return a.x < b.x; }
 };
 
 int n;

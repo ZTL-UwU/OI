@@ -29,7 +29,6 @@ inline int solve(int num)
         bit[len++] = num % 10;
         num /= 10;
     }
-
 }
 int main()
 {

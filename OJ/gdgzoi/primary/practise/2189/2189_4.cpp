@@ -19,9 +19,9 @@ int col;
 int tt;
 void tarjan(int u, int fa)
 {
-    dfn[u] = low[u] = ++ tt;
+    dfn[u] = low[u] = ++tt;
     st.push(u);
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (!dfn[v])
@@ -29,11 +29,12 @@ void tarjan(int u, int fa)
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
         }
-        else if (v != fa) low[u] = min(low[u], dfn[v]);
+        else if (v != fa)
+            low[u] = min(low[u], dfn[v]);
     }
     if (low[u] == dfn[u])
     {
-        col ++;
+        col++;
         int v;
         do
         {
@@ -47,7 +48,7 @@ int main()
 {
     int n, m;
     cin >> n >> m;
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         int u, v;
         cin >> u >> v;
@@ -55,14 +56,19 @@ int main()
         g[v].push_back(u);
         e.push_back((data){u, v});
     }
-    for (int i = 1; i <= n; i ++) if (!dfn[i]) tarjan(i, -1);
-    for (int i = 0; i < e.size(); i ++)
+    for (int i = 1; i <= n; i++)
+        if (!dfn[i])
+            tarjan(i, -1);
+    for (int i = 0; i < e.size(); i++)
     {
         int u = e[i].u, v = e[i].v;
-        if (color[u] != color[v]) d[color[u]] ++, d[color[v]] ++;
+        if (color[u] != color[v])
+            d[color[u]]++, d[color[v]]++;
     }
     int ans = 0;
-    for (int i = 1; i <= col; i ++) if (d[i] == 1) ans ++;
+    for (int i = 1; i <= col; i++)
+        if (d[i] == 1)
+            ans++;
     cout << (ans + 1) / 2 << endl;
     return 0;
 }

@@ -1,9 +1,6 @@
 #include <iostream>
 
-auto abs(auto num)
-{
-    return num < 0 ? -num : num;
-}
+auto abs(auto num) { return num < 0 ? -num : num; }
 
 auto main() -> int
 {

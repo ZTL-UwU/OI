@@ -3,7 +3,7 @@
 function dfs_dir() {
     echo scanning $1
 
-    for file in $(echo $1"/"*.cc) + $(echo $1"/"*.h) + $(echo $1"/"*.hpp); do
+    for file in $(echo $1"/"*.cpp) + $(echo $1"/"*.cc) + $(echo $1"/"*.h) + $(echo $1"/"*.hpp); do
         if [ -f "$file" ]; then
             echo formatting $file
             clang-format -i $file

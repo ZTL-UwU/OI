@@ -1,6 +1,6 @@
 #include <vector>
 
-template<typename T>
+template <typename T>
 class link_hash
 {
 private:
@@ -21,5 +21,4 @@ public:
         delete[] key_val;
         delete[] val;
     }
-
 };

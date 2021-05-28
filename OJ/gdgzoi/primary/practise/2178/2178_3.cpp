@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 const int INF = 0x7fffffff;
 const int MAXN = 2e3;
 vector<data> g[MAXN];
@@ -15,7 +18,8 @@ int cnt[MAXN];
 int n, m;
 inline bool SPFA(int s)
 {
-    for (int i = 0; i < MAXN; i++) dis[i] = INF;
+    for (int i = 0; i < MAXN; i++)
+        dis[i] = INF;
     queue<int> q;
     q.push(s);
     inque[s] = true;

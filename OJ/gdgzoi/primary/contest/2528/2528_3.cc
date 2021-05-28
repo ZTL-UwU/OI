@@ -47,7 +47,7 @@ void dfs2(int u)
         top[son[u]] = top[u];
         dfs2(son[u]);
     }
-    
+
     for (auto v : t[u])
     {
         if (top[v] == 0 && v != fa[u])

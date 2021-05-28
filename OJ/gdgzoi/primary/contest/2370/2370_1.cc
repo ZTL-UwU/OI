@@ -6,10 +6,7 @@ const int INF = 0x7fffffff - 1e5;
 const int MAXN = 2e3;
 int dp[MAXN][MAXN];
 
-inline int min_three(int a, int b, int c)
-{
-    return std::min(std::min(a, b), c);
-}
+inline int min_three(int a, int b, int c) { return std::min(std::min(a, b), c); }
 
 int main()
 {

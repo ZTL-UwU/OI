@@ -51,30 +51,32 @@ int main()
             max_polar_angle = std::max(max_polar_angle, points[i].polar_angle(points[0]));
         }
 
-        std::sort(points + 1, points + n, [min_polar_angle, max_polar_angle](cord p1, cord p2) -> bool {
-            const double POLAR_ANGLE_1 = p1.polar_angle(points[0]);
-            const double POLAR_ANGLE_2 = p2.polar_angle(points[0]);
+        std::sort(points + 1, points + n,
+                  [min_polar_angle, max_polar_angle](cord p1, cord p2) -> bool
+                  {
+                      const double POLAR_ANGLE_1 = p1.polar_angle(points[0]);
+                      const double POLAR_ANGLE_2 = p2.polar_angle(points[0]);
 
-            if (POLAR_ANGLE_1 == POLAR_ANGLE_2)
-            {
-                if (POLAR_ANGLE_1 == min_polar_angle)
-                {
-                    return p1.dis(points[0]) < p2.dis(points[0]);
-                }
-                else if (POLAR_ANGLE_1 == max_polar_angle)
-                {
-                    return p1.dis(points[0]) > p1.dis(points[0]);
-                }
-                else
-                {
-                    if (p1.y == p2.y)
-                        return p1.x > p2.x;
-                    return p1.y > p2.y;
-                }
-            }
+                      if (POLAR_ANGLE_1 == POLAR_ANGLE_2)
+                      {
+                          if (POLAR_ANGLE_1 == min_polar_angle)
+                          {
+                              return p1.dis(points[0]) < p2.dis(points[0]);
+                          }
+                          else if (POLAR_ANGLE_1 == max_polar_angle)
+                          {
+                              return p1.dis(points[0]) > p1.dis(points[0]);
+                          }
+                          else
+                          {
+                              if (p1.y == p2.y)
+                                  return p1.x > p2.x;
+                              return p1.y > p2.y;
+                          }
+                      }
 
-            return POLAR_ANGLE_1 < POLAR_ANGLE_2;
-        });
+                      return POLAR_ANGLE_1 < POLAR_ANGLE_2;
+                  });
 
         std::vector<cord> hull;
         hull.push_back(points[0]);

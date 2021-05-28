@@ -32,21 +32,21 @@ inline int Manacher(string str)
     int max_len = -0x7fffffff;
     for (int i = 0; i < str.size(); i++)
     {
-        /* 
+        /*
          * (2 * id - i) is the symmetry point of i with j in the middle
          *
          *     mx'   j      id      i      mx
          * ----^-----^------^-------^------^--------
          *        ---=---     ------=------
          *     -------------=---------------
-         * 
+         *
          */
         if (i < mx)
             ra[i] = min(ra[2 * id - i], mx - i);
-        /* 
+        /*
          * Extend from i
          * If str[i - ra[i]] = str[i + ra[i]] means the palindrome can be larger
-         * 
+         *
          * x-----i-----x
          * ^           ^
          * i - ra[i]   i + ra[i]

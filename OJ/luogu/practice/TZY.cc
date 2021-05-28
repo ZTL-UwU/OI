@@ -139,12 +139,18 @@ int main()
     {
         int type, x;
         cin >> type >> x;
-        if (type == 1) insert(root, x);
-        if (type == 2) erase(root, rank(root, x));
-        if (type == 3) cout << rank(root, x) << "\n";
-        if (type == 4) cout << find(root, x) << "\n";
-        if (type == 5) cout << find(root, rank(root, x) - 1) << "\n";
-        if (type == 6) cout << find(root, rank(root, x + 1)) << "\n";
+        if (type == 1)
+            insert(root, x);
+        if (type == 2)
+            erase(root, rank(root, x));
+        if (type == 3)
+            cout << rank(root, x) << "\n";
+        if (type == 4)
+            cout << find(root, x) << "\n";
+        if (type == 5)
+            cout << find(root, rank(root, x) - 1) << "\n";
+        if (type == 6)
+            cout << find(root, rank(root, x + 1)) << "\n";
     }
     return 0;
 }

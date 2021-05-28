@@ -43,26 +43,29 @@ inline int lca(int x, int y)
 }
 void dfs(int u, int d, int fa)
 {
-    first[u] = ++ size;
+    first[u] = ++size;
     deep[size] = d;
     num[size] = u;
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
-        if (v == fa) continue;
+        if (v == fa)
+            continue;
         dfs(v, d + 1, u);
-        deep[++ size] = d;
+        deep[++size] = d;
         num[size] = u;
     }
 }
 int main()
 {
     lg[0] = -1;
-    for (int i = 1; i < MAXN; i ++) lg[i] = lg[i >> 1] + 1;
+    for (int i = 1; i < MAXN; i++)
+        lg[i] = lg[i >> 1] + 1;
     int n;
     scanf("%d", &n);
-    for (int i = 0; i < n; i ++) scanf("%d", &a[i]);
-    for (int i = 0; i < n - 1; i ++)
+    for (int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+    for (int i = 0; i < n - 1; i++)
     {
         int u, v;
         scanf("%d %d", &u, &v);
@@ -70,11 +73,13 @@ int main()
         g[v].push_back(u);
     }
     dfs(1, 1, -1);
-    for (int i = 1; i <= size; i ++) rmq[i][0] = i;
-    for (int i = 1; i <= 20; ++ i)
-        for (int j = 1; j + (1 << i) + 1 <= size; ++ j)
-            rmq[j][i] = deep[rmq[j][i - 1]] < deep[rmq[j + (1 << (i - 1))][i - 1]] ? rmq[j][i - 1] : rmq[j + (1 << (i - 1))][i - 1];
-    for (int i = 0; i < n - 1; i ++)
+    for (int i = 1; i <= size; i++)
+        rmq[i][0] = i;
+    for (int i = 1; i <= 20; ++i)
+        for (int j = 1; j + (1 << i) + 1 <= size; ++j)
+            rmq[j][i] = deep[rmq[j][i - 1]] < deep[rmq[j + (1 << (i - 1))][i - 1]] ? rmq[j][i - 1] :
+                                                                                     rmq[j + (1 << (i - 1))][i - 1];
+    for (int i = 0; i < n - 1; i++)
     {
         int p = lca(a[i], a[i + 1]);
         update(a[i], 1);
@@ -82,7 +87,7 @@ int main()
         update(a[i + 1], 1);
         update(p, -1);
     }
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
         int res = query(i);
         printf("%d\n", res);

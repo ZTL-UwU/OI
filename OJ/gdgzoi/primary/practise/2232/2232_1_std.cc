@@ -107,8 +107,8 @@ char str[MAXN + 1];
 int main()
 {
     ios::sync_with_stdio(0);
-    //freopen(".in","r",stdin);
-    //freopen(".out","w",stdout);
+    // freopen(".in","r",stdin);
+    // freopen(".out","w",stdout);
     N = read();
     for (int i = 1; i <= N; i++)
         a[i] = read();

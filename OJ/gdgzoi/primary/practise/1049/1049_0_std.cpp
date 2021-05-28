@@ -22,7 +22,7 @@ int main(void)
         n = strlen(s + 1);
         n2 = n + n;
         F(i, n + 1, n2)
-            s[i] = s[i - n];
+        s[i] = s[i - n];
         memset(v, 0, sizeof v);
         F(x, 1, n2)
         {
@@ -40,13 +40,13 @@ int main(void)
                     j++;
                 nx[i] = j;
             }
-            for (int i = 1; i <= len + 10; i ++)
+            for (int i = 1; i <= len + 10; i++)
             {
                 cout << nx[i] << " ";
             }
             cout << "\n";
             F(i, 1, len)
-                v[i]++;
+            v[i]++;
             for (int i = len; nx[i] > 0; i = nx[i])
                 v[(len - nx[i]) + 1]--;
             x = y;
@@ -55,10 +55,10 @@ int main(void)
         }
         memset(ans, 0, sizeof ans);
         F(i, 0, n - 1)
-            if (v[n - i] > 0)
-                ans[i] = '1';
-            else
-                ans[i] = '0';
+        if (v[n - i] > 0)
+            ans[i] = '1';
+        else
+            ans[i] = '0';
         ans[n] = '\n';
         printf("Case %d: %s", c, ans);
     }

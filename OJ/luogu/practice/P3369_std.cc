@@ -9,8 +9,7 @@ struct node
     bool deleted;
     bool isbad()
     {
-        if (this->cnt * alpha < this->l->cnt
-            || this->cnt * alpha < this->r->cnt)
+        if (this->cnt * alpha < this->l->cnt || this->cnt * alpha < this->r->cnt)
             return true;
         return false;
     }
@@ -45,10 +44,10 @@ node *build(vector<node *> &nodes, int l, int r)
 }
 void rebuild(node *&tree)
 {
-        re++;
-        vector<node *> nodes;
-        get_subtree(tree, nodes);
-        tree = build(nodes, 0, nodes.size());
+    re++;
+    vector<node *> nodes;
+    get_subtree(tree, nodes);
+    tree = build(nodes, 0, nodes.size());
 }
 void insert(node *&tree, int val)
 {
@@ -72,51 +71,51 @@ void insert(node *&tree, int val)
     if (tree->isbad())
         rebuild(tree);
 }
-    int rank(node *now, int val)
+int rank(node *now, int val)
+{
+    int ans = 1;
+    while (now != null)
     {
-        int ans = 1;
-        while (now != null)
-        {
-            if (now->val >= val)
-                now = now->l;
-            else
-            {
-                ans += now->l->size + !now->deleted;
-                now = now->r;
-            }
-        }
-        return ans;
-    }
-    int kth(node *now, int rank)
-    {
-        while (now != null)
-        {
-            if (!now->deleted && now->l->size + 1 == rank)
-                return now->val;
-            if (now->l->size >= rank)
-                now = now->l;
-            else
-            {
-                rank -= now->l->size + !now->deleted;
-                now = now->r;
-            }
-        }
-        return -1;
-    }
-    void erase(node *&tree, int rank)
-    {
-        if (!tree->deleted && rank == tree->l->size + 1)
-        {
-            tree->deleted = true;
-            --tree->size;
-            return;
-        }
-        --tree->size;
-        if (rank <= tree->l->size + !tree->deleted)
-            erase(tree->l, rank);
+        if (now->val >= val)
+            now = now->l;
         else
-            erase(tree->r, rank - tree->l->size - !tree->deleted);
+        {
+            ans += now->l->size + !now->deleted;
+            now = now->r;
+        }
     }
+    return ans;
+}
+int kth(node *now, int rank)
+{
+    while (now != null)
+    {
+        if (!now->deleted && now->l->size + 1 == rank)
+            return now->val;
+        if (now->l->size >= rank)
+            now = now->l;
+        else
+        {
+            rank -= now->l->size + !now->deleted;
+            now = now->r;
+        }
+    }
+    return -1;
+}
+void erase(node *&tree, int rank)
+{
+    if (!tree->deleted && rank == tree->l->size + 1)
+    {
+        tree->deleted = true;
+        --tree->size;
+        return;
+    }
+    --tree->size;
+    if (rank <= tree->l->size + !tree->deleted)
+        erase(tree->l, rank);
+    else
+        erase(tree->r, rank - tree->l->size - !tree->deleted);
+}
 node *root;
 int main()
 {

@@ -4,7 +4,10 @@
 #include <vector>
 using namespace std;
 const int MAXN = 1e4 + 10;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 vector<data> tree[MAXN];
 vector<int> a;
 bool vis[MAXN];

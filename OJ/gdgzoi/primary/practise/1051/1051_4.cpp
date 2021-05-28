@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-const int MAXN = 2e6; 
-int p[MAXN];  
+const int MAXN = 2e6;
+int p[MAXN];
 inline string init_str(string str)
 {
     string n_str;
@@ -26,7 +26,7 @@ inline int manacher(string str)
             mx = i + p[i];
         }
         if (i % 2)
-            for (int j = i; j >= max(max(i - p[i], j - (i - j)), 3); j-= 2)
+            for (int j = i; j >= max(max(i - p[i], j - (i - j)), 3); j -= 2)
                 if (p[j] >= i - j && p[j - (i - j)] >= i - j)
                     maxn = max(maxn, 4 * (i - j));
     }

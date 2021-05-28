@@ -169,10 +169,7 @@ void dfs2(int x, int topf) // dfs2
     }
 }
 
-void Smodify(int k, int x, int y)
-{
-    modify(dfn[k], dfn[k] + siz[k] - 1, x, y);
-}
+void Smodify(int k, int x, int y) { modify(dfn[k], dfn[k] + siz[k] - 1, x, y); }
 
 int Lquery(int x, int y, int cc) // route
 {

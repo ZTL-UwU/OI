@@ -36,19 +36,21 @@ void get_base_point()
 
 void angle_sort()
 {
-    std::sort(points.begin() + 1, points.end(), [](cord p1, cord p2) -> bool {
-        double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
-        double theta2 = std::atan2(p2.y - points[0].y, p2.x - points[0].x);
+    std::sort(points.begin() + 1, points.end(),
+              [](cord p1, cord p2) -> bool
+              {
+                  double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
+                  double theta2 = std::atan2(p2.y - points[0].y, p2.x - points[0].x);
 
-        if (theta1 == theta2)
-        {
-            if (p1.y == p2.y)
-                return p1.x > p2.x;
-            return p1.y > p2.y;
-        }
+                  if (theta1 == theta2)
+                  {
+                      if (p1.y == p2.y)
+                          return p1.x > p2.x;
+                      return p1.y > p2.y;
+                  }
 
-        return theta1 < theta2;
-    });
+                  return theta1 < theta2;
+              });
 }
 
 double get_hull()

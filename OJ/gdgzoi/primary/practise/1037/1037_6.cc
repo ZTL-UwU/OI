@@ -1,9 +1,6 @@
 #include <iostream>
 using namespace std;
-long long dis(long long x, long long y)
-{
-    return max(x, y) - min(x, y);
-}
+long long dis(long long x, long long y) { return max(x, y) - min(x, y); }
 long long v[20010];
 long long place[20010];
 int main()

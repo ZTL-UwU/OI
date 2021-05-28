@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 const int INF = 0x7fffffff;
 vector<data> g[2010];
 int love[1010][30];
@@ -102,7 +105,7 @@ int main()
             for (int i = 1; i <= n; i++)
             {
                 g[s].push_back((data){i, 1});
-                for (int j = l ; j <= r; j++)
+                for (int j = l; j <= r; j++)
                     g[i].push_back((data){n + love[i][j], 1});
             }
             for (int i = 1; i <= b; i++)

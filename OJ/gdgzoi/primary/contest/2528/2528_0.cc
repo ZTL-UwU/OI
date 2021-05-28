@@ -16,7 +16,7 @@ std::vector<node> t[MAX_N];
 std::string name[MAX_N];
 std::size_t node_cnt = 0;
 
-std::size_t get_end(std::size_t l, std::size_t r, const std::vector<std::string>& input)
+std::size_t get_end(std::size_t l, std::size_t r, const std::vector<std::string> &input)
 {
     int s = 0;
     for (auto i = l; i < r; i++)
@@ -32,7 +32,7 @@ std::size_t get_end(std::size_t l, std::size_t r, const std::vector<std::string>
     return 0;
 }
 
-void dfs(int u, std::size_t l, std::size_t r, const std::vector<std::string>& input)
+void dfs(int u, std::size_t l, std::size_t r, const std::vector<std::string> &input)
 {
     for (auto i = l; i < r; i++)
     {
@@ -61,7 +61,7 @@ void output(int u, int depth)
     std::vector<std::pair<std::string, int>> files;
     for (auto v : t[u])
         if (v.type == 'f')
-            files.push_back({name[v.id],v.id});
+            files.push_back({name[v.id], v.id});
     std::sort(files.begin(), files.end(),
               [](std::pair<std::string, int> a, std::pair<std::string, int> b) -> bool { return a.first < b.first; });
 

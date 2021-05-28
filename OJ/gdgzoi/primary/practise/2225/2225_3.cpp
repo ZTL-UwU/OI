@@ -22,7 +22,7 @@ int main()
     int t;
     ll n, b;
     scanf("%d", &t);
-    while (t --)
+    while (t--)
     {
         scanf("%lld %lld", &n, &b);
         ll x, y;
@@ -30,7 +30,8 @@ int main()
         // y = A/9973
         // Bx + 9973y = n
         exgcd(b, MOD, x, y);
-        while (x < 0) x += MOD;
+        while (x < 0)
+            x += MOD;
         x *= n;
         x %= MOD;
         printf("%lld\n", x);

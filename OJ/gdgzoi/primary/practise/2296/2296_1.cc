@@ -3,8 +3,14 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data2 { int minn, dis; };
-struct data { int v, w, f; };
+struct data2
+{
+    int minn, dis;
+};
+struct data
+{
+    int v, w, f;
+};
 const int INF = 0x7fffffff;
 const int MAXN = 500;
 vector<data> g[MAXN];
@@ -18,7 +24,8 @@ data2 EK_bfs()
     memset(inque, 0, sizeof(inque));
     memset(minn, 127, sizeof(minn));
     memset(dis, 127, sizeof(dis));
-    for (int i = 0; i < MAXN; i++) pre[i] = -1;
+    for (int i = 0; i < MAXN; i++)
+        pre[i] = -1;
     queue<int> q;
     q.push(s);
     dis[s] = 0;

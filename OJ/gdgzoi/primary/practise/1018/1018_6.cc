@@ -8,10 +8,7 @@ struct data
 {
     int l, r;
 
-    bool operator<(const data x) const
-    {
-        return this->r < x.r;
-    }
+    bool operator<(const data x) const { return this->r < x.r; }
 };
 
 data points[MAXN];
@@ -20,10 +17,7 @@ namespace sit
 {
     int tree[MAXN];
 
-    int lowbit(int x)
-    {
-        return x & -x;
-    }
+    int lowbit(int x) { return x & -x; }
 
     void update(int x, int val)
     {
@@ -64,7 +58,7 @@ int main()
         int len = sit::query(points[i].r) - sit::query(points[i].l - 1);
         if (len > 0)
             continue;
-        
+
         ans++;
         sit::update(points[i].r, 1);
     }

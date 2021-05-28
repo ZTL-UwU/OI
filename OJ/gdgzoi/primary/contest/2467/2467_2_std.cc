@@ -13,18 +13,12 @@ struct node
     int minn;
     int maxn;
     int sumn;
-    int lazt; //plus
+    int lazt; // plus
 };
 node t[800010];
 
-inline int lson(int o)
-{
-    return o << 1;
-}
-inline int rson(int o)
-{
-    return (o << 1) | 1;
-}
+inline int lson(int o) { return o << 1; }
+inline int rson(int o) { return (o << 1) | 1; }
 void push_up(int u)
 {
     t[u].sumn = t[lson(u)].sumn + t[rson(u)].sumn;

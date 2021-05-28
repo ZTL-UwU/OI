@@ -53,7 +53,7 @@ int main()
         l_a = strlen(a + 1);
         l_b = strlen(b + 1);
         Next();
-        for (int i = 0; i <= l_b + 10; i ++)
+        for (int i = 0; i <= l_b + 10; i++)
             cout << nxt[i] << " ";
         cout << "\n";
         cout << kmp() << endl;

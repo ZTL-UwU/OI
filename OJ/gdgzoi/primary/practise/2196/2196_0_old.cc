@@ -47,15 +47,17 @@ int main()
                 k = i;
         std::swap(points[0], points[k]);
 
-        std::sort(points + 1, points + n, [](cord p1, cord p2) -> bool {
-            double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
-            double theta2 = std::atan2(p2.y - points[0].y, p2.x - points[0].x);
+        std::sort(points + 1, points + n,
+                  [](cord p1, cord p2) -> bool
+                  {
+                      double theta1 = std::atan2(p1.y - points[0].y, p1.x - points[0].x);
+                      double theta2 = std::atan2(p2.y - points[0].y, p2.x - points[0].x);
 
-            // if (theta1 == theta2)
-            //     return dis(p1, points[0]) < dis(p2, points[0]);
+                      // if (theta1 == theta2)
+                      //     return dis(p1, points[0]) < dis(p2, points[0]);
 
-            return theta1 < theta2;
-        });
+                      return theta1 < theta2;
+                  });
 
         // std::cout << "\n";
         // for (int i = 0; i < n; i++)

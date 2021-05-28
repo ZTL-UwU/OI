@@ -5,10 +5,7 @@ struct data
 {
     int l, r;
 };
-bool cmp(data a, data b)
-{
-    return a.r < b.r;
-}
+bool cmp(data a, data b) { return a.r < b.r; }
 const int MAXN = 2e3;
 data rules[MAXN];
 int dp[MAXN];

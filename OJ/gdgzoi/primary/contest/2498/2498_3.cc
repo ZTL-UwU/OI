@@ -57,7 +57,7 @@ void init()
         g[i].clear();
     while (not st.empty())
         st.pop();
-    
+
     std::memset(pbc_size, 0, sizeof(pbc_size));
     std::memset(pbc, 0, sizeof(pbc));
     std::memset(dfn, 0, sizeof(dfn));

@@ -17,8 +17,7 @@ namespace tzy
     };
     inline bool node::is_negative()
     {
-        if (this->cnt * alpha < this->left->cnt
-            || this->cnt * alpha < this->right->cnt)
+        if (this->cnt * alpha < this->left->cnt || this->cnt * alpha < this->right->cnt)
             return true;
         return false;
     }
@@ -143,12 +142,18 @@ int main()
     {
         int type, x;
         scanf("%d %d", &type, &x);
-        if (type == 1) insert(root, x);
-        if (type == 2) erase(root, rank(root, x));
-        if (type == 3) printf("%d\n", rank(root, x));
-        if (type == 4) printf("%d\n" ,find(root, x));
-        if (type == 5) printf("%d\n" ,find(root, rank(root, x) - 1));
-        if (type == 6) printf("%d\n" ,find(root, rank(root, x + 1)));
+        if (type == 1)
+            insert(root, x);
+        if (type == 2)
+            erase(root, rank(root, x));
+        if (type == 3)
+            printf("%d\n", rank(root, x));
+        if (type == 4)
+            printf("%d\n", find(root, x));
+        if (type == 5)
+            printf("%d\n", find(root, rank(root, x) - 1));
+        if (type == 6)
+            printf("%d\n", find(root, rank(root, x + 1)));
     }
     delete_tree(root);
     return 0;

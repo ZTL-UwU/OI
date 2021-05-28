@@ -17,6 +17,6 @@ int main()
     else
         for (std::size_t i = last_triangle.size() - 1; i < last_triangle.size(); i--)
             if (last_triangle[i] != last_triangle.back() or i == last_triangle.size() - 1)
-                std::cout << "T" + last_triangle.substr(0, i) + "4" + "\n"; 
+                std::cout << "T" + last_triangle.substr(0, i) + "4" + "\n";
     return 0;
 }

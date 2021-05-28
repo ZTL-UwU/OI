@@ -40,9 +40,9 @@ inline int query(int l, int r, int k)
 
 int main()
 {
-   std::freopen("busy.in", "r", stdin);
-   std::freopen("busy.out", "w", stdout);
-    
+    std::freopen("busy.in", "r", stdin);
+    std::freopen("busy.out", "w", stdout);
+
     int n;
     std::scanf("%d", &n);
 
@@ -68,7 +68,7 @@ int main()
     }
 
     std::sort(ans + 1, ans + size);
-    
+
     for (int i = L; i <= R; i++)
         std::printf("%d ", ans[i]);
     return 0;

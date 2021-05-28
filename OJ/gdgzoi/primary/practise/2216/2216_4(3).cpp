@@ -6,7 +6,8 @@ const int MAXN = 20010;
 int fa[MAXN];
 int find(int u)
 {
-    if (fa[u] == u) return u;
+    if (fa[u] == u)
+        return u;
     return fa[u] = find(fa[u]);
 }
 void merge(int u, int v)
@@ -21,8 +22,9 @@ bool vis2[MAXN];
 bool con1;
 void dfs1(int u)
 {
-    if (con1) return;
-    for (int i = 0; i < g[u].size(); i ++)
+    if (con1)
+        return;
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (vis1[v])
@@ -36,7 +38,7 @@ void dfs1(int u)
 }
 void dfs2(int u, int fa)
 {
-    for (int i = 0; i < s[u].size(); i ++)
+    for (int i = 0; i < s[u].size(); i++)
     {
         int v = g[u][i];
         if (v != fa && !vis2[v])
@@ -48,18 +50,23 @@ void dfs2(int u, int fa)
 }
 int main()
 {
-    for (int i = 0; i < MAXN; i ++) fa[i] = i;
-    int n, m, u, v; char ch;
+    for (int i = 0; i < MAXN; i++)
+        fa[i] = i;
+    int n, m, u, v;
+    char ch;
     cin >> n >> m;
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         cin >> u >> ch >> v;
-        if (ch == '>') g[find(u)].push_back(find(v)), s[find(u)].push_back(find(v)), s[find(v)].push_back(find(u));
-        else if (ch == '<') g[find(v)].push_back(find(u)), s[find(u)].push_back(find(v)), s[find(v)].push_back(find(u));
-        else merge(u, v);
+        if (ch == '>')
+            g[find(u)].push_back(find(v)), s[find(u)].push_back(find(v)), s[find(v)].push_back(find(u));
+        else if (ch == '<')
+            g[find(v)].push_back(find(u)), s[find(u)].push_back(find(v)), s[find(v)].push_back(find(u));
+        else
+            merge(u, v);
     }
     dfs1(0);
     dfs2(0, -1);
-    
+
     return 0;
 }

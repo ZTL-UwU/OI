@@ -10,10 +10,10 @@ struct seg_tree
     long long lmax;
     long long rmax;
     long long maxx;
-    #define st(x) tree[x].sum
-    #define lm(x) tree[x].lmax
-    #define rm(x) tree[x].rmax
-    #define m(x) tree[x].maxx
+#define st(x) tree[x].sum
+#define lm(x) tree[x].lmax
+#define rm(x) tree[x].rmax
+#define m(x) tree[x].maxx
 } tree[MAXN * 4];
 long long score[MAXN];
 inline void push_up(long long k)

@@ -10,7 +10,7 @@ int main()
         puts("3");
         puts("6");
     }
-    else 
+    else
     {
         puts("-1");
     }

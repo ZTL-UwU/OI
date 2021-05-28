@@ -2,10 +2,7 @@
 using namespace std;
 const int maxn = 1e6 + 10;
 int wa[maxn], wb[maxn], wv[maxn], ww[maxn];
-int cmp(int *r, int a, int b, int l)
-{
-    return r[a] == r[b] && r[a + l] == r[b + l];
-}
+int cmp(int *r, int a, int b, int l) { return r[a] == r[b] && r[a + l] == r[b + l]; }
 void da(int *r, int *sa, int n, int m)
 {
     int i, j, p, *x = wa, *y = wb, *t;

@@ -23,7 +23,7 @@ inline void spfa(int s)
     while (!q.empty())
     {
         int u = q.front();
-		// sum -= dis[u];
+        // sum -= dis[u];
         if (q.size() * dis[u] > sum)
         {
             q.push(u);
@@ -60,6 +60,6 @@ int main()
         g[u].push_back((data){v, w});
     }
     spfa(s);
-	printf("%d ", dis[t]);
+    printf("%d ", dis[t]);
     return 0;
 }

@@ -19,7 +19,7 @@ int main()
         return 0;
     }
     int maxn = sum[k];
-    for (int i = k + 1; i < n; i ++)
+    for (int i = k + 1; i < n; i++)
         maxn = max(maxn, sum[i] - sum[i - k - 1]);
     cout << maxn << "\n";
 }

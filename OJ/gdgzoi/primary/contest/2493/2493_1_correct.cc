@@ -18,7 +18,7 @@ int main()
         std::cin >> a[i];
     for (int i = 0; i < m; i++)
         std::cin >> b[i];
-    
+
     std::sort(a, a + n);
     std::sort(b, b + m);
 

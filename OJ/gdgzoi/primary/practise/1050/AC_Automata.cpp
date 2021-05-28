@@ -28,14 +28,14 @@ void insert(string str)
          *   (u)     (u) --+
          *   /  -->  /     | u
          * (ch)     (ch) <-+
-         * 
+         *
          */
         if (!trie[u][ch])
             trie[u][ch] = ++num;
         u = trie[u][ch];
     }
     // End of a string
-    endf[u] ++;
+    endf[u]++;
 }
 // AC Automata
 void build()
@@ -47,8 +47,8 @@ void build()
      *      +-->  a  <--+
      * fail |    / \    | fail
      *      +-  b   c  -+ <<- trie[0][a..z]
-     *         / \  |  
-     *        d   e f  
+     *         / \  |
+     *        d   e f
      */
     for (int i = 0; i < 26; i++)
     {
@@ -97,21 +97,21 @@ int query(string str)
     /*
      * Query
      * (f means fail)
-     *               
+     *
      *              r
      *             / \
      *            /   \
      *           /     \
      *          a       b
-     *         / \       \  
-     *        /   \       \ 
+     *         / \       \
+     *        /   \       \
      *       /     \       \
      *      c       d       e
-     *      |       |          
-     *      g       h     
-     *      | 
-     *      |          
-     *      i 
+     *      |       |
+     *      g       h
+     *      |
+     *      |
+     *      i
      *           v final
      *              V
      *              r <---+
@@ -124,8 +124,8 @@ int query(string str)
      *       /     \       \  |f
      *      c       d       e |
      *      |       |         |
-     *      g  v2-> h --------+    
-     *      |       ^\ 
+     *      g  v2-> h --------+
+     *      |       ^\
      *      |       | \
      * u -> i ------+  +---> end => ans += endf[v2];
      *      ^   f

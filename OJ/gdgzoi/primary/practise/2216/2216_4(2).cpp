@@ -17,7 +17,8 @@ int tt;
 int fa[MAXN];
 int find(int u)
 {
-    if (fa[u] == u) return u;
+    if (fa[u] == u)
+        return u;
     return fa[u] = find(fa[u]);
 }
 void merge(int u, int v)
@@ -27,7 +28,7 @@ void merge(int u, int v)
 }
 void dfs1(int u, int fa)
 {
-    for (int i = 0; i < s[u].size(); i ++)
+    for (int i = 0; i < s[u].size(); i++)
     {
         int v = s[u][i];
         if (v != fa && !vis[v])
@@ -39,9 +40,9 @@ void dfs1(int u, int fa)
 }
 void tarjan(int u)
 {
-    dfn[u] = low[u] = ++ tt;
+    dfn[u] = low[u] = ++tt;
     st.push(u);
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (!dfn[v])
@@ -49,41 +50,46 @@ void tarjan(int u)
             tarjan(v);
             low[u] = min(low[u], low[v]);
         }
-        else if(!color[v]) low[u] = min(low[u], dfn[v]);
+        else if (!color[v])
+            low[u] = min(low[u], dfn[v]);
     }
     if (low[u] == dfn[u])
     {
         int v;
-        col ++;
+        col++;
         do
         {
             v = st.top();
             st.pop();
             color[v] = true;
-            num[col] ++;
+            num[col]++;
         } while (u != v);
     }
 }
 int main()
 {
-    for (int i = 0; i < MAXN; i ++) fa[i] = i;
+    for (int i = 0; i < MAXN; i++)
+        fa[i] = i;
     int n, m;
     cin >> n >> m;
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         int u, v;
         char ch;
         cin >> u >> ch >> v;
-        if (ch == '>') g[find(u)].push_back(find(v));
-        else if(ch == '<') g[find(v)].push_back(find(u));
-        else merge(u, v);
+        if (ch == '>')
+            g[find(u)].push_back(find(v));
+        else if (ch == '<')
+            g[find(v)].push_back(find(u));
+        else
+            merge(u, v);
         s[u].push_back(v);
         s[v].push_back(u);
     }
     vis[0] = true;
     dfs1(0, -1);
     bool connected = true;
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
         if (!vis[i])
         {
@@ -93,8 +99,9 @@ int main()
     }
     tarjan(0);
     int cc = col;
-    for (int i = 1; i <= col; i ++)
-        if (num[i] == 1) cc --;
+    for (int i = 1; i <= col; i++)
+        if (num[i] == 1)
+            cc--;
     col = cc;
     if (col && !connected)
     {

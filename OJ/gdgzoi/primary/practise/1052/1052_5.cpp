@@ -14,7 +14,7 @@ int tmp[MAXN];
 int hit[MAXN];
 int lg[MAXN];
 int n;
-//suffix array
+// suffix array
 bool check(int i, int w)
 {
     return old_rnk[suf[i]] == old_rnk[suf[i - 1]] && old_rnk[suf[i] + w] == old_rnk[suf[i - 1] + w];
@@ -23,37 +23,47 @@ void get_suf()
 {
     int m = 150;
     register int i, k, w;
-    for (i = 1; i <= n; ++i) ++bsk[rnk[i] = str[i]];
-    for (i = 1; i <= m; ++i) bsk[i] += bsk[i - 1];
-    for (i = n; i >= 1; --i) suf[bsk[rnk[i]]--] = i;
+    for (i = 1; i <= n; ++i)
+        ++bsk[rnk[i] = str[i]];
+    for (i = 1; i <= m; ++i)
+        bsk[i] += bsk[i - 1];
+    for (i = n; i >= 1; --i)
+        suf[bsk[rnk[i]]--] = i;
     for (w = 1; w < n; w *= 2, m = k)
     {
-        for (k = 0, i = n; i > n - w; --i) sot[++k] = i;
+        for (k = 0, i = n; i > n - w; --i)
+            sot[++k] = i;
         for (i = 1; i <= n; ++i)
             if (suf[i] > w)
                 sot[++k] = suf[i] - w;
         memset(bsk, 0, sizeof(bsk));
-        for (i = 1; i <= n; ++i) ++bsk[tmp[i] = rnk[sot[i]]];
-        for (i = 1; i <= m; ++i) bsk[i] += bsk[i - 1];
-        for (i = n; i >= 1; --i) suf[bsk[tmp[i]]--] = sot[i];
+        for (i = 1; i <= n; ++i)
+            ++bsk[tmp[i] = rnk[sot[i]]];
+        for (i = 1; i <= m; ++i)
+            bsk[i] += bsk[i - 1];
+        for (i = n; i >= 1; --i)
+            suf[bsk[tmp[i]]--] = sot[i];
         memcpy(old_rnk, rnk, sizeof(rnk));
         for (k = 0, i = 1; i <= n; ++i)
             rnk[suf[i]] = check(i, w) ? k : ++k;
     }
     for (k = 0, i = 1; i <= n; ++i)
     {
-        if (k) --k;
-        while(str[i + k] == str[suf[rnk[i] - 1] + k]) ++k;
+        if (k)
+            --k;
+        while (str[i + k] == str[suf[rnk[i] - 1] + k])
+            ++k;
         hit[rnk[i]] = k;
     }
 }
-//rmq
+// rmq
 void st_init()
 {
     register int i, j;
     memset(rmq, 0x3f, sizeof(rmq));
     lg[0] = -1;
-    for (i = 1; i <= MAXN; ++i) lg[i] = lg[i / 2] + 1;
+    for (i = 1; i <= MAXN; ++i)
+        lg[i] = lg[i / 2] + 1;
     for (i = 1; i <= n; ++i)
         rmq[i][0] = hit[i];
     for (i = 1; (1 << i) <= n; ++i)

@@ -215,7 +215,7 @@ int main()
         {
             int u, v;
             scanf("%d%d", &u, &v);
-            printf("%d\n", solve(u, v, 2, 0)); 
+            printf("%d\n", solve(u, v, 2, 0));
         }
     }
     return 0;

@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <vector>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 const int MAXN = 2e4 + 10;
 vector<data> son[MAXN];
 vector<data> fa[MAXN];

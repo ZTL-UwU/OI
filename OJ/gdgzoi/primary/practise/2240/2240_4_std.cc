@@ -45,10 +45,7 @@ struct LCA
                 dfs2(v, v);
     }
 #undef v
-    void init(int r = 1)
-    {
-        dfs1(r, 0, 0, 1), dfs2(r, r);
-    }
+    void init(int r = 1) { dfs1(r, 0, 0, 1), dfs2(r, r); }
     int getlca(int x, int y)
     {
         while (top[x] != top[y])
@@ -142,10 +139,7 @@ struct PDV
         dis[x].add(0), add(dis[x]);
     }
 #undef v
-    void init()
-    {
-        cnt = n, mx[rt = 0] = INF, all = n, getrt(1, 0), dfs(rt);
-    }
+    void init() { cnt = n, mx[rt = 0] = INF, all = n, getrt(1, 0), dfs(rt); }
     int cnt;
     int query()
     {

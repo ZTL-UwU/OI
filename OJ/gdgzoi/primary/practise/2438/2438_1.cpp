@@ -38,7 +38,7 @@ int main()
 {
     ll c, s, r;
     scanf("%lld %lld %lld", &c, &s, &r);
-    for (int i = 0; i < r; i ++)
+    for (int i = 0; i < r; i++)
     {
         ll o, d, n;
         scanf("%lld %lld %lld", &o, &d, &n);

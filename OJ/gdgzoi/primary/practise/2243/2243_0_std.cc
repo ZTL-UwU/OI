@@ -5,9 +5,9 @@ struct SBT
     int v, sz, ch[2], cnt;
 } t[MAXN];
 int n, m, cnt, root;
-#define Upd(k)                                                    \
-    {                                                             \
-        t[k].sz = t[t[k].ch[0]].sz + t[t[k].ch[1]].sz + t[k].cnt; \
+#define Upd(k)                                                                                                         \
+    {                                                                                                                  \
+        t[k].sz = t[t[k].ch[0]].sz + t[t[k].ch[1]].sz + t[k].cnt;                                                      \
     }
 void rot(int &k, bool f)
 {
@@ -119,10 +119,7 @@ inline void GET(int &n)
 }
 /**********************并查集相关********************/
 int fa[MAXN], num[MAXN];
-int Q(int x)
-{
-    return x == fa[x] ? x : (fa[x] = Q(fa[x]));
-}
+int Q(int x) { return x == fa[x] ? x : (fa[x] = Q(fa[x])); }
 void Union(int a, int b)
 {
     int af = Q(a), bf = Q(b);

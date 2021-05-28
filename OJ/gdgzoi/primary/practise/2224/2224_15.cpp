@@ -9,13 +9,15 @@ bool is_prime[MAXN];
 vector<int> prime;
 void init_prime(int size)
 {
-    for (int i = 0; i < MAXN; i ++) is_prime[i] = true;
-    for (int i = 2; i <= size; i ++)
+    for (int i = 0; i < MAXN; i++)
+        is_prime[i] = true;
+    for (int i = 2; i <= size; i++)
     {
         if (is_prime[i])
         {
             prime.push_back(i);
-            for (int j = i * 2; j <= size; j += i) is_prime[j] = false;
+            for (int j = i * 2; j <= size; j += i)
+                is_prime[j] = false;
         }
     }
 }
@@ -26,8 +28,9 @@ int main()
     while (1)
     {
         scanf("%d", &n);
-        if (!n) return 0;
-        for (int i = 0; i < prime.size(); i ++)
+        if (!n)
+            return 0;
+        for (int i = 0; i < prime.size(); i++)
         {
             int x = prime[i];
             if (x % 2 && is_prime[n - x])

@@ -2,7 +2,7 @@
 using namespace std;
 #define M 1000
 #define MAXN 310 // MAXN为最大有多少项相乘
-int a[M], b[M]; // a[M]中存最终项系数;b[M]中存取中间变量;
+int a[M], b[M];  // a[M]中存最终项系数;b[M]中存取中间变量;
 int main()
 {
     int m, n;

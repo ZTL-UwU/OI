@@ -3,10 +3,7 @@
 #include <math.h>
 using namespace std;
 typedef long long ll;
-ll gcd(ll a, ll b)
-{
-    return b ? gcd(b, a % b) : a;
-}
+ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
 void exgcd(ll a, ll b, ll &x, ll &y)
 {
     if (b == 0)
@@ -29,7 +26,8 @@ int main()
         ll g = gcd(a, m);
         ll x, y;
         exgcd(a, m, x, y);
-        while (x < 0) x += m / g;
+        while (x < 0)
+            x += m / g;
         printf("%lld\n", x);
     }
     return 0;

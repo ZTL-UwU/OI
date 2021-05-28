@@ -9,7 +9,7 @@ using namespace std;
 int r, c, d, cnt = 0, acnt = 0, ans = 0;
 int num[21][21]; //用来记录每个有石柱的点的编号；
 int a[MAXQ];
-int map[MAXN][MAXN], in[25][25]; //map是矩阵图，记录点与点联系；in是石柱高度；
+int map[MAXN][MAXN], in[25][25]; // map是矩阵图，记录点与点联系；in是石柱高度；
 int p[MAXQ], q[MAXQ];
 void makePic(int x, int y) //搜索有直接联系的边建图
 {

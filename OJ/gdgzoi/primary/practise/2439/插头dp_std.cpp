@@ -82,40 +82,40 @@ inline void DP()
         for (int j = 1; j <= m; j++)
         {
             at = 0;
-            memset(ptr, 0, sizeof ptr); //clear hash_table
-            swap(pre, cnt);             //rolling
-            tots[cnt] = 0;              //clear state counter
+            memset(ptr, 0, sizeof ptr); // clear hash_table
+            swap(pre, cnt);             // rolling
+            tots[cnt] = 0;              // clear state counter
             register int nowsta, is_d, is_r;
             register ll nowans;
             for (int k = 1; k <= tots[pre]; k++)
             {
-                nowsta = state[pre][k], nowans = dp[pre][k];                        //get previous state&answer
-                is_d = (nowsta >> bits[j]) % 4, is_r = (nowsta >> bits[j - 1]) % 4; //get current plugs
-                if (!mapx[i][j])                                                    //case 0
+                nowsta = state[pre][k], nowans = dp[pre][k];                        // get previous state&answer
+                is_d = (nowsta >> bits[j]) % 4, is_r = (nowsta >> bits[j - 1]) % 4; // get current plugs
+                if (!mapx[i][j])                                                    // case 0
                 {
                     if ((!is_d) && (!is_r))
                         hah(nowsta, nowans);
                 }
-                else if ((!is_d) && (!is_r)) //case 1
+                else if ((!is_d) && (!is_r)) // case 1
                 {
                     if (mapx[i + 1][j] && mapx[i][j + 1])
                         hah(nowsta + (1 << bits[j - 1]) + 2 * (1 << bits[j]), nowans);
                 }
-                else if ((!is_d) && is_r) //case 2
+                else if ((!is_d) && is_r) // case 2
                 {
                     if (mapx[i + 1][j])
-                        hah(nowsta, nowans); //go down
+                        hah(nowsta, nowans); // go down
                     if (mapx[i][j + 1])
-                        hah(nowsta - is_r * (1 << bits[j - 1]) + is_r * (1 << bits[j]), nowans); //go right
+                        hah(nowsta - is_r * (1 << bits[j - 1]) + is_r * (1 << bits[j]), nowans); // go right
                 }
-                else if (is_d && (!is_r)) //case 3
+                else if (is_d && (!is_r)) // case 3
                 {
                     if (mapx[i][j + 1])
-                        hah(nowsta, nowans); //go right
+                        hah(nowsta, nowans); // go right
                     if (mapx[i + 1][j])
-                        hah(nowsta - is_d * (1 << bits[j]) + is_d * (1 << bits[j - 1]), nowans); //go down
+                        hah(nowsta - is_d * (1 << bits[j]) + is_d * (1 << bits[j - 1]), nowans); // go down
                 }
-                else if (is_d == 1 && is_r == 1) //case 4
+                else if (is_d == 1 && is_r == 1) // case 4
                 {
                     register int count = 1;
                     for (int l = j + 1; l <= m; l++)
@@ -131,7 +131,7 @@ inline void DP()
                         }
                     }
                 }
-                else if (is_d == 2 && is_r == 2) //case 5
+                else if (is_d == 2 && is_r == 2) // case 5
                 {
                     register int count = 1;
                     for (int l = j - 2; l >= 0; l--)
@@ -147,9 +147,9 @@ inline void DP()
                         }
                     }
                 }
-                else if (is_d == 1 && is_r == 2) //case 6
+                else if (is_d == 1 && is_r == 2) // case 6
                     hah(nowsta - 2 * (1 << bits[j - 1]) - (1 << bits[j]), nowans);
-                else if (is_r == 1 && is_d == 2) //case 7
+                else if (is_r == 1 && is_d == 2) // case 7
                     if (i == endx && j == endy)
                         all_ans += (ll)nowans;
             }
