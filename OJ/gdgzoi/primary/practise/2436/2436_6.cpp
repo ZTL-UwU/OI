@@ -14,7 +14,7 @@ void add_zero(vector<int> &a, vector<int> &b)
 }
 void swap_v(vector<int> &x)
 {
-    for (int i = 0; i<x.size()>> 1; i++)
+    for (int i = 0; i < x.size() >> 1; i++)
         swap(x[i], x[x.size() - i - 1]);
 }
 bool cmp(vector<int> a, vector<int> b)
@@ -94,7 +94,7 @@ vector<int> gcd(vector<int> a, vector<int> b)
     int times = 0;
     while (1)
     {
-        times ++;
+        times++;
         if (a == b)
         {
             for (int i = 0; i < two1; i++)
@@ -111,7 +111,8 @@ vector<int> gcd(vector<int> a, vector<int> b)
         while (!(a[a.size() - 1] % 2))
             a = divide_by_two(a);
         dbg(a);
-        if (times == 30) system("pkill 2436_6");
+        if (times == 30)
+            system("pkill 2436_6");
     }
 }
 int main()

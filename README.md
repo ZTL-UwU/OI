@@ -1,3 +1,3 @@
 ### zhangtianli2006's OI work repo
 
-![Repo Size](https://img.shields.io/github/repo-size/zhangtianli2006/work)
+![Code Size](https://img.shields.io/github/languages/code-size/zhangtianli2006/work?style=for-the-badge)

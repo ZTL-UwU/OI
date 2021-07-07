@@ -9,7 +9,7 @@ using namespace std;
 
 long long t, a, b;
 
-long long f[15][15],shu[15];
+long long f[15][15], shu[15];
 
 void init()
 {
@@ -28,7 +28,7 @@ long long solve(long long x)
     memset(shu, 0, sizeof(shu));
     if (x == 0)
         return 0;
-    long long k = 0,ans = 0;
+    long long k = 0, ans = 0;
     while (x)
     {
         shu[++k] = x % 10;
@@ -58,6 +58,7 @@ int main()
     init();
     printf("%lld", solve(b) - solve(a - 1));
 
-    while (1);
+    while (1)
+        ;
     return 0;
 }

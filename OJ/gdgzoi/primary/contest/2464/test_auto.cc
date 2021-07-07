@@ -18,7 +18,7 @@ int main()
     read(x);
     ll y;
     read(y);
-    //string z;read(z); // CE
+    // string z;read(z); // CE
     cout << x + y;
     return 0;
 }

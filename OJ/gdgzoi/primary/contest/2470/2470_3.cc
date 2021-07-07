@@ -1,6 +1,3 @@
 #include <bits/stdc++.h>
 
-int main()
-{
-    puts("11");
-}
+int main() { puts("11"); }

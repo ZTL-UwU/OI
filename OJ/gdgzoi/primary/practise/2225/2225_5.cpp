@@ -4,11 +4,11 @@ using namespace std;
 typedef long long ll;
 int main()
 {
-    //f(1) = 18 + ka
+    // f(1) = 18 + ka
     ll k;
     while (cin >> k)
     {
-        for (ll a = 1; a <= 65; a ++)
+        for (ll a = 1; a <= 65; a++)
         {
             if ((k * a + 18) % 65 == 0)
             {

@@ -13,20 +13,22 @@ int col;
 int tt;
 void tarjan(int u, int fa)
 {
-    dfn[u] = low[u] = ++ tt;
+    dfn[u] = low[u] = ++tt;
     st.push(u);
 }
 int main()
 {
     int n, m;
     cin >> n >> m;
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    for (int i = 1; i <= n; i ++) if (!dfn[i]) tarjan(i, -1);
+    for (int i = 1; i <= n; i++)
+        if (!dfn[i])
+            tarjan(i, -1);
     return 0;
 }

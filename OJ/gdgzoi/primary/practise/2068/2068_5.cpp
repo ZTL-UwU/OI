@@ -6,7 +6,7 @@ const int MAXN = 2000;
 void dfs(int u, int fa)
 {
     dp[u][1] = 1;
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (v != fa)
@@ -21,11 +21,11 @@ int main()
 {
     int n;
     cin >> n;
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
         int u, k;
         cin >> u >> k;
-        for (int j = 0; j < k; j ++)
+        for (int j = 0; j < k; j++)
         {
             int v;
             cin >> v;

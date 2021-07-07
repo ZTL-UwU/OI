@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 int minn[1000];
 int pre[1000];
 int g[1000][1000];

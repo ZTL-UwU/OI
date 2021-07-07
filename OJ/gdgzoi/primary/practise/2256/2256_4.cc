@@ -50,24 +50,24 @@ int main()
         std::cin >> type >> k;
         switch (type)
         {
-        case 'I':
-            query::I(k);
-            break;
+            case 'I':
+                query::I(k);
+                break;
 
-        case 'A':
-            query::A(k);
-            break;
+            case 'A':
+                query::A(k);
+                break;
 
-        case 'S':
-            query::S(k);
-            break;
+            case 'S':
+                query::S(k);
+                break;
 
-        case 'F':
-            std::cout << query::F(k) << "\n";
-            break;
+            case 'F':
+                std::cout << query::F(k) << "\n";
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
     }
     std::cout << query::ans;

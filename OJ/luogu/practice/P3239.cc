@@ -1,0 +1,1 @@
+../../../OJ/gdgzoi/primary/practise/1060/1060_6.cc

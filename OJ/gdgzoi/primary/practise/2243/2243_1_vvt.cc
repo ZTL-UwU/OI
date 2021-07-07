@@ -5,14 +5,8 @@ const int MAXN = 2e5 + 10;
 namespace vvt
 {
     std::vector<int> v;
-    void insert(int val)
-    {
-        v.insert(std::lower_bound(v.begin(), v.end(), val), val);
-    }
-    void erase(int val)
-    {
-        v.erase(std::lower_bound(v.begin(), v.end(), val));
-    }
+    void insert(int val) { v.insert(std::lower_bound(v.begin(), v.end(), val), val); }
+    void erase(int val) { v.erase(std::lower_bound(v.begin(), v.end(), val)); }
     int find(int rank)
     {
         if (rank > v.size())

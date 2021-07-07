@@ -27,7 +27,7 @@ int main()
             else
                 now = i;
         }
-        
+
         if (remove <= m)
         {
             l = mid + 1;

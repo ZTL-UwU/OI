@@ -10,7 +10,8 @@ int main()
         cin >> h[i];
     int ans = 1;
     int con = 0;
-    if (h[1] >= h[0]) con = 1;
+    if (h[1] >= h[0])
+        con = 1;
     for (int i = 0; i < n; i++)
     {
         if (con == 0 && i == n - 1)

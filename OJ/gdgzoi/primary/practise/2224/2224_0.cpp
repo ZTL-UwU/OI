@@ -5,7 +5,7 @@ int main()
 {
     unsigned long long n;
     cin >> n;
-    for (int k = 2; k <= sqrt(n); k ++)
+    for (int k = 2; k <= sqrt(n); k++)
     {
         if (n % k == 0)
         {

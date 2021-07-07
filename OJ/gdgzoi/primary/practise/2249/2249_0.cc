@@ -10,10 +10,7 @@ inline void commit(long long l, long long r, long long k, long long val)
     st[k] += (r - l + 1) * val;
     tag[k] += val;
 }
-inline void push_up(long long k)
-{
-    st[k] = st[k * 2] + st[k * 2 + 1];
-}
+inline void push_up(long long k) { st[k] = st[k * 2] + st[k * 2 + 1]; }
 inline void push_down(long long l, long long r, long long k)
 {
     long long mid = (l + r) / 2;

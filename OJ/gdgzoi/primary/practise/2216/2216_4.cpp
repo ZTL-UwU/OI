@@ -9,7 +9,7 @@ int in[MAXN];
 queue<int> q;
 bool dfs(int u)
 {
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
     }
@@ -20,25 +20,29 @@ int main()
     bool flagc = true;
     int n, m;
     cin >> n >> m;
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         int u, v;
         char ch;
         cin >> u >> ch >> v;
-        if (ch == '>' || ch == '=') g[u].push_back(v), in[v] ++;
-        if (ch == '<') g[v].push_back(u), in[u] ++;
+        if (ch == '>' || ch == '=')
+            g[u].push_back(v), in[v]++;
+        if (ch == '<')
+            g[v].push_back(u), in[u]++;
     }
     flagc = dfs(0);
-    for (int i = 0; i < n; i ++) if (in[i] == 0) q.push(i);
+    for (int i = 0; i < n; i++)
+        if (in[i] == 0)
+            q.push(i);
     while (!q.empty())
     {
         int u = q.front();
         q.pop();
         bool flag = true;
-        for (int i = 0; i < g[u].size(); i ++)
+        for (int i = 0; i < g[u].size(); i++)
         {
             int v = g[u][i];
-            in[v] --;
+            in[v]--;
             if (!in[v])
             {
                 flag = false;
@@ -51,7 +55,9 @@ int main()
             break;
         }
     }
-    if (flagg) cout << "CONFLICT";
-    else cout << "OK";
+    if (flagg)
+        cout << "CONFLICT";
+    else
+        cout << "OK";
     return 0;
 }

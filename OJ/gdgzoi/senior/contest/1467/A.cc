@@ -5,7 +5,7 @@
 #include <queue>
 using namespace std;
 const int MAXN = 2e6 + 10;
-priority_queue<int, vector<int>, greater<int> > pq[MAXN];
+priority_queue<int, vector<int>, greater<int>> pq[MAXN];
 vector<int> tree[MAXN];
 int son[MAXN];
 bool in[MAXN];

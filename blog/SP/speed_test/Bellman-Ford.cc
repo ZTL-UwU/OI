@@ -3,7 +3,10 @@
 #include <stdio.h>
 #include <vector>
 using namespace std;
-struct edge { long long u, v, w; };
+struct edge
+{
+    long long u, v, w;
+};
 const long long INF = 0x7fffffff;
 const long long MAXN = 1e4 + 10;
 vector<edge> e;
@@ -21,7 +24,7 @@ void Bellman_Ford()
         {
             if (dis[e[i].v] > dis[e[i].u] + e[i].w)
             {
-                dis[e[i].v] = dis[e[i].u]  + e[i].w;
+                dis[e[i].v] = dis[e[i].u] + e[i].w;
                 flag = false;
             }
         }

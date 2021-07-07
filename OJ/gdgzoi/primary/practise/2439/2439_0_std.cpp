@@ -57,7 +57,6 @@ int n, m;
 //     }
 // } Ans;
 
-
 class huge_int
 {
 public:
@@ -103,7 +102,6 @@ public:
 
 huge_int Ans;
 
-
 // struct Hash_Sheet
 // {
 //     Data_Analysis val[mod];
@@ -128,7 +126,6 @@ huge_int Ans;
 //         }
 //     }
 // } f[2];
-
 
 const int MOD = 49999;
 class link_hash

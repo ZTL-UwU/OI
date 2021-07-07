@@ -5,7 +5,10 @@
 #include <queue>
 using namespace std;
 const int MAXN = 100100;
-struct data { int u, v; };
+struct data
+{
+    int u, v;
+};
 vector<int> g[MAXN];
 stack<int> st;
 int color[MAXN];
@@ -15,9 +18,9 @@ int col;
 int tt;
 void tarjan(int u)
 {
-    dfn[u] = low[u] = ++ tt;
+    dfn[u] = low[u] = ++tt;
     st.push(u);
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (!dfn[v])
@@ -25,11 +28,12 @@ void tarjan(int u)
             tarjan(v);
             low[u] = min(low[u], low[v]);
         }
-        else if (!color[v]) low[u] = min(low[u], dfn[v]);
+        else if (!color[v])
+            low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u])
     {
-        col ++;
+        col++;
         int v;
         do
         {
@@ -43,21 +47,25 @@ int main()
 {
     int n, m;
     scanf("%d %d", &n, &m);
-    for (int i = 0; i < m; i ++)
+    for (int i = 0; i < m; i++)
     {
         int u, v;
         scanf("%d %d", &u, &v);
         g[u].push_back(v);
     }
-    for (int i = 1; i <= n; i ++) if (!dfn[i]) tarjan(i);
+    for (int i = 1; i <= n; i++)
+        if (!dfn[i])
+            tarjan(i);
     int q;
     cin >> q;
-    for (int i = 0; i < q; i ++)
+    for (int i = 0; i < q; i++)
     {
         int u, v;
         cin >> u >> v;
-        if (color[u] == color[v]) puts("1");
-        else puts("0");
+        if (color[u] == color[v])
+            puts("1");
+        else
+            puts("0");
     }
     return 0;
 }

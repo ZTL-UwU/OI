@@ -62,17 +62,18 @@
     求出其封闭形式
 
     $$
-        f_1(x) \cdot x^2 + x^0               \\
-        = \sum_{n \geq 0} x^{2(n + 1)} + x^0 \\
-        = \sum_{n \geq 1} x^{2n} + x^0       \\
-        = f_1(x)
+      \begin{align}
+        f_1(x) \cdot x^2 + x^0 &= \sum_{n \geq 0} x^{2(n + 1)} + x^0 \\
+                               &= \sum_{n \geq 1} x^{2n} + x^0       \\
+                               &= f_1(x)
+      \end{align}
     $$
-
+    
     $$
         \therefore f_1(x) \cdot (x^2 - 1) = -1 \\
         \therefore f_1(x) = \frac{1}{1 - x^2}
     $$
-
+    
 2. 可乐 $f_2$
 
     > 可乐：0个或1个
@@ -114,10 +115,11 @@
     求出其封闭形式
 
     $$
-        f_4(x) \cdot x^2 + x                       \\
-            = \sum_{n \geq 0} x^{2(n + 1) + 1} + x \\
-            = \sum_{n \geq 1} x^{2n + 1} + x       \\
-            = f_4(x)
+      \begin{align}
+        f_4(x) \cdot x^2 + x &= \sum_{n \geq 0} x^{2(n + 1) + 1} + x \\
+                             &= \sum_{n \geq 1} x^{2n + 1} + x       \\
+                             &= f_4(x)
+      \end{align}
     $$
 
     $$
@@ -132,16 +134,17 @@
     即为数列 $\langle 0, 4, 8, 12, \cdots \rangle$ 的生成函数
 
     $$
-        f_5(x) = \sum_{n \geq 0} x^{4n}
+    f_5(x) = \sum_{n \geq 0} x^{4n}
     $$
 
     求出其封闭形式
 
     $$
-        f_5(x) \cdot x^4 + x^0                   \\
-            = \sum_{n \geq 0} x^{4(n + 1)} + x^0 \\
-            = \sum_{n \geq 1} x^{4n} + x^0       \\
-            = f_5(x)
+      \begin{align}
+         f_5(x) \cdot x^4 + x^0 &= \sum_{n \geq 0} x^{4(n + 1)} + x^0 \\
+                                &= \sum_{n \geq 1} x^{4n} + x^0       \\
+                                &= f_5(x)
+      \end{align}
     $$
 
     $$
@@ -188,10 +191,11 @@
     求其封闭形式
 
     $$
-        f_8(x) \cdot x^3 + x^0                   \\
-            = \sum_{n \geq 0} x^{3(n + 1)} + x^0 \\
-            = \sum_{n \geq 1} x^{3n} + x^0       \\
-            = f_8(x)
+    \begin{align}
+        f_8(x) \cdot x^3 + x^0 &= \sum_{n \geq 0} x^{3(n + 1)} + x^0 \\
+                               &= \sum_{n \geq 1} x^{3n} + x^0       \\
+                               &= f_8(x)
+      \end{align}
     $$
 
     $$

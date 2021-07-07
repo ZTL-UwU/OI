@@ -48,11 +48,13 @@ int main()
     }
     column[m].dec++;
 
-    std::sort(column, column + m + 1, [](data x, data y) {
-        if (x.str != y.str)
-            return x.str > y.str;
-        return x.id < y.id;
-    });
+    std::sort(column, column + m + 1,
+              [](data x, data y)
+              {
+                  if (x.str != y.str)
+                      return x.str > y.str;
+                  return x.id < y.id;
+              });
 
     for (int i = 0; i < q; i++)
     {

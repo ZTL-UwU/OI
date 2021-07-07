@@ -27,8 +27,7 @@ namespace sgt
     }
     bool node::is_nagetive()
     {
-        if (this->cnt * alpha < this->left->cnt
-            || this->cnt * alpha < this->right->cnt)
+        if (this->cnt * alpha < this->left->cnt || this->cnt * alpha < this->right->cnt)
             return true;
         return false;
     }
@@ -135,7 +134,7 @@ namespace sgt
         }
         return -1;
     }
-};
+}; // namespace sgt
 sgt::node *root;
 namespace uf
 {
@@ -159,7 +158,7 @@ namespace uf
         siz[fy] += siz[fx];
         sgt::insert(root, siz[fy]);
     }
-};
+}; // namespace uf
 int main()
 {
     sgt::null = new sgt::node;

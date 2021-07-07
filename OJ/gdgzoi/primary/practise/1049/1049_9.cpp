@@ -14,22 +14,24 @@ int main()
     while (1)
     {
         char tmp = getchar();
-        if (tmp == '\n') break;
-        b[sb ++] = tmp;
+        if (tmp == '\n')
+            break;
+        b[sb++] = tmp;
     }
     while (1)
     {
         char tmp = getchar();
-        if (tmp == '\n') break;
-        a[sa ++] = tmp;
+        if (tmp == '\n')
+            break;
+        a[sa++] = tmp;
     }
-    for (int i = 0; i < sb; ++ i)
+    for (int i = 0; i < sb; ++i)
     {
-        st[++ top] = b[i];
+        st[++top] = b[i];
         if (top >= sa)
         {
             bool flag = true;
-            for (int i = 0; i < sa; ++ i)
+            for (int i = 0; i < sa; ++i)
             {
                 if (a[i] != st[top + i - sa + 1])
                 {
@@ -41,7 +43,7 @@ int main()
                 top -= sa;
         }
     }
-    for (int i = 1; i <= top; ++ i)
+    for (int i = 1; i <= top; ++i)
     {
         char tmp = st[i];
         putchar(tmp);

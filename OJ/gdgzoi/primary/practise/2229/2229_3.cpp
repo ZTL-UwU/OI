@@ -13,12 +13,13 @@ Mat mult(Mat a, Mat b)
 {
     Mat res;
     memset(res.m, 0, sizeof(res.m));
-    for (ll k = 0; k < 2; ++ k)
+    for (ll k = 0; k < 2; ++k)
     {
-        for (ll i = 0; i < 2; ++ i)
+        for (ll i = 0; i < 2; ++i)
         {
-            if (a.m[i][k] == 0) continue;
-            for (ll j = 0; j < 2; ++ j)
+            if (a.m[i][k] == 0)
+                continue;
+            for (ll j = 0; j < 2; ++j)
                 res.m[i][j] += ((a.m[i][k] % MOD) * (b.m[k][j] % MOD)) % MOD;
         }
     }
@@ -27,12 +28,13 @@ Mat mult(Mat a, Mat b)
 Mat pow(Mat a, ll b)
 {
     Mat res;
-    for (ll i = 0; i < MAXN; ++ i)
-        for (ll j = 0; j < MAXN; ++ j)
+    for (ll i = 0; i < MAXN; ++i)
+        for (ll j = 0; j < MAXN; ++j)
             res.m[i][j] = (i == j);
     while (b)
     {
-        if (b & 1) res = mult(res, a);
+        if (b & 1)
+            res = mult(res, a);
         a = mult(a, a);
         b >>= 1;
     }
@@ -46,11 +48,24 @@ int main()
     fibonacci.m[1][1] = 0;
     start.m[0][0] = start.m[1][0] = 1;
     ll n;
-    scanf("%lld %lld", &n, &MOD); 
-    if (n < 0) return 0;
-    if (n == 0) { cout << "0\n"; return 0; }
-    if (n == 1) { cout << "1\n"; return 0; }
-    if (n == 2) { cout << "1\n"; return 0; }
+    scanf("%lld %lld", &n, &MOD);
+    if (n < 0)
+        return 0;
+    if (n == 0)
+    {
+        cout << "0\n";
+        return 0;
+    }
+    if (n == 1)
+    {
+        cout << "1\n";
+        return 0;
+    }
+    if (n == 2)
+    {
+        cout << "1\n";
+        return 0;
+    }
     // n --;
     Mat ans;
     // ans = pow(fibonacci, n - 1);

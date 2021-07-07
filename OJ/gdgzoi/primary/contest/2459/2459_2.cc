@@ -43,10 +43,7 @@ inline void merge(int x, int y)
     fa[fx] = fy;
 }
 
-inline bool cmp(edge x, edge y)
-{
-    return x.w > y.w;
-}
+inline bool cmp(edge x, edge y) { return x.w > y.w; }
 
 int main()
 {

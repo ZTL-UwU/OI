@@ -17,15 +17,9 @@ struct tree
         cin >> Tree[x];
     }
 
-    inline int make_tree(int l, int r)
-    {
-        return min(Tree[l], Tree[r]);
-    }
+    inline int make_tree(int l, int r) { return min(Tree[l], Tree[r]); }
 
-    void update(int pos, int val)
-    {
-        Tree[pos] = val;
-    }
+    void update(int pos, int val) { Tree[pos] = val; }
 
     // val----------------------------------------------------------
 

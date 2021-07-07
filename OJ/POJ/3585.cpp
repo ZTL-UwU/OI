@@ -12,7 +12,7 @@ int maxn[MAXN];
 int dp[MAXN];
 void dfs1(int u, int fa)
 {
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i].v, w = g[u][i].w;
         if (v != fa)
@@ -22,19 +22,16 @@ void dfs1(int u, int fa)
         }
     }
 }
-void dfs2(int u, int fa)
-{
-    
-}
+void dfs2(int u, int fa) {}
 int main()
 {
     int t;
     cin >> t;
-    while (t --)
+    while (t--)
     {
         int n;
         cin >> n;
-        for (int i = 0; i < n - 1; i ++)
+        for (int i = 0; i < n - 1; i++)
         {
             int u, v, w;
             cin >> u >> v >> w;

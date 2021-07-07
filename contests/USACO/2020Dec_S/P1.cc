@@ -39,7 +39,6 @@ inline void bfs(int S)
         {
             if (not vis[v])
             {
-                
             }
         }
     }

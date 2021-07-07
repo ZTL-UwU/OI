@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int x, y; };
+struct data
+{
+    int x, y;
+};
 const int INF = 100;
 const int MAXN = 1e3;
 bool vis[MAXN][MAXN];

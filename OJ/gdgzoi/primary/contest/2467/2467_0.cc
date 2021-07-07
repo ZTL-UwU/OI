@@ -17,10 +17,7 @@ struct student
 
 std::vector<student> v;
 
-inline bool cmp(student a, student b)
-{
-    return a.height < b.height;
-}
+inline bool cmp(student a, student b) { return a.height < b.height; }
 
 int main()
 {

@@ -19,16 +19,10 @@ int x, y, c[150010];
 struct node
 {
     int l, r;
-    bool operator<(const node &x) const
-    {
-        return r < x.r;
-    }
+    bool operator<(const node &x) const { return r < x.r; }
 } a[1005];
 
-int lowbit(int x)
-{
-    return x & (-x);
-}
+int lowbit(int x) { return x & (-x); }
 
 void add(int x)
 {
@@ -52,8 +46,8 @@ int sum(int x)
 
 int main()
 {
-    //freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    // freopen("in.txt", "r", stdin);
+    // freopen("out.txt", "w", stdout);
 
     scanf("%d", &n);
     for (int i = 1; i <= n; i++)

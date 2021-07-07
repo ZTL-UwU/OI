@@ -4,7 +4,10 @@
 #include <vector>
 #include <stack>
 using namespace std;
-struct data { int l, r; };
+struct data
+{
+    int l, r;
+};
 const int MAXN = 10000;
 data tree[MAXN];
 stack<string> input;

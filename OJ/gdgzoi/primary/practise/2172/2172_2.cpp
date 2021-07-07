@@ -3,7 +3,10 @@
 #include <string.h>
 #include <vector>
 using namespace std;
-struct edge { int u, v, w; };
+struct edge
+{
+    int u, v, w;
+};
 const int MAXN = 2e3;
 vector<edge> e;
 int fa[MAXN];
@@ -20,10 +23,7 @@ inline void merge(int x, int y)
     int fy = find(y);
     fa[fx] = fy;
 }
-inline bool cmp(edge x, edge y) 
-{
-    return x.w < y.w;
-}
+inline bool cmp(edge x, edge y) { return x.w < y.w; }
 inline void init()
 {
     memset(p, 0, sizeof(p));
@@ -50,7 +50,7 @@ int main()
                 cin >> w;
                 e.push_back((edge){i, j, w + p[i] + p[j]});
             }
-            for (int j = i ; j < n; j++)
+            for (int j = i; j < n; j++)
             {
                 int dum;
                 cin >> dum;

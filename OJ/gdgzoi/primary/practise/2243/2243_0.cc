@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
-using std::vector;
-using std::cout;
 using std::cin;
+using std::cout;
 using std::min;
+using std::vector;
 const int INF = 0x7fffffff;
 const double alpha = 0.7;
 namespace tzy
@@ -21,8 +21,7 @@ namespace tzy
     };
     bool node::is_negative()
     {
-        if (this->cnt * alpha < this->left->cnt
-            || this->cnt * alpha < this->right->cnt)
+        if (this->cnt * alpha < this->left->cnt || this->cnt * alpha < this->right->cnt)
             return true;
         return false;
     }

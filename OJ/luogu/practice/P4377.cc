@@ -1,0 +1,1 @@
+../../gdgzoi/primary/contest/2528/2528_1_correct.cc

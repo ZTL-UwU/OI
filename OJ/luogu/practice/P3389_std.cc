@@ -22,7 +22,7 @@ int main()
         for (int j = i + 1; j <= n; ++j) //选出该列最大系数
         {
             if (fabs(a[j][i]) > fabs(a[max][i]))
-            //fabs是取浮点数的绝对值的函数
+            // fabs是取浮点数的绝对值的函数
             {
                 max = j;
             }
@@ -44,7 +44,7 @@ int main()
                 for (int k = i + 1; k <= n + 1; ++k)
                 {
                     a[j][k] -= a[i][k] * temp;
-                    //a[j][k]-=a[j][i]*a[i][k]/a[i][i];
+                    // a[j][k]-=a[j][i]*a[i][k]/a[i][i];
                 }
             }
         }

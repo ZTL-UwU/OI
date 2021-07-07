@@ -1,10 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-inline long long pow2(long long int num)
-{
-    return pow(2, num);
-}
+inline long long pow2(long long int num) { return pow(2, num); }
 
 inline int ceil_log(long long int num)
 {

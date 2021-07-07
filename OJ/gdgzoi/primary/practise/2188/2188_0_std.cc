@@ -71,10 +71,7 @@ inline LL Get(LL *t, int i)
         r += t[i];
     return r;
 }
-inline LL Que(LL *t, int l, int r)
-{
-    return Get(t, r) - Get(t, l - 1);
-}
+inline LL Que(LL *t, int l, int r) { return Get(t, r) - Get(t, l - 1); }
 inline void inc(int x)
 {
     Add(c1, L[x], k);

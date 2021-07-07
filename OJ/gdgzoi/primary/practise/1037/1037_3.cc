@@ -17,44 +17,28 @@ struct tree
     long long seted_single = -0x7fffffff /* val */;
     long long max_len = 200010 /* val */; /* val (times 4) */
 
-    void make_tree_basic_single(long long x)
-    {
-        Tree[x] = 0;
-    }
+    void make_tree_basic_single(long long x) { Tree[x] = 0; }
 
     void make_tree_basic_long(long long x)
-    {
-        /* val */
+    { /* val */
     }
 
-    inline long long make_tree_single(long long l, long long r)
-    {
-        return max(Tree[l], Tree[r]);
-    }
+    inline long long make_tree_single(long long l, long long r) { return max(Tree[l], Tree[r]); }
 
     inline long long make_tree_long(long long l, long long r)
-    {
-        /* val */
+    { /* val */
     }
 
-    void update_single(long long pos, long long val)
-    {
-        Tree[pos] = val;
-    }
+    void update_single(long long pos, long long val) { Tree[pos] = val; }
 
     void update_long(long long pos, long long val)
-    {
-        /* val */
+    { /* val */
     }
 
-    inline long long comp_single(long long v1, long long v2)
-    {
-        return max(v1, v2);
-    }
+    inline long long comp_single(long long v1, long long v2) { return max(v1, v2); }
 
     inline long long comp_long(long long v1, long long v2)
-    {
-        /* val */
+    { /* val */
     }
 
     // user functions------------------------------------------------------------

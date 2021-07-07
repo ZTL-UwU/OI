@@ -8,7 +8,7 @@
 using namespace std;
 const int maxn = 550, INF = 1e9 + 1;
 int a[maxn][maxn], d[maxn];
-//d[i]表示到i的最长路
+// d[i]表示到i的最长路
 int main()
 {
     int n, i, j, end = 0, ans1 = 0, ans2, path[maxn];

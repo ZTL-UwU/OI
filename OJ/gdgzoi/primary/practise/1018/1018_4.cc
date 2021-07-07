@@ -13,7 +13,7 @@ int main()
     while (true)
     {
         bool found = false;
-        
+
         for (int i = 0; i < n; i++)
         {
             if (!attracted[i] && r[i] <= l)

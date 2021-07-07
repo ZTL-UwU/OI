@@ -7,13 +7,12 @@ int main()
 {
     int val, m, n;
     cin >> val >> m >> n;
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
         cin >> v[i] >> w[i] >> value[i];
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = val; j >= v[i]; j --)
+        for (int j = val; j >= v[i]; j--)
         {
-            
         }
     }
     return 0;

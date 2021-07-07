@@ -1,0 +1,1 @@
+../../../../luogu/practice/P1824.cc

@@ -2,7 +2,10 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-struct data { int t, v; };
+struct data
+{
+    int t, v;
+};
 const int MAXN = 1e5 + 10;
 data a[MAXN];
 inline bool cmp(data x, data y)

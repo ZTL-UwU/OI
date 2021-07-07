@@ -14,7 +14,8 @@ bool vis[MAXN];
 vector<int> g[MAXN];
 void init()
 {
-    for (int i = 0; i < MAXN; i ++) g[i].clear();
+    for (int i = 0; i < MAXN; i++)
+        g[i].clear();
     memset(dfn, 0, sizeof(dfn));
     memset(low, 0, sizeof(low));
     memset(iscp, 0, sizeof(iscp));
@@ -23,7 +24,7 @@ void init()
 void dfs(int u, int cut)
 {
     vis[u] = true;
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (!vis[v] && v != cut)
@@ -34,33 +35,36 @@ int check(int cut)
 {
     memset(vis, 0, sizeof(vis));
     int res = 0;
-    for (int i = 0; i < n; i ++)
+    for (int i = 0; i < n; i++)
     {
         if (!vis[i])
         {
             dfs(i, cut);
-            res ++;
+            res++;
         }
     }
     return res;
 }
 void tarjan(int u, int fa)
 {
-    dfn[u] = low[u] = ++ tt;
+    dfn[u] = low[u] = ++tt;
     int ch = 0;
-    for (int i = 0; i < g[u].size(); i ++)
+    for (int i = 0; i < g[u].size(); i++)
     {
         int v = g[u][i];
         if (!dfn[v])
         {
             tarjan(v, u);
-            ch ++;
+            ch++;
             low[u] = max(low[u], low[v]);
-            if (low[v] >= dfn[u]) iscp[u] = true;
+            if (low[v] >= dfn[u])
+                iscp[u] = true;
         }
-        else low[u] = min(low[u], dfn[v]);
+        else
+            low[u] = min(low[u], dfn[v]);
     }
-    if (fa == -1 && ch == 1) iscp[u] = false;
+    if (fa == -1 && ch == 1)
+        iscp[u] = false;
 }
 int main()
 {
@@ -68,19 +72,20 @@ int main()
     {
         init();
         cin >> n >> m;
-        if (!n && !m) return 0;
-        for (int i = 0; i < m; i ++)
+        if (!n && !m)
+            return 0;
+        for (int i = 0; i < m; i++)
         {
             int u, v;
             cin >> u >> v;
             g[u].push_back(v);
             g[v].push_back(u);
         }
-        for (int i = 0; i < n; i ++)
+        for (int i = 0; i < n; i++)
             if (!dfn[i])
                 tarjan(i, -1);
         int maxn = -INF;
-        for (int i = 0; i < n; i ++)
+        for (int i = 0; i < n; i++)
             if (iscp[i])
                 maxn = max(maxn, check(i));
         cout << maxn << endl;

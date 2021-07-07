@@ -4,7 +4,10 @@
 #include <vector>
 #include <queue>
 using namespace std;
-struct data { int v, w; };
+struct data
+{
+    int v, w;
+};
 const int MAXN = 4e3;
 vector<data> g[MAXN];
 bool inque[MAXN];

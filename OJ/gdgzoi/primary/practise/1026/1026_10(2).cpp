@@ -11,7 +11,7 @@ int main()
 {
     int tmp, val;
     cin >> tmp >> val;
-    for (int i = 0; i < tmp; i ++)
+    for (int i = 0; i < tmp; i++)
     {
         int _num, _w, _v;
         cin >> _num >> _w >> _v;
@@ -20,14 +20,14 @@ int main()
         {
             _num -= cnt;
             v[n] = _v * cnt;
-            w[n ++] = _w * cnt;
+            w[n++] = _w * cnt;
             cnt *= 2;
         }
         v[n] = _v * _num;
-        w[n ++] = _w * _num;
+        w[n++] = _w * _num;
     }
-    for (int i = 0; i < n; i ++)
-        for (int j = val; j >= w[i]; j --)
+    for (int i = 0; i < n; i++)
+        for (int j = val; j >= w[i]; j--)
             dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
     cout << dp[val];
     return 0;

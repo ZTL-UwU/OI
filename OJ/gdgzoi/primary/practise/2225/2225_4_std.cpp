@@ -30,7 +30,7 @@ int main()
         B = -B;
     } //处理负数
     exgcd(A, l, x1, y1);
-        cout << x1 << " " << y1 << " " << A << " " << B << " " << ans << "\n";
+    cout << x1 << " " << y1 << " " << A << " " << B << " " << ans << "\n";
     if (B % ans != 0) //判断方程有无解。
         cout << "Impossible";
     else
