@@ -13,7 +13,7 @@ int top[MAX_N];
 int dfn[MAX_N];
 
 long long st[4 * MAX_N];
-short tag[MAX_N];
+short tag[4 * MAX_N];
 int n;
 
 void push_down(int k, int l, int r)
@@ -107,16 +107,16 @@ void dfs2(int u)
     }
 }
 
-void route(int x, short val)
+void route(int x)
 {
     int fx = top[x];
     while (fx != ROOT)
     {
-        update(dfn[fx], dfn[x], val);
+        update(dfn[fx], dfn[x], 2);
         x = father[top[x]];
         fx = top[x];
     }
-    update(ROOT, dfn[x], val);
+    update(ROOT, dfn[x], 2);
 }
 
 int main()
@@ -151,13 +151,13 @@ int main()
         if (op == "install")
         {
             const auto before = st[dfn[ROOT]];
-            route(x, 2);
+            route(x);
             std::cout << st[dfn[ROOT]] - before << "\n";
         }
         else
         {
             const auto before = st[dfn[ROOT]];
-            update(dfn[x], dfn[x] + size[x], 1);
+            update(dfn[x], dfn[x] + size[x] - 1, 1);
             std::cout << before - st[dfn[ROOT]] << "\n";
         }
     }
