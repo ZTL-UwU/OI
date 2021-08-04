@@ -149,6 +149,7 @@
     "C_Cpp.dimInactiveRegions": false,
     "clock.active": false,
     "cSpell.enableFiletypes": [
+        "!plaintext",
         "bat",
         "vue",
         "vue-html",
