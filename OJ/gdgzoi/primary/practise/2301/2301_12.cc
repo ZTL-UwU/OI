@@ -1,80 +1,65 @@
-#include <algorithm>
 #include <iostream>
-#include <cstring>
-#include <cstdio>
-#include <vector>
 #include <cmath>
-#include <map>
 
-const int INF = 0x7fffffff;
 const int MAXN = 1e5 + 10;
-std::vector<int> bucket[MAXN]; // id -> {val, ...}
-std::map<int, int> mp;         // Map for discretization
-int mode[1000][1000];          // Mode number between block[i] & block[j]
-int mapping[MAXN];             // val -> id
-int block[MAXN];               // Block outline
-int value[MAXN];               // id -> val
-int block_size;                // One block's size
-int cnt[MAXN];                 // Counter for prework
-int id;                        // id after discretization
+int value[MAXN];
+int block[MAXN];
+int block_size;
+int tag[MAXN];
 int n;
 
-inline void pre_work(int x)
+inline void commit(int k)
 {
-    std::memset(cnt, 0, sizeof(cnt));
-    int max = -INF;
-    int res = 0;
-    for (int i = (x - 1) * block_size + 1; i <= n; i++)
-    {
-        int tmp_id = mapping[i];
-        cnt[tmp_id]++;
-        int to = block[i];
-
-        if (cnt[tmp_id] > max || (cnt[tmp_id] == max && value[tmp_id] < value[res]))
-        {
-            max = cnt[tmp_id];
-            res = tmp_id;
-        }
-        mode[x][to] = res;
-    }
+    if (tag[k] == -1)
+        return;
+    for (int i = (k - 1) * block_size + 1; i <= std::min(k * block_size, n); i++)
+        value[i] = tag[k];
+    tag[k] = -1;
 }
 
-inline int appeared(int l, int r, int x)
+inline int query(int l, int r, int val)
 {
-    int res = std::upper_bound(bucket[x].begin(), bucket[x].end(), r)
-              - std::lower_bound(bucket[x].begin(), bucket[x].end(), l);
-    return res;
-}
-
-inline int query(int l, int r)
-{
-    int ans = mode[block[l] + 1][block[r] - 1];
-    int max = appeared(l, r, ans);
-
+    int ans = 0;
+    commit(block[l]);
     for (int i = l; i <= std::min(block[l] * block_size, r); i++)
     {
-        int times = appeared(l, r, mapping[i]);
-        if (times > max || (times == max && value[mapping[i]] < value[ans]))
-        {
-            max = times;
-            ans = mapping[i];
-        }
+        if (value[i] == val)
+            ans++;
+        value[i] = val;
     }
 
     if (block[l] != block[r])
     {
+        commit(block[r]);
         for (int i = (block[r] - 1) * block_size + 1; i <= r; i++)
         {
-            int times = appeared(l, r, mapping[i]);
-            if (times > max || (times == max && value[mapping[i]] < value[ans]))
-            {
-                max = times;
-                ans = mapping[i];
-            }
+            if (value[i] == val)
+                ans++;
+            value[i] = val;
         }
     }
 
-    return value[ans];
+    for (int i = block[l] + 1; i <= block[r] - 1; i++)
+    {
+        if (tag[i] != -1)
+        {
+            if (tag[i] != val)
+                tag[i] = val;
+            else
+                ans += block_size;
+        }
+        else
+        {
+            for (int j = (i - 1) * block_size + 1; j <= std::min(i * block_size, n); j++)
+            {
+                if (value[j] == val)
+                    ans++;
+                value[j] = val;
+            }
+            tag[i] = val;
+        }
+    }
+    return ans;
 }
 
 int main()
@@ -84,36 +69,20 @@ int main()
     std::cin.tie(0);
 
     std::cin >> n;
-    block_size = 200;
-
-    // Discretization
+    block_size = std::sqrt(n);
+    for (int i = 1; i <= n; i++)
+        std::cin >> value[i];
     for (int i = 1; i <= n; i++)
     {
-        int val;
-        std::cin >> val;
-        if (mp[val] == 0)
-        {
-            mp[val] = ++id;
-            value[id] = val;
-        }
-
-        mapping[i] = mp[val];
-        bucket[mapping[i]].push_back(i);
+        block[i] = (i - 1) / block_size + 1;
+        tag[block[i]] = -1;
     }
 
     for (int i = 1; i <= n; i++)
-        block[i] = (i - 1) / block_size + 1;
-    for (int i = 1; i <= block[n]; i++)
-        pre_work(i);
-
-    for (int i = 0; i < n; i++)
     {
-        int l, r;
-        std::cin >> l >> r;
-        if (l > r)
-            std::swap(l, r);
-
-        std::cout << query(l, r) << "\n";
+        int l, r, val;
+        std::cin >> l >> r >> val;
+        std::cout << query(l, r, val) << "\n";
     }
     return 0;
 }
