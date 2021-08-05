@@ -1,0 +1,1 @@
+../gdgzoi/primary/practise/2301/2301_10.cc
