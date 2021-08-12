@@ -88,7 +88,7 @@ int main()
         std::vector<int> used_x;
         for (int _i = 0; _i < m; _i++)
         {
-            const char op = OP[rand() % 5];
+            const char op = OP[rng() % 5];
             std::cout << op << " ";
             if (op == 'U' || op == 'M')
             {
@@ -106,7 +106,7 @@ int main()
             else
             {
                 int x = 3;
-                if (rand() % 15 == 0 || used_x.size() == 0)
+                if (rng() % 15 == 0 || used_x.size() == 0)
                 {
                     x = rd(1, n);
                     while (gone[x])
@@ -150,10 +150,41 @@ int main()
 
             for (int i = 0; i < 3e4 / 2; i++)
             {
-                rand() % 2 == 0 ? std::cout << "A " << base_pos1 << "\n" : std::cout << "Z " << base_pos2 << "\n";
+                rng() % 2 == 0 ? std::cout << "A " << base_pos1 << "\n" : std::cout << "Z " << base_pos2 << "\n";
+                std::cout << "Q " << rd(1, n) << "\n";
+            }
+        }
+
+        // crack int
+        if (hard_type == 2)
+        {
+            int base_pos1 = rd(1, n);
+            int base_pos2 = rd(1, n);
+
+            std::vector<std::string> output;
+            for (int i = 0; i < (m - 3e4) / 2; i++)
+            {
+                std::stringstream ss;
+                std::string tmp1;
+                std::string tmp2;
+                ss << base_pos1 << " " << (i + 1 == base_pos1 ? n : i + 1);
+                ss >> tmp1 >> tmp2;
+                output.push_back("U " + tmp1 + " " + tmp2 + "\n");
+                ss << base_pos2 << " " << (i + 1 == base_pos2 ? n : i + 1);
+                ss >> tmp1 >> tmp2;
+                output.push_back("M " + tmp1 + " " + tmp2 + "\n");
+            }
+            std::random_shuffle(output.begin(), output.end());
+            for (auto str : output)
+                std::cout << str;
+
+            for (int i = 0; i < 3e4 / 2; i++)
+            {
+                i == 3e4 / 2 - 1 ? std::cout << "A " << base_pos1 << "\n" : std::cout << "Z " << base_pos2 << "\n";
                 std::cout << "Q " << rd(1, n) << "\n";
             }
         }
     }
+
     return 0;
 }
