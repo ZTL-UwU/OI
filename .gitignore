@@ -2,6 +2,9 @@
 *.exe
 tempCodeRunnerFile.*
 
+# Data
+dist/
+
 # Images
 # *.png
 # *.PNG
