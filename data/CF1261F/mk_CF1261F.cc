@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
-#include "libxl.hpp"
+#include "../libxl.hpp"
 
 const std::string SAMPLE[2] = {"2\n"
                                "3 5\n"

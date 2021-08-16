@@ -78,7 +78,7 @@ void dfs(int u, long long d, int num)
                 dfs(i, d + dis[u][mark[i]], num + 1);
             vis[mark[i]] = false;
         }
-    }
+    } 
 }
 
 int main()

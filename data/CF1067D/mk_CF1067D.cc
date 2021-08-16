@@ -1,5 +1,5 @@
 #include <iostream>
-#include "libxl.hpp"
+#include "../libxl.hpp"
 
 const std::string SAMPLE[2] = {"3 2\n"
                                "3 1000 0.5\n"
