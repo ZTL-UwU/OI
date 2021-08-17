@@ -119,49 +119,8 @@ int main()
         }
     }
     if (f[cnt][x] != -1)
-    {
         printf("%d\n", md);
-        int now = x;
-        for (int i = cnt; i >= 1; --i)
-        {
-            us[i] = (now - f[i][now]) / val[i];
-            now = f[i][now];
-        }
-        for (int i = 1; i <= md; ++i)
-        {
-            char cur;
-            if (us[bl[i]])
-                cur = 'a', us[bl[i]]--;
-            else
-                cur = 'b';
-            for (int j = 0; j < (int)nod[i].size(); ++j)
-            {
-                ans[nod[i][j]] = cur;
-            }
-        }
-        for (int i = 1; i <= n; ++i)
-            putchar(ans[i]);
-    }
     else
-    {
         printf("%d\n", md + 1);
-        int y = n - x;
-        char cx = 'a', cy = 'b';
-        for (int i = 1; i <= n; ++i)
-        {
-            sort(nod[i].begin(), nod[i].end(), cmp);
-            if (x < y)
-                swap(x, y), swap(cx, cy);
-            for (int j = 0; j < (int)nod[i].size(); ++j)
-            {
-                if (nod[i][j])
-                    ans[nod[i][j]] = cx, x--;
-                if (!x)
-                    swap(x, y), swap(cx, cy);
-            }
-        }
-        for (int i = 1; i <= n; ++i)
-            putchar(ans[i]);
-    }
     return 0;
 }
