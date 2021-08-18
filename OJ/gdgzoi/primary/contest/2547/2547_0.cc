@@ -60,9 +60,6 @@ bool vis[MAX_K];
 
 void dfs(int u, long long d, int num)
 {
-    if (d > min_dis)
-        return;
-
     if (num == k)
     {
         min_dis = std::min(min_dis, d + dis[u][t]);
@@ -71,14 +68,13 @@ void dfs(int u, long long d, int num)
 
     for (int i = 0; i < k; i++)
     {
-        if (!vis[mark[i]])
+        if (!vis[i] && dis[u][mark[i]] != INF)
         {
-            vis[mark[i]] = true;
-            if (dis[u][mark[i]] != INF)
-                dfs(i, d + dis[u][mark[i]], num + 1);
-            vis[mark[i]] = false;
+            vis[i] = true;
+            dfs(i, d + dis[u][mark[i]], num + 1);
+            vis[i] = false;
         }
-    } 
+    }
 }
 
 int main()
@@ -91,7 +87,8 @@ int main()
 
     for (int _i = 0; _i < m; _i++)
     {
-        int u, v, w;
+        int u, v;
+        long long w;
         std::cin >> u >> v >> w;
 
         g[u].push_back({v, w});
@@ -125,5 +122,6 @@ int main()
         else
             std::cout << min_dis;
     }
+
     return 0;
 }
