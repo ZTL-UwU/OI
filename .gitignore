@@ -5,6 +5,7 @@ tempCodeRunnerFile.*
 # Data
 dist/
 archive/
+test/
 
 # Images
 # *.png
