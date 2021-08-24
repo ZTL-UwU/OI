@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <vector>
 
 const int MOD = 1e9 + 7;
@@ -53,32 +54,18 @@ int main()
 
         auto c_res = c(n, m) % MOD;
 
-        int max_step = 0;
-        for (int i = 1; i <= 20; i++)
+        std::stack<int> ans;
+        while (c_res != 0)
         {
-            const auto step = quick_pow(5, i);
-            if (c_res > step)
-                c_res -= step;
-            else
-            {
-                max_step = i;
-                break;
-            }
+            ans.push((c_res - 1) % 5 + 1);
+            c_res = (c_res - 1) / 5;
         }
 
-        for (int i = max_step - 1; i >= 0; i--)
+        while (!ans.empty())
         {
-            const auto step = quick_pow(5, i);
-            int k = 1;
-            while (c_res > step)
-            {
-                c_res -= step;
-                k++;
-            }
-
-            std::cout << TABLE[k];
+            std::cout << TABLE[ans.top()];
+            ans.pop();
         }
-
         std::cout << "\n";
     }
 
