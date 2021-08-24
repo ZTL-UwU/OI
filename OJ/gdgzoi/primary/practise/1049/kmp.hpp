@@ -8,7 +8,7 @@ const int MAX_N = 1e6 + 10;
 
 class KMP
 {
-private:
+private:  
     int next[MAX_N];
     std::string ptr;
 
