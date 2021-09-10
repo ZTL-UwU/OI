@@ -2,59 +2,37 @@
 #include <vector>
 
 const int MAX_N = 8e5 + 10;
+const int MAX_LOG = 21;
 const int ROOT = 1;
 
 std::vector<int> g[MAX_N];
 
-int time_stamp = 1;
+int fa[MAX_N][MAX_LOG];
 int size[MAX_N];
 int dfn[MAX_N];
-int son[MAX_N];
-int fa[MAX_N];
-int n, q;
 
-void dfs1(int u)
+int n, time_stamp;
+
+void dfs(const int u)
 {
     size[u] = 1;
+    dfn[u] = ++time_stamp;
 
-    for (auto v : g[u])
+    for (const auto v : g[u])
     {
-        dfs1(v);
+        dfs(v);
         size[u] += size[v];
-
-        if (size[v] > size[son[u]])
-            son[u] = v;
-    }
-}
-
-void dfs2(int u)
-{
-    if (son[u])
-    {
-        dfn[son[u]] = ++time_stamp;
-        dfs2(son[u]);
-    }
-
-    for (auto v : g[u])
-    {
-        if (v != son[u])
-        {
-            dfn[v] = ++time_stamp;
-            dfs2(v);
-        }
     }
 }
 
 bool org[MAX_N];
 int sit[MAX_N];
 
-int lowbit(int x) { return x & -x; }
+int lowbit(const int x) { return x & -x; }
 
 void update(int x)
 {
-    int delta = 1;
-    if (org[x])
-        delta = -1;
+    const int delta = org[x] ? -1 : 1;
     org[x] += delta;
 
     while (x <= n)
@@ -76,22 +54,35 @@ int query_base(int x)
     return res;
 }
 
-bool query(int x) { return query_base(dfn[x] + size[x] - 1) - query_base(dfn[x] - 1); }
+bool query(const int x) { return query_base(dfn[x] + size[x] - 1) - query_base(dfn[x] - 1); }
 
-int solve(int x)
+int solve(const int x)
 {
     if (query(x))
         return x;
 
-    int u = fa[x];
-    while (u != 0)
+    int u = x;
+    int last_log = MAX_LOG;
+    bool flag = true;
+    while (!query(fa[u][0]))
     {
-        if (query(u))
-            return u;
-        u = fa[u];
+        flag = true;
+        for (int i = last_log - 1; i >= 0; i--)
+        {
+            if (fa[u][i] != 0 && !query(fa[u][i]))
+            {
+                flag = false;
+                u = fa[u][i];
+                last_log = i;
+                break;
+            }
+        }
+
+        if (flag)
+            return 0;
     }
 
-    return 0;
+    return fa[u][0];
 }
 
 int main()
@@ -100,17 +91,20 @@ int main()
     std::cout.tie(0);
     std::cin.tie(0);
 
+    int q;
     std::cin >> n >> q;
 
     for (int i = ROOT + 1; i <= n; i++)
     {
-        std::cin >> fa[i];
-        g[fa[i]].emplace_back(i);
+        std::cin >> fa[i][0];
+        g[fa[i][0]].emplace_back(i);
     }
 
-    dfs1(ROOT);
-    dfn[ROOT] = 1;
-    dfs2(ROOT);
+    for (int i = 1; i < MAX_LOG; i++)
+        for (int j = 2; j <= n; j++)
+            fa[j][i] = fa[fa[j][i - 1]][i - 1];
+
+    dfs(ROOT);
 
     for (int _i = 0; _i < q; _i++)
     {
