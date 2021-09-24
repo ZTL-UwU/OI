@@ -1,11 +1,13 @@
 #include <iostream>
-#include <vector>
 
-const int MAX_N = 8e5 + 10;
-const int MAX_LOG = 21;
+const int MAX_N = 8e5 + 2;
+const int MAX_LOG = 22;
 const int ROOT = 1;
 
-std::vector<int> g[MAX_N];
+int head[MAX_N];
+int next[MAX_N];
+int to[MAX_N];
+int cnt;
 
 int fa[MAX_N][MAX_LOG];
 int size[MAX_N];
@@ -18,8 +20,9 @@ void dfs(const int u)
     size[u] = 1;
     dfn[u] = ++time_stamp;
 
-    for (const auto v : g[u])
+    for (int i = head[u]; i > 0; i = next[i])
     {
+        const int v = to[i];
         dfs(v);
         size[u] += size[v];
     }
@@ -63,7 +66,7 @@ int solve(const int x)
 
     int u = x;
     int last_log = MAX_LOG;
-    bool flag = true;
+    bool flag;
     while (!query(fa[u][0]))
     {
         flag = true;
@@ -97,7 +100,12 @@ int main()
     for (int i = ROOT + 1; i <= n; i++)
     {
         std::cin >> fa[i][0];
-        g[fa[i][0]].emplace_back(i);
+        const int u = fa[i][0];
+
+        cnt++;
+        to[cnt] = i;
+        next[cnt] = head[u];
+        head[u] = cnt;
     }
 
     for (int i = 1; i < MAX_LOG; i++)
@@ -113,7 +121,7 @@ int main()
 
         if (q_tmp > 0)
             update(dfn[q_tmp]);
-        else
+        else if (q_tmp < 0)
             std::cout << solve(-q_tmp) << "\n";
     }
 
