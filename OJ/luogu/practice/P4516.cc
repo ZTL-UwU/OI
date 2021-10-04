@@ -11,8 +11,8 @@ int dp[MAX_N][MAX_K][2][2];
 int size[MAX_N];
 int n, k;
 
-inline long long int add(long long int a, long long int b) { return (a + b) % MOD; }
-inline long long int mul(long long int a, long long int b) { return (a * b) % MOD; }
+inline int add(long long int a, long long int b) { return (a + b) % MOD; }
+inline int mul(long long int a, long long int b) { return (a * b) % MOD; }
 
 inline void get_dp(int u, int fa)
 {
@@ -26,12 +26,12 @@ inline void get_dp(int u, int fa)
             continue;
         get_dp(v, u);
 
-        for (int i = 0; i <= std::min(size[u], k); i++)
+        for (int i = 0; i <= k; i++)
         {
-            dp[0][i][0][0] = 1;
-            dp[0][i][0][1] = 1;
-            dp[0][i][1][0] = 1;
-            dp[0][i][1][1] = 1;
+            dp[0][i][0][0] = 0;
+            dp[0][i][0][1] = 0;
+            dp[0][i][1][0] = 0;
+            dp[0][i][1][1] = 0;
         }
 
         for (int i = 0; i <= std::min(size[u], k); i++)
@@ -66,6 +66,10 @@ inline void get_dp(int u, int fa)
 
 int main()
 {
+    std::ios::sync_with_stdio(false);
+    std::cout.tie(0);
+    std::cin.tie(0);
+
     std::cin >> n >> k;
 
     for (int i = 0; i < n - 1; i++)
