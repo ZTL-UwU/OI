@@ -2,6 +2,11 @@
 *.exe
 tempCodeRunnerFile.*
 
+# Data
+dist/
+archive/
+test/
+
 # Images
 # *.png
 # *.PNG
@@ -14,7 +19,7 @@ tempCodeRunnerFile.*
 *.out
 *.ans
 *.o
-*test*.*
+test*.*
 *tmp*.*
 *temp*.*
 dbg.h
