@@ -95,7 +95,13 @@
         "ranges": "cpp",
         "numbers": "cpp",
         "span": "cpp",
-        "stop_token": "cpp"
+        "stop_token": "cpp",
+        "barrier": "cpp",
+        "coroutine": "cpp",
+        "latch": "cpp",
+        "semaphore": "cpp",
+        "source_location": "cpp",
+        "syncstream": "cpp"
     },
     "code-runner.executorMap": {
         "javascript": "node",
