@@ -21,7 +21,6 @@ public:
 
     vvt() {}
     vvt(std::size_t size) { this->base.reserve(size); }
-    ~vvt() { delete &this->base; }
 
     T operator[](std::size_t rank)
     {
