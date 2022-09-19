@@ -8,19 +8,37 @@ int importance[MAX_N];
 template <typename T>
 class vvt
 {
+    struct data
+    {
+        T val;
+        int no;
+
+        bool operator<(const int x) const { return this->val < x; }
+    };
+
 public:
-    std::vector<T> base;
+    std::vector<data> base;
 
     vvt() {}
     vvt(std::size_t size) { this->base.reserve(size); }
     ~vvt() { delete &this->base; }
 
-    T operator[](std::size_t rank) { return this->base[rank - 1]; }
-    void insert(T val) { this->base.insert(std::lower_bound(this->base.begin(), this->base.end(), val), val); }
+    T operator[](std::size_t rank)
+    {
+        if (rank > this->base.size())
+            return -1;
+        return this->base[rank - 1].no;
+    }
+    void insert(T val, int no)
+    {
+        this->base.insert(this->base.empty() ? this->base.begin() :
+                                               std::lower_bound(this->base.begin(), this->base.end(), val),
+                          {val, no});
+    }
     void merge(vvt<T> &x)
     {
         for (auto i : x.base)
-            this->insert(i);
+            this->insert(i.val, i.no);
     }
 };
 
@@ -55,7 +73,6 @@ public:
         {
             fa[fx] = fy;
             t[fy].merge(t[fx]);
-            delete &t[fx];
         }
     }
 };
@@ -68,10 +85,10 @@ int main()
 
     int n, m;
     std::cin >> n >> m;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
         std::cin >> importance[i];
-        t[i].insert(importance[i]);
+        t[i].insert(importance[i], i);
     }
 
     ufind uf(n);
@@ -91,7 +108,7 @@ int main()
         std::cin >> op >> x >> y;
 
         if (op == 'Q')
-            std::cout << t[x][y] << "\n";
+            std::cout << t[uf.find(x)][y] << "\n";
         if (op == 'B')
             uf.merge(x, y);
     }
