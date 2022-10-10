@@ -19,13 +19,8 @@ i64 pow(i64 a, i64 b)
 
 int main()
 {
-    int n;
+    i64 n;
     std::cin >> n;
-
-    i64 ans = 0;
-    for (int i = 3; i <= n; i++)
-        ans = (ans + i * pow(2, i - 2) % MOD) % MOD;
-
-    std::cout << ans + 3;
+    std::cout << (((n - 1) % MOD) * pow(2, n - 1)) % MOD + 1;
     return 0;
 }
