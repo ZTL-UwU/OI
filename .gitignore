@@ -40,3 +40,7 @@ dbg.h
 *.fdb_latexmk
 *.fls
 *.pdf
+
+# Rust
+*.pdb
+target/
